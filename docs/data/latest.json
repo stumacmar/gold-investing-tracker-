@@ -1,8 +1,9 @@
 {
- "generated_at": "2026-08-08T20:04:24.456099Z",
+ "generated_at": "2026-08-08T21:21:49.833962Z",
  "as_of": "2026-08-07",
- "score": 25.7,
+ "score": 22.3,
  "verdict": "SELL/REDUCE",
+ "band_note": "A low band means the usual macro tailwinds are absent. The backtest shows no demonstrated edge in low bands as a sell-timing signal \u2014 treat it as risk posture, not an instruction.",
  "bands": {
   "ACCUMULATE": "\u226572",
   "ADD": "58\u201371",
@@ -11,9 +12,9 @@
   "SELL/REDUCE": "<28"
  },
  "confidence": {
-  "level": "High",
-  "freshness_pct": 100,
-  "dispersion": 0.88
+  "level": "Med",
+  "freshness_pct": 94,
+  "dispersion": 0.62
  },
  "regime": {
   "key": "hostile",
@@ -22,8 +23,11 @@
  },
  "fair_value": {
   "gap_pct": 15.6,
-  "modifier": -3.9,
-  "text": "Gold is trading 16% above its macro fair value (5y regression on real yields + dollar)."
+  "real_yield_beta": 0.28,
+  "as_of": "2026-07-31",
+  "applied": false,
+  "modifier": 0.0,
+  "text": "Reference only: the 5y fair-value regression fails its sanity check (real-yield beta +0.28 is positive \u2014 the window co-trended), so the +16% gap does not adjust the score."
  },
  "gold": {
   "usd": 4340.7,
@@ -56,7 +60,7 @@
    "id": "A",
    "name": "Real yields",
    "weight": 20,
-   "score": -2,
+   "score": -1.59,
    "value": "2.43% (+0.49pp 3m)",
    "rationale": "10Y real yield 2.43%, +0.49pp over 3m \u2014 rising real yields are gold\u2019s biggest headwind.",
    "spark": [
@@ -223,10 +227,10 @@
    ],
    "flip": {
     "text": "DFII10 below 1.94% turns the 3-month real-yield trend negative and flips A bullish.",
-    "distance": 2
+    "distance": 1.5888888888888892
    },
    "stale": false,
-   "eff_weight": 25.0
+   "eff_weight": 23.0
   },
   {
    "id": "B",
@@ -402,7 +406,7 @@
     "distance": 0.3970021129837982
    },
    "stale": false,
-   "eff_weight": 18.75
+   "eff_weight": 17.25
   },
   {
    "id": "E",
@@ -584,7 +588,7 @@
    "id": "C",
    "name": "Policy trajectory",
    "weight": 10,
-   "score": -1.9,
+   "score": -1.09,
    "value": "4.25% (+0.38pp 3m)",
    "rationale": "2Y yield 4.25%, +0.38pp over 3m \u2014 rate expectations are firming against gold.",
    "spark": [
@@ -751,7 +755,7 @@
    ],
    "flip": {
     "text": "2Y yield below 3.87% flips the policy trajectory bullish.",
-    "distance": 1.8999999999999995
+    "distance": 1.0857142857142854
    },
    "stale": false,
    "eff_weight": 10.0
@@ -1278,8 +1282,8 @@
     ]
    ],
    "flip": {
-    "text": "Gold above $5,150 (15% over the 200DMA) triggers the overbought penalty.",
-    "distance": 1.808062992064142
+    "text": "Gold above $5,374 (20% over the 200DMA) triggers the overbought penalty.",
+    "distance": 1.9233858267201185
    },
    "stale": false,
    "eff_weight": 8.0
@@ -1597,38 +1601,6 @@
    "eff_weight": 5.0
   },
   {
-   "id": "J",
-   "name": "Central bank demand",
-   "weight": 4,
-   "score": -0.21,
-   "value": "900t / 4q",
-   "rationale": "Central banks bought 900t over the last 4 quarters vs 950t/yr 5y average \u2014 buying at trend.",
-   "spark": [],
-   "flip": {
-    "text": "Central-bank pace dropping below 950t/yr (5y avg) flips J bearish.",
-    "distance": 0.2105263157894739
-   },
-   "manual_date": "2026-07-30",
-   "stale": false,
-   "eff_weight": 4.0
-  },
-  {
-   "id": "K",
-   "name": "ETF flows",
-   "weight": 2,
-   "score": 1.5,
-   "value": "+120t / 3m",
-   "rationale": "ETF net flows +120t over 3m \u2014 Western money is confirming the move.",
-   "spark": [],
-   "flip": {
-    "text": "ETF 3-month net flows crossing zero flips K.",
-    "distance": 1.5
-   },
-   "manual_date": "2026-07-30",
-   "stale": false,
-   "eff_weight": 2.0
-  },
-  {
    "id": "L",
    "name": "Gold/silver ratio",
    "weight": 2,
@@ -1803,6 +1775,30 @@
    },
    "stale": false,
    "eff_weight": 2.0
+  },
+  {
+   "id": "J",
+   "name": "Central bank demand",
+   "weight": 4,
+   "score": null,
+   "value": "\u2014",
+   "rationale": "Input unavailable (central_banks: stale, failed or placeholder) \u2014 excluded; weights renormalised.",
+   "stale": true,
+   "spark": [],
+   "flip": null,
+   "eff_weight": 0.0
+  },
+  {
+   "id": "K",
+   "name": "ETF flows",
+   "weight": 2,
+   "score": null,
+   "value": "\u2014",
+   "rationale": "Input unavailable (etf_flows: stale, failed or placeholder) \u2014 excluded; weights renormalised.",
+   "stale": true,
+   "spark": [],
+   "flip": null,
+   "eff_weight": 0.0
   }
  ],
  "freshness": {
@@ -1813,7 +1809,7 @@
    "provider": "yahoo:GC=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:19.201245Z"
+   "fetched_at": "2026-08-08T21:21:39.921771Z"
   },
   "gold_gbp": {
    "last_date": "2026-08-06",
@@ -1822,7 +1818,7 @@
    "provider": "derived:GC=F/GBPUSD",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:19.904239Z"
+   "fetched_at": "2026-08-08T21:21:42.193759Z"
   },
   "silver": {
    "last_date": "2026-08-07",
@@ -1831,7 +1827,7 @@
    "provider": "yahoo:SI=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:20.719759Z"
+   "fetched_at": "2026-08-08T21:21:44.351055Z"
   },
   "dfii10": {
    "last_date": "2026-08-06",
@@ -1840,7 +1836,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:21.106357Z"
+   "fetched_at": "2026-08-08T21:21:44.592488Z"
   },
   "dgs10": {
    "last_date": "2026-08-06",
@@ -1849,7 +1845,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:21.393933Z"
+   "fetched_at": "2026-08-08T21:21:44.876149Z"
   },
   "dgs2": {
    "last_date": "2026-08-06",
@@ -1858,7 +1854,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:21.685209Z"
+   "fetched_at": "2026-08-08T21:21:45.126694Z"
   },
   "t10yie": {
    "last_date": "2026-08-07",
@@ -1867,7 +1863,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:21.929960Z"
+   "fetched_at": "2026-08-08T21:21:45.405057Z"
   },
   "t5yifr": {
    "last_date": "2026-08-07",
@@ -1876,7 +1872,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:22.215989Z"
+   "fetched_at": "2026-08-08T21:21:45.668231Z"
   },
   "dollar": {
    "last_date": "2026-07-31",
@@ -1885,7 +1881,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:22.684017Z"
+   "fetched_at": "2026-08-08T21:21:45.929795Z"
   },
   "vix": {
    "last_date": "2026-08-06",
@@ -1894,7 +1890,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:22.977747Z"
+   "fetched_at": "2026-08-08T21:21:46.182412Z"
   },
   "baa10y": {
    "last_date": "2026-08-06",
@@ -1903,7 +1899,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:23.238514Z"
+   "fetched_at": "2026-08-08T21:21:48.475253Z"
   },
   "cot": {
    "last_date": "2026-08-04",
@@ -1912,7 +1908,7 @@
    "provider": "cftc-socrata",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:23.856885Z"
+   "fetched_at": "2026-08-08T21:21:49.095836Z"
   },
   "gpr": {
    "last_date": "2026-07-01",
@@ -1921,30 +1917,34 @@
    "provider": "iacoviello-xls",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:24.446897Z"
+   "fetched_at": "2026-08-08T21:21:49.825112Z"
   },
   "central_banks": {
    "last_date": "2026-07-30",
    "age_days": 9,
    "cadence": "manual",
-   "provider": "manual_inputs.json",
-   "ok": true,
+   "provider": "manual (PLACEHOLDER \u2014 not scored)",
+   "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:24.447082Z"
+   "fetched_at": "2026-08-08T21:21:49.825315Z"
   },
   "etf_flows": {
    "last_date": "2026-07-30",
    "age_days": 9,
    "cadence": "manual",
-   "provider": "manual_inputs.json",
-   "ok": true,
+   "provider": "manual (PLACEHOLDER \u2014 not scored)",
+   "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-08T20:04:24.447089Z"
+   "fetched_at": "2026-08-08T21:21:49.825319Z"
   }
  },
  "warnings": [
   "gold_usd: primary source stooq:xauusd failed (Stooq xauusd: non-CSV response (bot-blocked?)); trying yahoo:GC=F",
   "gold_gbp: primary source stooq:xaugbp failed (Stooq xaugbp: non-CSV response (bot-blocked?)); trying derived:GC=F/GBPUSD",
-  "silver: primary source stooq:xagusd failed (Stooq xagusd: non-CSV response (bot-blocked?)); trying yahoo:SI=F"
+  "silver: primary source stooq:xagusd failed (Stooq xagusd: non-CSV response (bot-blocked?)); trying yahoo:SI=F",
+  "central_banks: manual_inputs.json still holds placeholder values \u2014 signal excluded until real WGC figures are entered",
+  "etf_flows: manual_inputs.json still holds placeholder values \u2014 signal excluded until real WGC figures are entered",
+  "Signal J excluded: stale/missing inputs ['central_banks']",
+  "Signal K excluded: stale/missing inputs ['etf_flows']"
  ]
 }

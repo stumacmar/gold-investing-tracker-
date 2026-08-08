@@ -6,12 +6,12 @@
   --panel-2: #1a211b;
   --line: #232b24;
   --text: #e9e6dc;
-  --muted: #8d968b;
-  --faint: #5c655b;
+  --muted: #97a095;
+  --faint: #7d877c;
   --gold: #c9a227;
   --gold-bright: #e0bc47;
-  --neg: #b0563f;
-  --pos: #7d9464;
+  --neg: #cf7657;
+  --pos: #8fa876;
   --display: "Oswald", "Arial Narrow", sans-serif;
   --body: "IBM Plex Sans", -apple-system, system-ui, sans-serif;
 }
@@ -96,6 +96,11 @@ a { color: var(--gold); }
   font-family: var(--display); font-weight: 600; font-size: 34px;
   letter-spacing: 0.18em; margin-top: 2px;
 }
+.drivers { font-size: 13px; color: var(--text); margin-top: 8px; }
+.drivers b { color: var(--gold); font-weight: 600; }
+.band-caption {
+  font-size: 12px; color: var(--muted); margin: 8px auto 0; max-width: 420px;
+}
 .confidence { font-size: 12px; color: var(--muted); margin-top: 6px; }
 
 /* ---------------- stats row */
@@ -169,7 +174,7 @@ a { color: var(--gold); }
 .sig-spark svg { width: 100%; height: 56px; display: block; }
 .spark-caption { font-size: 10px; color: var(--faint); margin-top: 3px; }
 
-.signal.stale { opacity: 0.45; }
+.signal.stale { opacity: 0.62; }
 .signal.stale .sig-name::after {
   content: " · STALE"; color: var(--neg); font-size: 10px; letter-spacing: 0.1em;
 }
@@ -185,6 +190,9 @@ a { color: var(--gold); }
 /* ---------------- GBP lens */
 .gbp-price { font-family: var(--display); font-size: 26px; font-weight: 500; color: var(--text); }
 .gbp-note { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+.fresh-banner { font-size: 12.5px; color: #d9a24a; margin-bottom: 10px; }
+.fresh-banner:empty { display: none; }
 
 /* ---------------- freshness */
 .freshness table { width: 100%; border-collapse: collapse; font-size: 12px; }

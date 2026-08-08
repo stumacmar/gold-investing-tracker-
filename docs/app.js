@@ -3,7 +3,11 @@
 const $ = (id) => document.getElementById(id);
 
 const fmtUSD = (v) => "$" + v.toLocaleString("en-US", { maximumFractionDigits: 0 });
-const fmtGBP = (v) => "£" + v.toLocaleString("en-GB", { maximumFractionDigits: 0 });
+const fmtGBP = (v) => v == null ? "—" : "£" + v.toLocaleString("en-GB", { maximumFractionDigits: 0 });
+
+// All strings from the JSON pass through here before hitting innerHTML.
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g,
+  (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 async function loadJSON(path) {
   const r = await fetch(path, { cache: "no-cache" });
@@ -20,8 +24,17 @@ function renderGauge(d) {
   $("score").textContent = d.score.toFixed(1).replace(/\.0$/, "");
   $("verdict").textContent = d.verdict;
   $("verdict").style.color = verdictColor(d.verdict);
+  $("band-note").textContent = d.band_note || "";
   $("confidence").textContent =
-    `Confidence ${d.confidence.level} · ${d.confidence.freshness_pct}% of weight live · dispersion ${d.confidence.dispersion}`;
+    `Data confidence ${d.confidence.level} (freshness & agreement, not model validity) · ` +
+    `${d.confidence.freshness_pct}% of weight live`;
+  const live = d.signals.filter((s) => !s.stale && s.score !== null);
+  const top = live.slice().sort((a, b) =>
+    Math.abs(b.score * b.eff_weight) - Math.abs(a.score * a.eff_weight)).slice(0, 2);
+  $("drivers").innerHTML = top.length
+    ? "Driven by " + top.map((s) =>
+        `<b>${esc(s.name)}</b> (${s.score > 0 ? "+" : ""}${s.score.toFixed(1)} × w${s.eff_weight})`).join(" and ")
+    : "";
   requestAnimationFrame(() =>
     requestAnimationFrame(() => { $("needle").style.left = d.score + "%"; }));
 }
@@ -37,11 +50,14 @@ function renderStats(d) {
   $("stats").innerHTML =
     statCell("Gold USD", fmtUSD(g.usd), (g.usd_chg_1d_pct >= 0 ? "+" : "") + g.usd_chg_1d_pct + "% 1d",
              g.usd_chg_1d_pct >= 0 ? "up" : "down") +
-    statCell("Gold GBP", fmtGBP(g.gbp), (g.gbp_chg_1d_pct >= 0 ? "+" : "") + g.gbp_chg_1d_pct + "% 1d",
-             g.gbp_chg_1d_pct >= 0 ? "up" : "down") +
-    statCell("Fair value gap", fvTxt, "vs macro model", fv.gap_pct > 5 ? "down" : fv.gap_pct < -5 ? "up" : "") +
-    statCell("Regime", d.regime.name.split("/")[0].trim(), d.regime.name.includes("/") ? d.regime.name.split("/")[1].trim() : "") +
-    statCell("Confidence", d.confidence.level, d.confidence.freshness_pct + "% weight live");
+    statCell("Gold GBP", fmtGBP(g.gbp), g.gbp_chg_1d_pct == null ? "n/a" :
+             (g.gbp_chg_1d_pct >= 0 ? "+" : "") + g.gbp_chg_1d_pct + "% 1d",
+             (g.gbp_chg_1d_pct ?? 0) >= 0 ? "up" : "down") +
+    statCell("Fair value gap", fvTxt, fv.applied ? "vs macro model" : "reference only — not applied",
+             fv.applied ? (fv.gap_pct > 5 ? "down" : fv.gap_pct < -5 ? "up" : "") : "") +
+    statCell("Regime", esc(d.regime.name.split("/")[0].trim()),
+             d.regime.name.includes("/") ? esc(d.regime.name.split("/")[1].trim()) : "") +
+    statCell("Data confidence", esc(d.confidence.level), d.confidence.freshness_pct + "% weight live");
   $("regime-name").textContent = d.regime.name;
   $("regime-desc").textContent = d.regime.description;
 }
@@ -73,17 +89,18 @@ function renderSignals(d) {
       `<div class="fill ${score >= 0 ? "pos" : "neg"}" style="width:${half}%"></div>`;
     const scoreTxt = score === null ? "—" : (score > 0 ? "+" : "") + score.toFixed(1);
     const first = (s.spark && s.spark.length) ? s.spark[0][0] : null;
-    return `<div class="signal ${stale ? "stale" : ""}" id="sig-${s.id}">
-      <button class="signal-head" aria-expanded="false" data-id="${s.id}">
-        <div class="sig-id">${s.id}</div>
-        <div><div class="sig-name">${s.name}</div><div class="sig-value">${s.value} · weight ${s.eff_weight || s.weight}</div></div>
+    const weightTxt = stale ? "excluded" : "weight " + (s.eff_weight ?? s.weight);
+    return `<div class="signal ${stale ? "stale" : ""}" id="sig-${esc(s.id)}">
+      <button class="signal-head" aria-expanded="false" data-id="${esc(s.id)}">
+        <div class="sig-id">${esc(s.id)}</div>
+        <div><div class="sig-name">${esc(s.name)}</div><div class="sig-value">${esc(s.value)} · ${weightTxt}</div></div>
         <div class="scorebar">${fill}</div>
         <div class="sig-score ${score === null ? "" : score >= 0 ? "pos" : "neg"}">${scoreTxt}</div>
       </button>
       <div class="signal-body">
-        <div class="sig-rationale">${s.rationale}</div>
+        <div class="sig-rationale">${esc(s.rationale)}</div>
         ${s.spark && s.spark.length ? `<div class="sig-spark">${sparkSVG(s.spark)}
-          <div class="spark-caption">${s.name} — ${first} → ${s.spark[s.spark.length - 1][0]}</div></div>` : ""}
+          <div class="spark-caption">${esc(s.name)} — ${esc(first)} → ${esc(s.spark[s.spark.length - 1][0])}</div></div>` : ""}
       </div>
     </div>`;
   }).join("");
@@ -98,12 +115,12 @@ function renderSignals(d) {
 
 function renderFlips(d) {
   $("flips").innerHTML = (d.change_my_mind || []).map((f) =>
-    `<div class="flip-item"><div class="flip-id">${f.signal}</div><div>${f.text}</div></div>`
+    `<div class="flip-item"><div class="flip-id">${esc(f.signal)}</div><div>${esc(f.text)}</div></div>`
   ).join("") || `<div class="flip-item">No live signals near a flip.</div>`;
 }
 
 function renderGBP(d) {
-  $("gbp-price").textContent = fmtGBP(d.gbp_lens.price) +
+  $("gbp-price").textContent = d.gbp_lens.price == null ? "—" : fmtGBP(d.gbp_lens.price) +
     "  ·  " + (d.gbp_lens.chg_3m_pct >= 0 ? "+" : "") + d.gbp_lens.chg_3m_pct + "% 3m";
   $("gbp-note").textContent = d.gbp_lens.note;
 }
@@ -118,11 +135,18 @@ const SOURCE_LABELS = {
 };
 
 function renderFreshness(d) {
+  const bad = Object.entries(d.freshness).filter(([, f]) => !f.ok || f.stale);
+  $("fresh-banner").innerHTML = bad.length
+    ? `⚠ ${bad.length} source${bad.length > 1 ? "s" : ""} excluded this run: ` +
+      bad.map(([k]) => esc(SOURCE_LABELS[k] || k)).join(", ") +
+      " — score computed without them, weights renormalised."
+    : "";
   const rows = Object.entries(d.freshness).map(([k, f]) => {
     const label = SOURCE_LABELS[k] || k;
-    const badge = f.stale ? ` <span class="badge-stale">STALE</span>` : "";
-    return `<tr><td class="src">${label}${badge}</td><td>${f.provider}</td>
-      <td class="age">${f.last_date || "—"} (${f.age_days}d)</td></tr>`;
+    const badge = !f.ok ? ` <span class="badge-stale">FAILED</span>`
+                : f.stale ? ` <span class="badge-stale">STALE</span>` : "";
+    return `<tr><td class="src">${esc(label)}${badge}</td><td>${esc(f.provider)}</td>
+      <td class="age">${esc(f.last_date) || "—"} (${f.age_days}d)</td></tr>`;
   }).join("");
   $("freshness").innerHTML = `<table>${rows}</table>`;
   $("generated").textContent = (d.generated_at || "").replace("T", " ").slice(0, 16) + " UTC";
@@ -137,13 +161,16 @@ function renderChart(history, latest) {
   const gold = css.getPropertyValue("--gold").trim();
   const sage = css.getPropertyValue("--muted").trim();
   const faint = css.getPropertyValue("--faint").trim();
+  // Backfilled (replayed) score history draws dashed so it can't be mistaken for live calls.
+  const dashSeg = { borderDash: (ctx) =>
+    (h[ctx.p0DataIndex]?.backfilled || h[ctx.p1DataIndex]?.backfilled) ? [4, 4] : undefined };
   new Chart($("chart"), {
     type: "line",
     data: {
       labels: h.map((r) => r.date),
       datasets: [
         { label: "Signal score", data: h.map((r) => r.score), yAxisID: "y",
-          borderColor: gold, borderWidth: 2, pointRadius: 0, tension: 0.25 },
+          borderColor: gold, borderWidth: 2, pointRadius: 0, tension: 0.25, segment: dashSeg },
         { label: "Gold USD", data: h.map((r) => r.gold_usd), yAxisID: "y1",
           borderColor: sage, borderWidth: 1.2, pointRadius: 0, tension: 0.25 },
       ],
@@ -162,7 +189,7 @@ function renderChart(history, latest) {
   });
   const backfilled = h.some((r) => r.backfilled);
   if (h.length >= 2) $("chart-note").textContent =
-    (backfilled ? "History before first live run is backfilled from the replay in scripts/backtest.py. " : "") +
+    (backfilled ? "Dashed score = backfilled from the replay in scripts/backtest.py, NOT live calls. " : "") +
     "Gold line: right axis. Score: left axis, bands at 28/43/58/72.";
 }
 

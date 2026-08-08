@@ -13,6 +13,7 @@ No pandas/numpy: plain Python so the Action stays fast. xlrd is used only for th
 import json
 import math
 import os
+import re
 import sys
 import time
 import io
@@ -53,7 +54,9 @@ def http_get(url, retries=3, timeout=30, ua=UA):
             last_err = e
             if attempt < retries - 1:
                 time.sleep(2 ** attempt)
-    raise RuntimeError(f"GET failed after {retries} tries: {url} ({last_err})")
+    # Redact credentials: this message flows into WARNINGS, which is published in latest.json
+    safe_url = re.sub(r"api_key=[^&]+", "api_key=REDACTED", url)
+    raise RuntimeError(f"GET failed after {retries} tries: {safe_url} ({last_err})")
 
 
 # ---------------------------------------------------------------- Series
@@ -266,9 +269,8 @@ def fetch_gpr():
             values.append(float(gv))
         if len(dates) < 60:
             raise RuntimeError("GPR: too few rows")
-        with open(cache_path, "w") as f:
-            json.dump({"dates": dates[-200:], "values": values[-200:],
-                       "cached_at": dt.datetime.utcnow().isoformat() + "Z"}, f)
+        write_json(cache_path, {"dates": dates[-200:], "values": values[-200:],
+                                "cached_at": dt.datetime.utcnow().isoformat() + "Z"})
         return Series(dates, values), "iacoviello-xls"
     except Exception as e:  # noqa: BLE001
         warn(f"GPR: live fetch failed ({e}); using cache")
@@ -332,7 +334,9 @@ M3 = 63
 def sig_A_real_yields(d):
     s = d["dfii10"]
     lvl, chg = s.last, s.change(M3)
-    score = clamp(-chg / 0.5 * 2.0, -2, 2)  # -0.5pp over 3m -> +2
+    # Scale sized to realised vol: with 0.5pp the signal was pinned at +/-2 on ~21% of
+    # days and lost all gradation exactly when moves were large.
+    score = clamp(-chg / 0.9 * 2.0, -2, 2)  # -0.9pp over 3m -> +2
     if lvl < 0:
         score = clamp(score + 0.5, -2, 2)
     elif lvl > 2.0:
@@ -366,7 +370,8 @@ def sig_B_dollar(d):
 def sig_C_policy(d):
     s = d["dgs2"]
     chg = s.change(M3)
-    score = clamp(-chg / 0.4 * 2.0, -2, 2)
+    # 0.4pp saturated on ~47% of days (direction-only flag); 0.7pp keeps gradation.
+    score = clamp(-chg / 0.7 * 2.0, -2, 2)
     rationale = (f"2Y yield {s.last:.2f}%, {fmt_pp(chg)} over 3m — "
                  f"{'the market is pricing easing; that pays gold’s rent' if chg < 0 else 'rate expectations are firming against gold'}.")
     flip = {"text": f"2Y yield {'above' if chg < 0 else 'below'} {s.ago(M3):.2f}% flips the policy trajectory "
@@ -425,10 +430,13 @@ def sig_E_trend(d):
 def sig_F_positioning(d):
     s = d["cot"]
     pct = s.percentile_of_last(260)  # ~5y of weekly reports
+    # Crowded-long penalties are deliberately softer than the washed-out bonus: in the
+    # 2021-26 sample, >90th-pct readings preceded +10.8% avg 3m rallies — crowded can
+    # stay crowded in a strong bull, while washed-out longs remain reliable fuel.
     if pct > 90:
-        score, tone = -1.5, "crowded long — everyone who wants gold owns it; contrarian bearish"
+        score, tone = -0.75, "crowded long — a headwind, but crowded can stay crowded in a strong bull"
     elif pct > 80:
-        score, tone = -0.75, "getting crowded — late-comers are the seller of tomorrow"
+        score, tone = -0.4, "getting crowded — late-comers are the seller of tomorrow"
     elif pct < 10:
         score, tone = 1.5, "washed out — stale longs are gone, dry powder for rallies"
     elif pct < 20:
@@ -449,8 +457,10 @@ def sig_G_valuation(d):
     s = d["gold_usd"]
     dev, rsi = s.pct_dev_from_ma(200), s.rsi(14)
     score = 0.0
-    if dev > 15:
-        score -= min(2.0, 1.0 + (dev - 15) / 10)
+    # Threshold 20% (was 15%): the 15% trigger fired on 39% of 2024-26 bull days that
+    # went on to average +9.4% forward 3m — stretch has to be extreme to matter.
+    if dev > 20:
+        score -= min(2.0, 0.75 + (dev - 20) / 12)
     elif dev < -10:
         score += min(2.0, 1.0 + (-dev - 10) / 10)
     if rsi > 85:
@@ -469,9 +479,9 @@ def sig_G_valuation(d):
     else:
         tone = "no stretch either way"
     rationale = f"{dev:+.1f}% vs 200DMA, RSI(14) {rsi:.0f} — {tone}."
-    flip = {"text": f"Gold {'below' if dev > 15 else 'above'} ${s.ma(200) * 1.15:,.0f} (15% over the 200DMA) "
-                    f"{'removes' if dev > 15 else 'triggers'} the overbought penalty.",
-            "distance": abs(score) if score != 0 else abs(dev - 15) / 10}
+    flip = {"text": f"Gold {'below' if dev > 20 else 'above'} ${s.ma(200) * 1.20:,.0f} (20% over the 200DMA) "
+                    f"{'removes' if dev > 20 else 'triggers'} the overbought penalty.",
+            "distance": abs(score) if score != 0 else abs(dev - 20) / 12}
     return dict(id="G", name="Valuation stretch", weight=8, score=round(score, 2),
                 value=f"{dev:+.1f}% / RSI {rsi:.0f}", rationale=rationale,
                 spark=s.spark(span=130), flip=flip)
@@ -574,12 +584,20 @@ def sig_L_gold_silver(d):
 # ---------------------------------------------------------------- Fair value
 
 def fair_value_gap(gold, dfii10, dollar, window=1260):
-    """OLS of ln(gold) on DFII10 + ln(dollar) over the trailing window; returns residual gap %."""
+    """OLS of ln(gold) on DFII10 + ln(dollar) over the trailing window.
+
+    Returns (gap_pct, real_yield_beta, as_of_date) or None. Callers must sanity-check
+    the beta sign before treating the gap as information: a level-on-level fit over a
+    co-trending window can produce a POSITIVE real-yield beta (as it did over 2021-26),
+    which contradicts the model's own thesis — the gap is then reported for reference
+    but must not modify the score.
+    """
     dts, gv, rv = align(gold, dfii10)
     gs, ds2 = Series(dts, gv), Series(dts, rv)
     dts2, gv2, dv2 = align(gs, dollar)
     rmap = dict(zip(dts, rv))
     rows = [(math.log(g), rmap[d], math.log(x)) for d, g, x in zip(dts2, gv2, dv2)][-window:]
+    row_dates = dts2[-window:]
     n = len(rows)
     if n < 400:
         return None
@@ -607,12 +625,17 @@ def fair_value_gap(gold, dfii10, dollar, window=1260):
         beta[i] = (b[i] - sum(A[i][c] * beta[c] for c in range(i + 1, 3))) / A[i][i]
     y, x1, x2 = rows[-1]
     resid = y - (beta[0] + beta[1] * x1 + beta[2] * x2)
-    return (math.exp(resid) - 1.0) * 100.0
+    return (math.exp(resid) - 1.0) * 100.0, beta[1], row_dates[-1]
 
 
 # ---------------------------------------------------------------- Regime
 
 def classify_regime(d):
+    # A single failed macro fetch must not kill the run: regime falls back to neutral.
+    needed = ("vix", "baa10y", "dfii10", "dollar", "t10yie", "dgs10")
+    if any(k not in d or len(d[k]) < M3 + 1 for k in needed):
+        return ("neutral", "Unclassified (macro data gap)",
+                "One or more macro series failed to fetch this run — regime left neutral, base weights apply.")
     vix = d["vix"].last
     credit_1m = d["baa10y"].change(21)
     ry_chg = d["dfii10"].change(M3)
@@ -639,24 +662,41 @@ def classify_regime(d):
 REGIME_WEIGHT_MULT = {
     "disinflationary_easing": {"A": 1.2, "B": 1.2, "E": 1.15},
     "reflation": {"D": 1.5, "A": 1.1},
-    "hostile": {"A": 1.25, "B": 1.25},
+    # Kept modest: the hostile classification is itself triggered by the same rates/dollar
+    # facts these signals score, so a big boost double-counts the trigger.
+    "hostile": {"A": 1.15, "B": 1.15},
     "crisis": {"H": 2.0, "I": 1.4, "F": 0.8, "E": 0.8},
     "neutral": {},
 }
 
 BANDS = [(72, "ACCUMULATE"), (58, "ADD"), (43, "HOLD"), (28, "TRIM"), (-1, "SELL/REDUCE")]
+BAND_RANGES = {"SELL/REDUCE": (0.0, 28.0), "TRIM": (28.0, 43.0), "HOLD": (43.0, 58.0),
+               "ADD": (58.0, 72.0), "ACCUMULATE": (72.0, 100.01)}
+# Points a score must travel past a boundary before the verdict flips. Tuned on the
+# replay: 2.5 left 25% of verdict changes reversing within two weeks; 5.0 cuts that
+# to 11% at ~1 change per month without making bands lag.
+HYSTERESIS = 5.0
 
 
-def verdict_for(score):
+def verdict_for(score, prev=None):
+    """Band for score, with hysteresis: keep the previous verdict while the score is
+    within HYSTERESIS points of its band. Stops boundary whipsaw (the raw replay showed
+    74 verdict changes in 240 weeks, 39% reversed within two weeks)."""
+    naive = "SELL/REDUCE"
     for lo, name in BANDS:
         if score >= lo:
-            return name
-    return "SELL/REDUCE"
+            naive = name
+            break
+    if prev in BAND_RANGES and prev != naive:
+        lo, hi = BAND_RANGES[prev]
+        if lo - HYSTERESIS <= score < hi + HYSTERESIS:
+            return prev
+    return naive
 
 
 # ---------------------------------------------------------------- Composite
 
-def compute_composite(signals, regime_key, fv_gap):
+def compute_composite(signals, regime_key, fv_mod):
     mult = REGIME_WEIGHT_MULT.get(regime_key, {})
     total_base = sum(s["weight"] for s in signals)
     live = [s for s in signals if not s.get("stale") and s["score"] is not None]
@@ -664,8 +704,10 @@ def compute_composite(signals, regime_key, fv_gap):
         s["eff_weight"] = round(s["weight"] * mult.get(s["id"], 1.0), 2) if s in live else 0.0
     wsum = sum(s["eff_weight"] for s in live)
     raw = sum(s["eff_weight"] * s["score"] for s in live) / wsum if wsum else 0.0
-    base_score = 50 + 25 * raw  # raw in [-2,2] -> [0,100]
-    fv_mod = clamp(-fv_gap / 4.0, -5, 5) if fv_gap is not None else 0.0
+    # Scale 40 (not the theoretical 25): signal caps are asymmetric and mutually
+    # exclusive, so |raw| empirically tops out near 1.1, never 2 — with 25x the outer
+    # bands were unreachable (3 ACCUMULATE readings in 241 replay weeks).
+    base_score = 50 + 40 * raw
     score = clamp(base_score + fv_mod, 0, 100)
 
     live_base_weight = sum(s["weight"] for s in live)
@@ -744,6 +786,13 @@ def build_data_bundle():
     manual = load_manual_inputs()
     fresh["central_banks"] = stamp(manual["central_banks"]["last_updated"], "manual", "manual_inputs.json")
     fresh["etf_flows"] = stamp(manual["etf_flows"]["last_updated"], "manual", "manual_inputs.json")
+    # Placeholder values must never score as if they were real WGC data.
+    for key in ("central_banks", "etf_flows"):
+        if manual.get(key, {}).get("placeholder"):
+            fresh[key]["ok"] = False
+            fresh[key]["provider"] = "manual (PLACEHOLDER — not scored)"
+            warn(f"{key}: manual_inputs.json still holds placeholder values — "
+                 "signal excluded until real WGC figures are entered")
     return d, fresh, manual
 
 
@@ -776,8 +825,8 @@ def compute_signals(d, fresh, manual):
         if dead:
             warn(f"Signal {sid} excluded: stale/missing inputs {dead}")
             signals.append(dict(id=sid, name=names[sid], weight=weights[sid], score=None,
-                                value="—", rationale=f"Data stale ({', '.join(dead)}) — "
-                                "score computed without this signal; weights renormalised.",
+                                value="—", rationale=f"Input unavailable ({', '.join(dead)}: stale, "
+                                "failed or placeholder) — excluded; weights renormalised.",
                                 stale=True, spark=[], flip=None))
             continue
         try:
@@ -792,7 +841,18 @@ def compute_signals(d, fresh, manual):
     return signals
 
 
+def write_json(path, obj, **kw):
+    """Atomic write: a crash mid-write must not leave a corrupt JSON for the next run."""
+    tmp = path + ".tmp"
+    with open(tmp, "w") as f:
+        json.dump(obj, f, **kw)
+    os.replace(tmp, path)
+
+
 def gbp_lens(d):
+    if "gold_gbp" not in d or len(d["gold_gbp"]) < 200:
+        return {"price": None, "chg_3m_pct": None, "trend": "unknown",
+                "note": "Sterling gold series unavailable this run."}
     g = d["gold_gbp"]
     ma200, ma50 = g.ma(200), g.ma(50)
     px = g.last
@@ -821,14 +881,36 @@ def main():
     signals = compute_signals(d, fresh, manual)
     regime_key, regime_name, regime_desc = classify_regime(d)
 
-    fv_gap = None
-    try:
-        fv_gap = fair_value_gap(d["gold_usd"], d["dfii10"], d["dollar"])
-    except Exception as e:  # noqa: BLE001
-        warn(f"Fair-value regression failed: {e}")
+    fv_gap = fv_beta = fv_asof = None
+    if "dfii10" in d and "dollar" in d:
+        try:
+            fv = fair_value_gap(d["gold_usd"], d["dfii10"], d["dollar"])
+            if fv:
+                fv_gap, fv_beta, fv_asof = fv
+        except Exception as e:  # noqa: BLE001
+            warn(f"Fair-value regression failed: {e}")
+    # Sanity gate: a positive real-yield beta means the regression fit the co-trend,
+    # not the macro relationship — report the gap but never let it move the score.
+    fv_sane = fv_gap is not None and fv_beta < 0
+    fv_mod = clamp(-fv_gap / 4.0, -5, 5) if fv_sane else 0.0
 
-    score, raw, fv_mod, conf, freshness_frac, dispersion = compute_composite(signals, regime_key, fv_gap)
-    verdict = verdict_for(score)
+    # Previous verdict (for hysteresis) from history, before this run's row is added.
+    hist_path = os.path.join(DATA_DIR, "history.json")
+    history = []
+    if os.path.exists(hist_path):
+        try:
+            with open(hist_path) as f:
+                history = json.load(f)
+        except (json.JSONDecodeError, OSError) as e:
+            corrupt = hist_path + ".corrupt-" + dt.datetime.utcnow().strftime("%Y%m%dT%H%M%S")
+            os.replace(hist_path, corrupt)
+            warn(f"history.json unreadable ({e}) — moved to {os.path.basename(corrupt)}, starting fresh")
+    gold = d["gold_usd"]
+    prev_rows = [h for h in history if h["date"] < gold.last_date]
+    prev_verdict = prev_rows[-1]["verdict"] if prev_rows else None
+
+    score, raw, fv_mod, conf, freshness_frac, dispersion = compute_composite(signals, regime_key, fv_mod)
+    verdict = verdict_for(score, prev_verdict)
 
     live = [s for s in signals if not s["stale"]]
     flips = sorted((s for s in live if s.get("flip")), key=lambda s: s["flip"]["distance"])[:2]
@@ -837,29 +919,48 @@ def main():
     # Rank: biggest effective weight first (stale signals sink to the bottom)
     signals_ranked = sorted(signals, key=lambda s: (s["stale"], -s.get("eff_weight", 0), s["id"]))
 
-    gold = d["gold_usd"]
-    ggbp = d["gold_gbp"]
+    ggbp = d.get("gold_gbp")
+    band_notes = {
+        "SELL/REDUCE": "A low band means the usual macro tailwinds are absent. The backtest shows no "
+                       "demonstrated edge in low bands as a sell-timing signal — treat it as risk posture, "
+                       "not an instruction.",
+        "TRIM": "A low band means the usual macro tailwinds are absent. The backtest shows no demonstrated "
+                "edge in low bands as a sell-timing signal — treat it as risk posture, not an instruction.",
+        "HOLD": "Signals conflict or the edge is small. Doing nothing is a position.",
+        "ADD": "High bands preceded above-average 3-month returns in the replay — on a small sample.",
+        "ACCUMULATE": "High bands preceded above-average 3-month returns in the replay — on a small sample.",
+    }
     latest = {
         "generated_at": dt.datetime.utcnow().isoformat() + "Z",
         "as_of": gold.last_date,
         "score": round(score, 1),
         "verdict": verdict,
+        "band_note": band_notes[verdict],
         "bands": {"ACCUMULATE": "≥72", "ADD": "58–71", "HOLD": "43–57", "TRIM": "28–42", "SELL/REDUCE": "<28"},
         "confidence": {"level": conf, "freshness_pct": round(freshness_frac * 100),
                        "dispersion": round(dispersion, 2)},
         "regime": {"key": regime_key, "name": regime_name, "description": regime_desc},
         "fair_value": {
             "gap_pct": round(fv_gap, 1) if fv_gap is not None else None,
+            "real_yield_beta": round(fv_beta, 3) if fv_beta is not None else None,
+            "as_of": fv_asof,
+            "applied": fv_sane,
             "modifier": round(fv_mod, 1),
-            "text": (f"Gold is trading {abs(fv_gap):.0f}% {'above' if fv_gap > 0 else 'below'} its macro fair value "
-                     f"(5y regression on real yields + dollar)." if fv_gap is not None
-                     else "Fair-value model unavailable this run."),
+            "text": (
+                "Fair-value model unavailable this run." if fv_gap is None
+                else (f"Gold is trading {abs(fv_gap):.0f}% {'above' if fv_gap > 0 else 'below'} its macro fair "
+                      f"value (5y regression on real yields + dollar, as of {fv_asof})."
+                      if fv_sane else
+                      f"Reference only: the 5y fair-value regression fails its sanity check (real-yield beta "
+                      f"{fv_beta:+.2f} is positive — the window co-trended), so the {fv_gap:+.0f}% gap does "
+                      f"not adjust the score.")),
         },
         "gold": {
             "usd": round(gold.last, 2), "usd_chg_1d_pct": round(gold.pct_change(1), 2),
             "usd_chg_3m_pct": round(gold.pct_change(M3), 1),
             "usd_200dma": round(gold.ma(200), 2),
-            "gbp": round(ggbp.last, 2), "gbp_chg_1d_pct": round(ggbp.pct_change(1), 2),
+            "gbp": round(ggbp.last, 2) if ggbp else None,
+            "gbp_chg_1d_pct": round(ggbp.pct_change(1), 2) if ggbp else None,
         },
         "gbp_lens": gbp_lens(d),
         "change_my_mind": change_my_mind,
@@ -868,27 +969,20 @@ def main():
         "warnings": WARNINGS,
     }
 
-    with open(os.path.join(DATA_DIR, "latest.json"), "w") as f:
-        json.dump(latest, f, indent=1)
+    write_json(os.path.join(DATA_DIR, "latest.json"), latest, indent=1)
 
     # History: one row per as-of date; live runs overwrite backfilled rows for the same date.
-    hist_path = os.path.join(DATA_DIR, "history.json")
-    history = []
-    if os.path.exists(hist_path):
-        with open(hist_path) as f:
-            history = json.load(f)
     row = {"date": gold.last_date, "score": round(score, 1), "verdict": verdict,
-           "gold_usd": round(gold.last, 2), "gold_gbp": round(ggbp.last, 2), "regime": regime_key}
+           "gold_usd": round(gold.last, 2),
+           "gold_gbp": round(ggbp.last, 2) if ggbp else None, "regime": regime_key}
     history = [h for h in history if h["date"] != row["date"]] + [row]
     history.sort(key=lambda h: h["date"])
-    with open(hist_path, "w") as f:
-        json.dump(history, f, indent=0)
+    write_json(hist_path, history, indent=0)
 
     # Series cache for backtest.py and offline replay
     cache = {k: {"dates": s.dates, "values": [round(v, 6) for v in s.values]}
              for k, s in d.items()}
-    with open(os.path.join(DATA_DIR, "series_cache.json"), "w") as f:
-        json.dump(cache, f)
+    write_json(os.path.join(DATA_DIR, "series_cache.json"), cache)
 
     # Mirror to docs/data for GitHub Pages (Pages serves /docs only)
     for name in ("latest.json", "history.json"):
@@ -896,14 +990,28 @@ def main():
              open(os.path.join(DOCS_DATA_DIR, name), "w") as dst:
             dst.write(src.read())
 
+    gbp_txt = f" / £{ggbp.last:,.2f}" if ggbp else ""
     print(f"\n=== GOLD SIGNAL: {latest['score']} / 100 -> {verdict} "
           f"(regime: {regime_name}, confidence: {conf}) ===")
-    print(f"Gold ${gold.last:,.2f} / £{ggbp.last:,.2f} | {latest['fair_value']['text']}")
+    print(f"Gold ${gold.last:,.2f}{gbp_txt} | {latest['fair_value']['text']}")
     for s in signals_ranked:
         sc = "  --" if s["score"] is None else f"{s['score']:+.2f}"
         print(f"  [{s['id']}] {s['name']:24s} w={s.get('eff_weight', 0):5.1f} score={sc}  {s['rationale']}")
     if WARNINGS:
         print(f"\n{len(WARNINGS)} warning(s) — see above.")
+
+    # Surface the run outcome in the GitHub Actions job summary so partial failures
+    # are visible without digging through logs.
+    summary_path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_path:
+        stale_srcs = [k for k, f in fresh.items() if f["stale"] or not f["ok"]]
+        with open(summary_path, "a") as f:
+            f.write(f"## Gold signal: {latest['score']}/100 → {verdict}\n\n"
+                    f"Regime: {regime_name} · Confidence: {conf} · "
+                    f"{len(WARNINGS)} warning(s) · stale/failed sources: "
+                    f"{', '.join(stale_srcs) if stale_srcs else 'none'}\n\n")
+            for w in WARNINGS:
+                f.write(f"- ⚠️ {w}\n")
     return 0
 
 

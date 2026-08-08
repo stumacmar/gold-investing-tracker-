@@ -22,10 +22,12 @@ signals matter most right now.
 
 Alongside the verdict the engine always reports:
 
-- **Confidence** (High/Med/Low) — driven by data freshness (what fraction of
-  signal weight is live) and signal agreement (weighted dispersion of the
-  −2…+2 scores). A high score built on stale data or violently disagreeing
-  signals is flagged, not hidden.
+- **Data confidence** (High/Med/Low) — driven by data freshness (what fraction
+  of signal weight is live) and signal agreement (weighted dispersion of the
+  −2…+2 scores). It measures the quality of this run's inputs, **not** the
+  model's predictive validity — that's what the backtest section is for. A
+  score built on stale data or violently disagreeing signals is flagged, not
+  hidden.
 - **What would change my mind** — the two live signals closest to flipping,
   each with the exact threshold from today's numbers (e.g. "DFII10 above
   1.94% turns the 3-month real-yield trend positive and flips A bearish").
@@ -45,18 +47,23 @@ plain-English rationale generated from the actual numbers.
 | C | Policy trajectory | 10 | 3-month change in the 2Y yield (`DGS2`) as a proxy for rate expectations. Falling 2Y = easing being priced = bullish. |
 | D | Inflation expectations | 8 | 3-month change in 10Y breakevens (`T10YIE`), with 5y5y (`T5YIFR`) as context. Breakevens rising **while real yields fall** earns a bonus — that combination is the strongest macro mix gold gets. |
 | E | Trend & momentum | 12 | Price vs 50DMA and 200DMA, golden/death cross, and the 12-month return's percentile within 5 years of rolling 12-month returns. |
-| F | Positioning (COT) | 8 | CFTC managed-money net longs in COMEX gold as a percentile of the 5y range. **Contrarian at extremes**: >90th percentile = crowded = bearish even in an uptrend; <10th = washed out = fuel for rallies. Mid-range ≈ neutral. |
-| G | Valuation stretch | 8 | % deviation from the 200DMA and RSI(14). >15% above the 200DMA or RSI>75 draws an overbought penalty; deep oversold earns a bonus. |
+| F | Positioning (COT) | 8 | CFTC managed-money net longs in COMEX gold as a percentile of the 5y range. **Contrarian at extremes, asymmetrically**: washed-out longs (<10th pct) are a strong bullish signal (+1.5); crowded longs (>90th) are a deliberately softer penalty (−0.75), because in the 2021–26 sample crowded readings preceded +10.8% average 3-month rallies — crowded can stay crowded in a strong bull. |
+| G | Valuation stretch | 8 | % deviation from the 200DMA and RSI(14). >20% above the 200DMA or RSI>75 draws an overbought penalty; deep oversold earns a bonus. (The threshold was raised from 15% after review: 15% fired on 39% of bull-run days that went on to average +9.4% forward.) |
 | H | Fear & credit | 6 | VIX regime (`VIXCLS`) and 3-month widening of the BAA-Treasury spread (`BAA10Y`). Stress = safe-haven bid. |
 | I | Geopolitics | 5 | Iacoviello GPR index vs its 5-year average. |
 | J | Central bank demand | 4 | **Manual, quarterly** (from WGC): last 4 quarters of official-sector net purchases vs the 5y average annual pace. |
 | K | ETF flows | 2 | **Manual, quarterly**: 3-month global gold-ETF net flows — Western participation confirming or diverging from price. |
 | L | Gold/silver ratio | 2 | Extreme ratio percentiles as a risk-appetite tell. Silver confirming (low/falling ratio) is healthy; silver absent at the highs is a tired-rally warning. |
 
-**Fair-value anchor.** A rolling 5-year regression of ln(gold) on the 10Y real
-yield and ln(broad dollar). The residual — "gold is trading X% above/below its
-macro fair value" — is a headline stat and modifies the composite by up to ±5
-points (rich to the model subtracts, cheap adds).
+**Fair-value anchor — with a sanity gate.** A rolling 5-year regression of
+ln(gold) on the 10Y real yield and ln(broad dollar). The residual — "gold is
+trading X% above/below its macro fair value" — is a headline stat and can
+modify the composite by up to ±5 points, **but only when the fitted real-yield
+beta is negative**. A level-on-level fit over a co-trending window can produce
+a positive beta (it does over 2021–26: +0.28, i.e. the regression "learned"
+that rising real yields raise gold — the opposite of the model's thesis). When
+that happens the gap is shown as reference only and does not touch the score.
+Without this gate the modifier sat pinned at −4 to −5 for five straight years.
 
 ## Regime overlay
 
@@ -75,31 +82,54 @@ Before final weighting the engine classifies the macro regime and re-weights:
 
 ## Composite
 
-Weighted average of live signal scores (−2…+2), rescaled to 0–100, plus the
-fair-value modifier. If a series is stale or a fetch fails, that signal is
-**excluded and the remaining weights renormalise** — the dashboard shows it
-greyed out with "data stale". The engine never silently scores on dead data.
+Weighted average of live signal scores (−2…+2), mapped to 0–100 with a ×40
+scale (not the theoretical ×25: signal caps are asymmetric and mutually
+exclusive, so the weighted average empirically tops out near ±1.1 — with ×25
+the outer bands were unreachable, ACCUMULATE fired 3 times in 5 years), plus
+the fair-value modifier when its sanity gate passes.
+
+**Hysteresis:** the verdict only flips once the score moves 5 points past a
+band boundary. Tuned on the replay: without it, a quarter of all verdict
+changes reversed within two weeks; with it, ~11% at roughly one change per
+month.
+
+If a series is stale, a fetch fails, or a manual input still carries
+placeholder values, that signal is **excluded and the remaining weights
+renormalise** — the dashboard shows it greyed out and data confidence drops.
+The engine never silently scores on dead or fake data.
 
 ## Honesty check (backtest)
 
-`scripts/backtest.py` replays the scoring weekly over ~5 years of history
-(J and K excluded — manual inputs have no history) and prints forward 3-month
-gold returns by verdict band, plus the Spearman rank correlation between score
-and forward return.
+`scripts/backtest.py` replays the scoring weekly over ~5 years of history and
+prints forward 3-month gold returns by verdict band. It applies **publication
+lags** so the replay only sees data when it was actually available (COT +3
+days, GPR +32 days, broad dollar +7 days), excludes J and K exactly as the
+live engine does while manual inputs are placeholder, and states its own
+statistical limits: 240 weekly samples of overlapping 63-day windows are only
+**~18 independent observations**, so the table is descriptive, not proof.
 
-Current result (2021-08 → 2026-05, 240 weekly observations): the top of the
-scale orders correctly — ACCUMULATE +14.0% avg forward 3m, ADD +7.1%, HOLD
-+4.3% — but TRIM (+3.3%) and SELL/REDUCE (+5.8%) were **not** followed by
-negative returns, and the overall rank correlation is only +0.10. Plainly: in
-the 2024–26 central-bank-driven bull, gold kept rising through macro-hostile
-readings that this model scores bearishly. Treat low-band verdicts as "the
-usual macro tailwinds are absent", not as a short signal, and treat the engine
-as a risk framework, not a crystal ball.
+Current result (2021-08 → 2026-08):
+
+| Band | N | Avg 3m fwd | % positive |
+|---|---|---|---|
+| ACCUMULATE | 38 | +11.0% | 84% |
+| ADD | 61 | +4.0% | 69% |
+| HOLD | 49 | +1.7% | 61% |
+| TRIM | 42 | +6.2% | 81% |
+| SELL/REDUCE | 50 | +4.4% | 74% |
+
+Spearman rank correlation: +0.12 full sample, +0.39 on 19 non-overlapping
+samples. Read it honestly: the top of the scale is encouraging (ACCUMULATE
+weeks clearly beat HOLD weeks), but **TRIM and SELL/REDUCE were still followed
+by positive returns** — in the 2024–26 central-bank-driven bull, gold kept
+rising through macro-hostile readings this model scores bearishly. Low bands
+mean "the usual macro tailwinds are absent"; they are demonstrably **not** a
+sell-timing signal, and the dashboard says so under the verdict.
 
 Re-run it any time: `python scripts/fetch_and_score.py && python scripts/backtest.py`.
 Score history on the dashboard chart before the first live run is backfilled
-from this replay (`--write-history`), so you can see where the engine would
-have called past turns.
+from this replay (`--write-history`) and drawn **dashed** so it can't be
+mistaken for live calls.
 
 ## Architecture
 
@@ -137,8 +167,10 @@ the dashboard footer.
    Without it the engine falls back to FRED's keyless CSV endpoint.
 2. **GitHub Pages**: Settings → Pages → deploy from branch, folder `/docs`.
 3. **Manual inputs**: update `data/manual_inputs.json` quarterly from the World
-   Gold Council's Gold Demand Trends (fields documented in the file). If you
-   let it go stale the J/K signals grey out and the rest of the model carries on.
+   Gold Council's Gold Demand Trends (fields documented in the file), then set
+   `"placeholder": false`. Until you do, signals J and K are **excluded** —
+   placeholder numbers never score. If you later let the file go stale the
+   signals grey out again and the rest of the model carries on.
 4. Run the workflow once by hand (Actions → "Update gold signal data" → Run
    workflow) to generate the first live data point.
 

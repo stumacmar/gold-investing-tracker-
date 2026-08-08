@@ -1,7 +1,7 @@
 [
 {
 "date": "2021-08-04",
-"score": 52.4,
+"score": 44.3,
 "verdict": "HOLD",
 "gold_usd": 1810.5,
 "gold_gbp": 1303.42,
@@ -10,7 +10,7 @@
 },
 {
 "date": "2021-08-11",
-"score": 48.7,
+"score": 42.3,
 "verdict": "HOLD",
 "gold_usd": 1750.4,
 "gold_gbp": 1262.28,
@@ -19,7 +19,7 @@
 },
 {
 "date": "2021-08-18",
-"score": 46.0,
+"score": 42.8,
 "verdict": "HOLD",
 "gold_usd": 1781.6,
 "gold_gbp": 1296.29,
@@ -28,8 +28,8 @@
 },
 {
 "date": "2021-08-25",
-"score": 43.2,
-"verdict": "HOLD",
+"score": 37.1,
+"verdict": "TRIM",
 "gold_usd": 1788.2,
 "gold_gbp": 1298.95,
 "regime": "neutral",
@@ -37,8 +37,8 @@
 },
 {
 "date": "2021-09-01",
-"score": 54.4,
-"verdict": "HOLD",
+"score": 47.8,
+"verdict": "TRIM",
 "gold_usd": 1813.1,
 "gold_gbp": 1316.55,
 "regime": "neutral",
@@ -46,8 +46,8 @@
 },
 {
 "date": "2021-09-09",
-"score": 49.1,
-"verdict": "HOLD",
+"score": 46.9,
+"verdict": "TRIM",
 "gold_usd": 1797.4,
 "gold_gbp": 1298.73,
 "regime": "neutral",
@@ -55,7 +55,7 @@
 },
 {
 "date": "2021-09-16",
-"score": 54.8,
+"score": 49.3,
 "verdict": "HOLD",
 "gold_usd": 1754.6,
 "gold_gbp": 1271.73,
@@ -64,7 +64,7 @@
 },
 {
 "date": "2021-09-23",
-"score": 47.5,
+"score": 44.0,
 "verdict": "HOLD",
 "gold_usd": 1747.7,
 "gold_gbp": 1273.6,
@@ -73,8 +73,8 @@
 },
 {
 "date": "2021-09-30",
-"score": 42.2,
-"verdict": "TRIM",
+"score": 43.2,
+"verdict": "HOLD",
 "gold_usd": 1755.3,
 "gold_gbp": 1303.13,
 "regime": "neutral",
@@ -82,8 +82,8 @@
 },
 {
 "date": "2021-10-07",
-"score": 42.9,
-"verdict": "TRIM",
+"score": 38.8,
+"verdict": "HOLD",
 "gold_usd": 1757.9,
 "gold_gbp": 1290.65,
 "regime": "neutral",
@@ -91,7 +91,7 @@
 },
 {
 "date": "2021-10-14",
-"score": 46.5,
+"score": 45.1,
 "verdict": "HOLD",
 "gold_usd": 1796.7,
 "gold_gbp": 1314.45,
@@ -100,7 +100,7 @@
 },
 {
 "date": "2021-10-21",
-"score": 47.1,
+"score": 42.0,
 "verdict": "HOLD",
 "gold_usd": 1781.2,
 "gold_gbp": 1291.55,
@@ -109,7 +109,7 @@
 },
 {
 "date": "2021-10-28",
-"score": 45.0,
+"score": 50.3,
 "verdict": "HOLD",
 "gold_usd": 1801.6,
 "gold_gbp": 1305.44,
@@ -118,7 +118,7 @@
 },
 {
 "date": "2021-11-04",
-"score": 46.2,
+"score": 51.3,
 "verdict": "HOLD",
 "gold_usd": 1793.0,
 "gold_gbp": 1309.25,
@@ -127,7 +127,7 @@
 },
 {
 "date": "2021-11-11",
-"score": 54.5,
+"score": 55.5,
 "verdict": "HOLD",
 "gold_usd": 1863.2,
 "gold_gbp": 1389.13,
@@ -136,7 +136,7 @@
 },
 {
 "date": "2021-11-18",
-"score": 51.7,
+"score": 56.9,
 "verdict": "HOLD",
 "gold_usd": 1861.0,
 "gold_gbp": 1379.37,
@@ -145,7 +145,7 @@
 },
 {
 "date": "2021-11-26",
-"score": 45.3,
+"score": 43.3,
 "verdict": "HOLD",
 "gold_usd": 1785.3,
 "gold_gbp": 1340.9,
@@ -154,7 +154,7 @@
 },
 {
 "date": "2021-12-03",
-"score": 47.0,
+"score": 45.4,
 "verdict": "HOLD",
 "gold_usd": 1782.0,
 "gold_gbp": 1339.85,
@@ -163,7 +163,7 @@
 },
 {
 "date": "2021-12-10",
-"score": 36.6,
+"score": 32.2,
 "verdict": "TRIM",
 "gold_usd": 1782.9,
 "gold_gbp": 1348.23,
@@ -172,8 +172,8 @@
 },
 {
 "date": "2021-12-17",
-"score": 46.1,
-"verdict": "HOLD",
+"score": 46.0,
+"verdict": "TRIM",
 "gold_usd": 1803.8,
 "gold_gbp": 1353.82,
 "regime": "neutral",
@@ -181,7 +181,7 @@
 },
 {
 "date": "2021-12-27",
-"score": 54.9,
+"score": 56.8,
 "verdict": "HOLD",
 "gold_usd": 1808.1,
 "gold_gbp": 1348.9,
@@ -190,7 +190,7 @@
 },
 {
 "date": "2022-01-03",
-"score": 53.1,
+"score": 50.2,
 "verdict": "HOLD",
 "gold_usd": 1799.4,
 "gold_gbp": 1330.69,
@@ -199,7 +199,7 @@
 },
 {
 "date": "2022-01-10",
-"score": 40.0,
+"score": 35.5,
 "verdict": "TRIM",
 "gold_usd": 1798.4,
 "gold_gbp": 1323.1,
@@ -208,7 +208,7 @@
 },
 {
 "date": "2022-01-18",
-"score": 39.0,
+"score": 39.4,
 "verdict": "TRIM",
 "gold_usd": 1812.3,
 "gold_gbp": 1327.89,
@@ -217,7 +217,7 @@
 },
 {
 "date": "2022-01-25",
-"score": 40.8,
+"score": 46.9,
 "verdict": "TRIM",
 "gold_usd": 1852.7,
 "gold_gbp": 1373.46,
@@ -226,8 +226,8 @@
 },
 {
 "date": "2022-02-01",
-"score": 31.4,
-"verdict": "TRIM",
+"score": 20.9,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1800.3,
 "gold_gbp": 1338.97,
 "regime": "hostile",
@@ -235,8 +235,8 @@
 },
 {
 "date": "2022-02-08",
-"score": 34.7,
-"verdict": "TRIM",
+"score": 29.7,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1826.6,
 "gold_gbp": 1349.26,
 "regime": "hostile",
@@ -244,8 +244,8 @@
 },
 {
 "date": "2022-02-15",
-"score": 34.5,
-"verdict": "TRIM",
+"score": 31.4,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1854.8,
 "gold_gbp": 1370.59,
 "regime": "hostile",
@@ -253,7 +253,7 @@
 },
 {
 "date": "2022-02-23",
-"score": 44.6,
+"score": 45.8,
 "verdict": "HOLD",
 "gold_usd": 1909.2,
 "gold_gbp": 1404.92,
@@ -262,7 +262,7 @@
 },
 {
 "date": "2022-03-02",
-"score": 54.5,
+"score": 62.0,
 "verdict": "HOLD",
 "gold_usd": 1920.9,
 "gold_gbp": 1440.48,
@@ -271,8 +271,8 @@
 },
 {
 "date": "2022-03-09",
-"score": 53.5,
-"verdict": "HOLD",
+"score": 63.9,
+"verdict": "ADD",
 "gold_usd": 1985.9,
 "gold_gbp": 1516.04,
 "regime": "crisis",
@@ -280,8 +280,8 @@
 },
 {
 "date": "2022-03-16",
-"score": 40.7,
-"verdict": "TRIM",
+"score": 44.9,
+"verdict": "HOLD",
 "gold_usd": 1908.0,
 "gold_gbp": 1462.46,
 "regime": "hostile",
@@ -289,16 +289,16 @@
 },
 {
 "date": "2022-03-23",
-"score": 45.5,
+"score": 41.4,
 "verdict": "HOLD",
 "gold_usd": 1936.6,
 "gold_gbp": 1459.77,
-"regime": "neutral",
+"regime": "hostile",
 "backfilled": true
 },
 {
 "date": "2022-03-30",
-"score": 44.4,
+"score": 45.4,
 "verdict": "HOLD",
 "gold_usd": 1933.5,
 "gold_gbp": 1471.59,
@@ -307,17 +307,17 @@
 },
 {
 "date": "2022-04-06",
-"score": 36.0,
-"verdict": "TRIM",
+"score": 46.3,
+"verdict": "HOLD",
 "gold_usd": 1918.4,
 "gold_gbp": 1467.56,
-"regime": "hostile",
+"regime": "neutral",
 "backfilled": true
 },
 {
 "date": "2022-04-13",
-"score": 34.8,
-"verdict": "TRIM",
+"score": 40.1,
+"verdict": "HOLD",
 "gold_usd": 1981.0,
 "gold_gbp": 1509.88,
 "regime": "hostile",
@@ -325,8 +325,8 @@
 },
 {
 "date": "2022-04-21",
-"score": 36.2,
-"verdict": "TRIM",
+"score": 38.4,
+"verdict": "HOLD",
 "gold_usd": 1944.9,
 "gold_gbp": 1493.06,
 "regime": "hostile",
@@ -334,7 +334,7 @@
 },
 {
 "date": "2022-04-28",
-"score": 32.3,
+"score": 33.0,
 "verdict": "TRIM",
 "gold_usd": 1888.7,
 "gold_gbp": 1515.34,
@@ -343,7 +343,7 @@
 },
 {
 "date": "2022-05-05",
-"score": 37.0,
+"score": 36.2,
 "verdict": "TRIM",
 "gold_usd": 1874.0,
 "gold_gbp": 1515.67,
@@ -352,7 +352,7 @@
 },
 {
 "date": "2022-05-12",
-"score": 32.0,
+"score": 30.9,
 "verdict": "TRIM",
 "gold_usd": 1823.8,
 "gold_gbp": 1494.17,
@@ -361,7 +361,7 @@
 },
 {
 "date": "2022-05-19",
-"score": 33.6,
+"score": 30.8,
 "verdict": "TRIM",
 "gold_usd": 1841.2,
 "gold_gbp": 1477.43,
@@ -370,7 +370,7 @@
 },
 {
 "date": "2022-05-26",
-"score": 23.9,
+"score": 21.3,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1847.4,
 "gold_gbp": 1464.18,
@@ -379,7 +379,7 @@
 },
 {
 "date": "2022-06-03",
-"score": 25.0,
+"score": 14.0,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1845.4,
 "gold_gbp": 1483.79,
@@ -388,7 +388,7 @@
 },
 {
 "date": "2022-06-10",
-"score": 20.1,
+"score": 8.3,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1871.5,
 "gold_gbp": 1479.87,
@@ -397,7 +397,7 @@
 },
 {
 "date": "2022-06-17",
-"score": 23.6,
+"score": 11.6,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1835.6,
 "gold_gbp": 1493.91,
@@ -406,7 +406,7 @@
 },
 {
 "date": "2022-06-27",
-"score": 19.1,
+"score": 5.6,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1820.9,
 "gold_gbp": 1484.34,
@@ -415,7 +415,7 @@
 },
 {
 "date": "2022-07-05",
-"score": 25.5,
+"score": 17.9,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1761.8,
 "gold_gbp": 1474.42,
@@ -424,7 +424,7 @@
 },
 {
 "date": "2022-07-12",
-"score": 18.6,
+"score": 8.4,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1723.3,
 "gold_gbp": 1450.86,
@@ -433,7 +433,7 @@
 },
 {
 "date": "2022-07-19",
-"score": 18.7,
+"score": 8.9,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1710.0,
 "gold_gbp": 1424.58,
@@ -442,7 +442,7 @@
 },
 {
 "date": "2022-07-26",
-"score": 17.6,
+"score": 12.2,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1717.7,
 "gold_gbp": 1427.03,
@@ -451,8 +451,8 @@
 },
 {
 "date": "2022-08-02",
-"score": 29.5,
-"verdict": "TRIM",
+"score": 23.3,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1771.1,
 "gold_gbp": 1458.54,
 "regime": "hostile",
@@ -460,8 +460,8 @@
 },
 {
 "date": "2022-08-09",
-"score": 31.7,
-"verdict": "TRIM",
+"score": 22.8,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1794.0,
 "gold_gbp": 1485.81,
 "regime": "neutral",
@@ -469,7 +469,7 @@
 },
 {
 "date": "2022-08-16",
-"score": 24.1,
+"score": 13.8,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1773.2,
 "gold_gbp": 1465.67,
@@ -478,7 +478,7 @@
 },
 {
 "date": "2022-08-23",
-"score": 26.2,
+"score": 17.5,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1746.8,
 "gold_gbp": 1476.24,
@@ -487,7 +487,7 @@
 },
 {
 "date": "2022-08-30",
-"score": 23.4,
+"score": 15.1,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1723.2,
 "gold_gbp": 1477.9,
@@ -496,7 +496,7 @@
 },
 {
 "date": "2022-09-07",
-"score": 17.1,
+"score": 7.3,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1715.3,
 "gold_gbp": 1489.0,
@@ -505,8 +505,8 @@
 },
 {
 "date": "2022-09-14",
-"score": 29.9,
-"verdict": "TRIM",
+"score": 25.1,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1696.5,
 "gold_gbp": 1469.47,
 "regime": "hostile",
@@ -514,7 +514,7 @@
 },
 {
 "date": "2022-09-21",
-"score": 16.8,
+"score": 8.3,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1664.6,
 "gold_gbp": 1478.86,
@@ -523,7 +523,7 @@
 },
 {
 "date": "2022-09-28",
-"score": 24.6,
+"score": 16.2,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1660.4,
 "gold_gbp": 1532.3,
@@ -532,7 +532,7 @@
 },
 {
 "date": "2022-10-05",
-"score": 17.3,
+"score": 2.3,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1711.4,
 "gold_gbp": 1507.13,
@@ -541,7 +541,7 @@
 },
 {
 "date": "2022-10-12",
-"score": 24.6,
+"score": 11.7,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1670.3,
 "gold_gbp": 1504.02,
@@ -550,7 +550,7 @@
 },
 {
 "date": "2022-10-19",
-"score": 27.6,
+"score": 16.2,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1627.5,
 "gold_gbp": 1451.7,
@@ -559,7 +559,7 @@
 },
 {
 "date": "2022-10-26",
-"score": 23.4,
+"score": 10.5,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1664.0,
 "gold_gbp": 1429.78,
@@ -568,7 +568,7 @@
 },
 {
 "date": "2022-11-02",
-"score": 18.5,
+"score": 4.5,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1645.7,
 "gold_gbp": 1432.35,
@@ -577,7 +577,7 @@
 },
 {
 "date": "2022-11-09",
-"score": 20.2,
+"score": 8.1,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1710.1,
 "gold_gbp": 1480.26,
@@ -586,7 +586,7 @@
 },
 {
 "date": "2022-11-16",
-"score": 16.1,
+"score": 3.3,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1773.0,
 "gold_gbp": 1492.37,
@@ -595,7 +595,7 @@
 },
 {
 "date": "2022-11-23",
-"score": 17.1,
+"score": 0,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1744.9,
 "gold_gbp": 1466.97,
@@ -604,17 +604,17 @@
 },
 {
 "date": "2022-12-01",
-"score": 34.1,
-"verdict": "TRIM",
+"score": 19.7,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1801.1,
 "gold_gbp": 1491.29,
-"regime": "neutral",
+"regime": "hostile",
 "backfilled": true
 },
 {
 "date": "2022-12-08",
-"score": 31.5,
-"verdict": "TRIM",
+"score": 30.9,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1788.7,
 "gold_gbp": 1464.66,
 "regime": "neutral",
@@ -622,8 +622,8 @@
 },
 {
 "date": "2022-12-15",
-"score": 30.8,
-"verdict": "TRIM",
+"score": 31.9,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1777.2,
 "gold_gbp": 1430.98,
 "regime": "neutral",
@@ -631,7 +631,7 @@
 },
 {
 "date": "2022-12-22",
-"score": 42.1,
+"score": 42.4,
 "verdict": "TRIM",
 "gold_usd": 1787.0,
 "gold_gbp": 1479.62,
@@ -640,7 +640,7 @@
 },
 {
 "date": "2022-12-30",
-"score": 47.4,
+"score": 52.9,
 "verdict": "HOLD",
 "gold_usd": 1819.7,
 "gold_gbp": 1509.33,
@@ -649,7 +649,7 @@
 },
 {
 "date": "2023-01-09",
-"score": 62.2,
+"score": 69.4,
 "verdict": "ADD",
 "gold_usd": 1872.7,
 "gold_gbp": 1545.6,
@@ -658,7 +658,7 @@
 },
 {
 "date": "2023-01-17",
-"score": 64.9,
+"score": 70.3,
 "verdict": "ADD",
 "gold_usd": 1907.2,
 "gold_gbp": 1562.28,
@@ -667,7 +667,7 @@
 },
 {
 "date": "2023-01-24",
-"score": 70.7,
+"score": 76.9,
 "verdict": "ADD",
 "gold_usd": 1933.9,
 "gold_gbp": 1562.15,
@@ -676,7 +676,7 @@
 },
 {
 "date": "2023-01-31",
-"score": 62.5,
+"score": 68.9,
 "verdict": "ADD",
 "gold_usd": 1929.5,
 "gold_gbp": 1561.89,
@@ -685,7 +685,7 @@
 },
 {
 "date": "2023-02-07",
-"score": 69.7,
+"score": 75.0,
 "verdict": "ADD",
 "gold_usd": 1871.7,
 "gold_gbp": 1556.28,
@@ -694,8 +694,8 @@
 },
 {
 "date": "2023-02-14",
-"score": 56.4,
-"verdict": "HOLD",
+"score": 63.4,
+"verdict": "ADD",
 "gold_usd": 1854.0,
 "gold_gbp": 1525.66,
 "regime": "neutral",
@@ -703,7 +703,7 @@
 },
 {
 "date": "2023-02-22",
-"score": 61.1,
+"score": 70.4,
 "verdict": "ADD",
 "gold_usd": 1832.0,
 "gold_gbp": 1512.88,
@@ -712,8 +712,8 @@
 },
 {
 "date": "2023-03-01",
-"score": 49.4,
-"verdict": "HOLD",
+"score": 57.4,
+"verdict": "ADD",
 "gold_usd": 1837.7,
 "gold_gbp": 1527.15,
 "regime": "neutral",
@@ -721,7 +721,7 @@
 },
 {
 "date": "2023-03-08",
-"score": 36.2,
+"score": 42.4,
 "verdict": "TRIM",
 "gold_usd": 1812.7,
 "gold_gbp": 1532.58,
@@ -730,8 +730,8 @@
 },
 {
 "date": "2023-03-15",
-"score": 61.3,
-"verdict": "ADD",
+"score": 74.5,
+"verdict": "ACCUMULATE",
 "gold_usd": 1926.6,
 "gold_gbp": 1585.4,
 "regime": "crisis",
@@ -739,8 +739,8 @@
 },
 {
 "date": "2023-03-22",
-"score": 71.7,
-"verdict": "ADD",
+"score": 73.3,
+"verdict": "ACCUMULATE",
 "gold_usd": 1946.8,
 "gold_gbp": 1592.46,
 "regime": "disinflationary_easing",
@@ -748,8 +748,8 @@
 },
 {
 "date": "2023-03-29",
-"score": 71.9,
-"verdict": "ADD",
+"score": 81.0,
+"verdict": "ACCUMULATE",
 "gold_usd": 1966.1,
 "gold_gbp": 1596.69,
 "regime": "disinflationary_easing",
@@ -757,8 +757,8 @@
 },
 {
 "date": "2023-04-05",
-"score": 71.3,
-"verdict": "ADD",
+"score": 79.9,
+"verdict": "ACCUMULATE",
 "gold_usd": 2020.9,
 "gold_gbp": 1621.51,
 "regime": "crisis",
@@ -766,8 +766,8 @@
 },
 {
 "date": "2023-04-13",
-"score": 64.9,
-"verdict": "ADD",
+"score": 74.3,
+"verdict": "ACCUMULATE",
 "gold_usd": 2041.3,
 "gold_gbp": 1629.74,
 "regime": "disinflationary_easing",
@@ -775,7 +775,7 @@
 },
 {
 "date": "2023-04-20",
-"score": 58.3,
+"score": 66.5,
 "verdict": "ADD",
 "gold_usd": 2007.6,
 "gold_gbp": 1613.71,
@@ -784,26 +784,26 @@
 },
 {
 "date": "2023-04-27",
-"score": 56.8,
-"verdict": "HOLD",
+"score": 67.0,
+"verdict": "ADD",
 "gold_usd": 1989.9,
 "gold_gbp": 1592.24,
-"regime": "hostile",
+"regime": "neutral",
 "backfilled": true
 },
 {
 "date": "2023-05-04",
-"score": 68.8,
+"score": 75.0,
 "verdict": "ADD",
 "gold_usd": 2048.0,
 "gold_gbp": 1627.55,
-"regime": "disinflationary_easing",
+"regime": "neutral",
 "backfilled": true
 },
 {
 "date": "2023-05-11",
-"score": 67.6,
-"verdict": "ADD",
+"score": 77.1,
+"verdict": "ACCUMULATE",
 "gold_usd": 2014.7,
 "gold_gbp": 1610.71,
 "regime": "disinflationary_easing",
@@ -811,7 +811,7 @@
 },
 {
 "date": "2023-05-18",
-"score": 58.0,
+"score": 65.6,
 "verdict": "ADD",
 "gold_usd": 1956.5,
 "gold_gbp": 1576.25,
@@ -820,8 +820,8 @@
 },
 {
 "date": "2023-05-25",
-"score": 55.9,
-"verdict": "HOLD",
+"score": 62.5,
+"verdict": "ADD",
 "gold_usd": 1943.1,
 "gold_gbp": 1577.41,
 "regime": "neutral",
@@ -829,8 +829,8 @@
 },
 {
 "date": "2023-06-02",
-"score": 55.5,
-"verdict": "HOLD",
+"score": 56.9,
+"verdict": "ADD",
 "gold_usd": 1952.4,
 "gold_gbp": 1579.12,
 "regime": "neutral",
@@ -838,7 +838,7 @@
 },
 {
 "date": "2023-06-09",
-"score": 44.5,
+"score": 45.6,
 "verdict": "HOLD",
 "gold_usd": 1962.2,
 "gold_gbp": 1563.44,
@@ -847,7 +847,7 @@
 },
 {
 "date": "2023-06-16",
-"score": 45.2,
+"score": 48.6,
 "verdict": "HOLD",
 "gold_usd": 1958.4,
 "gold_gbp": 1531.23,
@@ -856,8 +856,8 @@
 },
 {
 "date": "2023-06-26",
-"score": 42.6,
-"verdict": "TRIM",
+"score": 44.8,
+"verdict": "HOLD",
 "gold_usd": 1923.7,
 "gold_gbp": 1513.3,
 "regime": "neutral",
@@ -865,8 +865,8 @@
 },
 {
 "date": "2023-07-03",
-"score": 35.9,
-"verdict": "TRIM",
+"score": 41.5,
+"verdict": "HOLD",
 "gold_usd": 1921.7,
 "gold_gbp": 1513.99,
 "regime": "neutral",
@@ -874,7 +874,7 @@
 },
 {
 "date": "2023-07-11",
-"score": 37.8,
+"score": 35.6,
 "verdict": "TRIM",
 "gold_usd": 1931.3,
 "gold_gbp": 1493.11,
@@ -883,7 +883,7 @@
 },
 {
 "date": "2023-07-18",
-"score": 43.5,
+"score": 49.7,
 "verdict": "HOLD",
 "gold_usd": 1977.2,
 "gold_gbp": 1516.83,
@@ -892,7 +892,7 @@
 },
 {
 "date": "2023-07-25",
-"score": 47.3,
+"score": 52.6,
 "verdict": "HOLD",
 "gold_usd": 1962.1,
 "gold_gbp": 1521.73,
@@ -901,8 +901,8 @@
 },
 {
 "date": "2023-08-01",
-"score": 42.2,
-"verdict": "TRIM",
+"score": 47.5,
+"verdict": "HOLD",
 "gold_usd": 1940.7,
 "gold_gbp": 1516.68,
 "regime": "neutral",
@@ -910,16 +910,16 @@
 },
 {
 "date": "2023-08-08",
-"score": 34.7,
-"verdict": "TRIM",
+"score": 45.1,
+"verdict": "HOLD",
 "gold_usd": 1924.1,
 "gold_gbp": 1510.09,
-"regime": "hostile",
+"regime": "neutral",
 "backfilled": true
 },
 {
 "date": "2023-08-15",
-"score": 32.0,
+"score": 33.2,
 "verdict": "TRIM",
 "gold_usd": 1902.5,
 "gold_gbp": 1497.88,
@@ -928,7 +928,7 @@
 },
 {
 "date": "2023-08-22",
-"score": 30.0,
+"score": 26.6,
 "verdict": "TRIM",
 "gold_usd": 1896.4,
 "gold_gbp": 1489.53,
@@ -937,26 +937,26 @@
 },
 {
 "date": "2023-08-29",
-"score": 38.8,
+"score": 44.6,
 "verdict": "TRIM",
 "gold_usd": 1936.5,
 "gold_gbp": 1532.43,
-"regime": "neutral",
-"backfilled": true
-},
-{
-"date": "2023-09-06",
-"score": 22.2,
-"verdict": "SELL/REDUCE",
-"gold_usd": 1918.1,
-"gold_gbp": 1534.63,
 "regime": "hostile",
 "backfilled": true
 },
 {
-"date": "2023-09-13",
-"score": 28.7,
+"date": "2023-09-06",
+"score": 39.8,
 "verdict": "TRIM",
+"gold_usd": 1918.1,
+"gold_gbp": 1534.63,
+"regime": "neutral",
+"backfilled": true
+},
+{
+"date": "2023-09-13",
+"score": 22.0,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1909.1,
 "gold_gbp": 1528.56,
 "regime": "hostile",
@@ -964,7 +964,7 @@
 },
 {
 "date": "2023-09-20",
-"score": 27.7,
+"score": 32.6,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1945.6,
 "gold_gbp": 1578.08,
@@ -973,7 +973,7 @@
 },
 {
 "date": "2023-09-27",
-"score": 21.1,
+"score": 10.8,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1871.6,
 "gold_gbp": 1542.27,
@@ -982,7 +982,7 @@
 },
 {
 "date": "2023-10-04",
-"score": 27.5,
+"score": 14.9,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1818.5,
 "gold_gbp": 1498.26,
@@ -991,7 +991,7 @@
 },
 {
 "date": "2023-10-11",
-"score": 23.0,
+"score": 9.7,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1872.8,
 "gold_gbp": 1520.58,
@@ -1000,8 +1000,8 @@
 },
 {
 "date": "2023-10-18",
-"score": 30.0,
-"verdict": "TRIM",
+"score": 21.7,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1955.3,
 "gold_gbp": 1610.17,
 "regime": "hostile",
@@ -1009,7 +1009,7 @@
 },
 {
 "date": "2023-10-25",
-"score": 25.8,
+"score": 18.4,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1984.1,
 "gold_gbp": 1639.28,
@@ -1018,7 +1018,7 @@
 },
 {
 "date": "2023-11-01",
-"score": 27.8,
+"score": 18.3,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1978.8,
 "gold_gbp": 1628.35,
@@ -1027,7 +1027,7 @@
 },
 {
 "date": "2023-11-08",
-"score": 26.4,
+"score": 24.2,
 "verdict": "SELL/REDUCE",
 "gold_usd": 1951.5,
 "gold_gbp": 1587.64,
@@ -1036,8 +1036,8 @@
 },
 {
 "date": "2023-11-15",
-"score": 37.1,
-"verdict": "TRIM",
+"score": 30.1,
+"verdict": "SELL/REDUCE",
 "gold_usd": 1960.1,
 "gold_gbp": 1568.77,
 "regime": "hostile",
@@ -1045,7 +1045,7 @@
 },
 {
 "date": "2023-11-22",
-"score": 36.8,
+"score": 36.4,
 "verdict": "TRIM",
 "gold_usd": 1991.4,
 "gold_gbp": 1587.5,
@@ -1054,16 +1054,16 @@
 },
 {
 "date": "2023-11-30",
-"score": 44.0,
-"verdict": "HOLD",
+"score": 44.5,
+"verdict": "TRIM",
 "gold_usd": 2038.1,
 "gold_gbp": 1605.26,
-"regime": "neutral",
+"regime": "hostile",
 "backfilled": true
 },
 {
 "date": "2023-12-07",
-"score": 53.9,
+"score": 54.9,
 "verdict": "HOLD",
 "gold_usd": 2029.9,
 "gold_gbp": 1616.33,
@@ -1072,7 +1072,7 @@
 },
 {
 "date": "2023-12-14",
-"score": 64.1,
+"score": 66.5,
 "verdict": "ADD",
 "gold_usd": 2030.2,
 "gold_gbp": 1608.34,
@@ -1081,7 +1081,7 @@
 },
 {
 "date": "2023-12-21",
-"score": 68.4,
+"score": 75.4,
 "verdict": "ADD",
 "gold_usd": 2039.1,
 "gold_gbp": 1613.05,
@@ -1090,7 +1090,7 @@
 },
 {
 "date": "2023-12-29",
-"score": 72.3,
+"score": 79.5,
 "verdict": "ACCUMULATE",
 "gold_usd": 2062.4,
 "gold_gbp": 1619.6,
@@ -1099,7 +1099,7 @@
 },
 {
 "date": "2024-01-08",
-"score": 74.5,
+"score": 85.4,
 "verdict": "ACCUMULATE",
 "gold_usd": 2026.6,
 "gold_gbp": 1593.52,
@@ -1108,8 +1108,8 @@
 },
 {
 "date": "2024-01-16",
-"score": 70.7,
-"verdict": "ADD",
+"score": 84.7,
+"verdict": "ACCUMULATE",
 "gold_usd": 2026.0,
 "gold_gbp": 1593.25,
 "regime": "disinflationary_easing",
@@ -1117,8 +1117,8 @@
 },
 {
 "date": "2024-01-23",
-"score": 68.4,
-"verdict": "ADD",
+"score": 75.9,
+"verdict": "ACCUMULATE",
 "gold_usd": 2023.7,
 "gold_gbp": 1592.59,
 "regime": "disinflationary_easing",
@@ -1126,8 +1126,8 @@
 },
 {
 "date": "2024-01-30",
-"score": 71.1,
-"verdict": "ADD",
+"score": 74.5,
+"verdict": "ACCUMULATE",
 "gold_usd": 2031.5,
 "gold_gbp": 1597.94,
 "regime": "disinflationary_easing",
@@ -1135,8 +1135,8 @@
 },
 {
 "date": "2024-02-06",
-"score": 63.8,
-"verdict": "ADD",
+"score": 71.7,
+"verdict": "ACCUMULATE",
 "gold_usd": 2034.5,
 "gold_gbp": 1623.12,
 "regime": "disinflationary_easing",
@@ -1144,7 +1144,7 @@
 },
 {
 "date": "2024-02-13",
-"score": 56.2,
+"score": 57.6,
 "verdict": "HOLD",
 "gold_usd": 1992.9,
 "gold_gbp": 1578.22,
@@ -1153,16 +1153,16 @@
 },
 {
 "date": "2024-02-21",
-"score": 56.6,
+"score": 60.1,
 "verdict": "HOLD",
 "gold_usd": 2022.3,
 "gold_gbp": 1601.52,
-"regime": "reflation",
+"regime": "disinflationary_easing",
 "backfilled": true
 },
 {
 "date": "2024-02-28",
-"score": 59.9,
+"score": 64.7,
 "verdict": "ADD",
 "gold_usd": 2033.0,
 "gold_gbp": 1603.1,
@@ -1171,17 +1171,17 @@
 },
 {
 "date": "2024-03-06",
-"score": 57.5,
-"verdict": "HOLD",
+"score": 57.4,
+"verdict": "ADD",
 "gold_usd": 2150.3,
 "gold_gbp": 1692.5,
-"regime": "disinflationary_easing",
+"regime": "reflation",
 "backfilled": true
 },
 {
 "date": "2024-03-13",
-"score": 56.9,
-"verdict": "HOLD",
+"score": 58.5,
+"verdict": "ADD",
 "gold_usd": 2175.4,
 "gold_gbp": 1700.07,
 "regime": "disinflationary_easing",
@@ -1189,17 +1189,17 @@
 },
 {
 "date": "2024-03-20",
-"score": 37.7,
-"verdict": "TRIM",
+"score": 50.4,
+"verdict": "HOLD",
 "gold_usd": 2157.9,
 "gold_gbp": 1696.54,
-"regime": "hostile",
+"regime": "neutral",
 "backfilled": true
 },
 {
 "date": "2024-03-27",
-"score": 37.3,
-"verdict": "TRIM",
+"score": 44.0,
+"verdict": "HOLD",
 "gold_usd": 2190.6,
 "gold_gbp": 1734.65,
 "regime": "hostile",
@@ -1207,7 +1207,7 @@
 },
 {
 "date": "2024-04-04",
-"score": 37.2,
+"score": 34.5,
 "verdict": "TRIM",
 "gold_usd": 2288.8,
 "gold_gbp": 1810.73,
@@ -1216,8 +1216,8 @@
 },
 {
 "date": "2024-04-11",
-"score": 25.2,
-"verdict": "SELL/REDUCE",
+"score": 30.2,
+"verdict": "TRIM",
 "gold_usd": 2354.8,
 "gold_gbp": 1875.62,
 "regime": "hostile",
@@ -1225,7 +1225,7 @@
 },
 {
 "date": "2024-04-18",
-"score": 21.0,
+"score": 20.9,
 "verdict": "SELL/REDUCE",
 "gold_usd": 2382.3,
 "gold_gbp": 1915.39,
@@ -1234,7 +1234,7 @@
 },
 {
 "date": "2024-04-25",
-"score": 23.3,
+"score": 25.7,
 "verdict": "SELL/REDUCE",
 "gold_usd": 2329.8,
 "gold_gbp": 1862.49,
@@ -1243,7 +1243,7 @@
 },
 {
 "date": "2024-05-02",
-"score": 27.2,
+"score": 22.2,
 "verdict": "SELL/REDUCE",
 "gold_usd": 2299.2,
 "gold_gbp": 1833.41,
@@ -1252,7 +1252,7 @@
 },
 {
 "date": "2024-05-09",
-"score": 33.1,
+"score": 37.3,
 "verdict": "TRIM",
 "gold_usd": 2332.1,
 "gold_gbp": 1861.86,
@@ -1261,7 +1261,7 @@
 },
 {
 "date": "2024-05-16",
-"score": 38.7,
+"score": 42.5,
 "verdict": "TRIM",
 "gold_usd": 2380.0,
 "gold_gbp": 1878.16,
@@ -1270,7 +1270,7 @@
 },
 {
 "date": "2024-05-23",
-"score": 35.1,
+"score": 47.2,
 "verdict": "TRIM",
 "gold_usd": 2335.0,
 "gold_gbp": 1839.44,
@@ -1279,7 +1279,7 @@
 },
 {
 "date": "2024-05-31",
-"score": 30.3,
+"score": 41.5,
 "verdict": "TRIM",
 "gold_usd": 2322.9,
 "gold_gbp": 1840.39,
@@ -1288,8 +1288,8 @@
 },
 {
 "date": "2024-06-07",
-"score": 20.8,
-"verdict": "SELL/REDUCE",
+"score": 30.5,
+"verdict": "TRIM",
 "gold_usd": 2305.2,
 "gold_gbp": 1852.77,
 "regime": "hostile",
@@ -1297,7 +1297,7 @@
 },
 {
 "date": "2024-06-14",
-"score": 32.6,
+"score": 32.3,
 "verdict": "TRIM",
 "gold_usd": 2331.4,
 "gold_gbp": 1803.36,
@@ -1306,8 +1306,8 @@
 },
 {
 "date": "2024-06-24",
-"score": 26.5,
-"verdict": "SELL/REDUCE",
+"score": 27.0,
+"verdict": "TRIM",
 "gold_usd": 2330.0,
 "gold_gbp": 1837.04,
 "regime": "hostile",
@@ -1315,7 +1315,7 @@
 },
 {
 "date": "2024-07-01",
-"score": 28.2,
+"score": 30.6,
 "verdict": "TRIM",
 "gold_usd": 2327.6,
 "gold_gbp": 1840.62,
@@ -1324,7 +1324,7 @@
 },
 {
 "date": "2024-07-09",
-"score": 38.9,
+"score": 41.0,
 "verdict": "TRIM",
 "gold_usd": 2360.1,
 "gold_gbp": 1845.6,
@@ -1333,7 +1333,7 @@
 },
 {
 "date": "2024-07-16",
-"score": 52.0,
+"score": 51.6,
 "verdict": "HOLD",
 "gold_usd": 2462.4,
 "gold_gbp": 1897.41,
@@ -1342,8 +1342,8 @@
 },
 {
 "date": "2024-07-23",
-"score": 53.8,
-"verdict": "HOLD",
+"score": 63.3,
+"verdict": "ADD",
 "gold_usd": 2404.6,
 "gold_gbp": 1863.81,
 "regime": "neutral",
@@ -1351,8 +1351,8 @@
 },
 {
 "date": "2024-07-30",
-"score": 52.2,
-"verdict": "HOLD",
+"score": 63.9,
+"verdict": "ADD",
 "gold_usd": 2405.0,
 "gold_gbp": 1873.49,
 "regime": "neutral",
@@ -1360,8 +1360,8 @@
 },
 {
 "date": "2024-08-06",
-"score": 55.3,
-"verdict": "HOLD",
+"score": 58.6,
+"verdict": "ADD",
 "gold_usd": 2389.1,
 "gold_gbp": 1883.45,
 "regime": "neutral",
@@ -1369,7 +1369,7 @@
 },
 {
 "date": "2024-08-13",
-"score": 58.1,
+"score": 59.8,
 "verdict": "ADD",
 "gold_usd": 2466.7,
 "gold_gbp": 1917.12,
@@ -1378,7 +1378,7 @@
 },
 {
 "date": "2024-08-20",
-"score": 59.2,
+"score": 63.4,
 "verdict": "ADD",
 "gold_usd": 2511.3,
 "gold_gbp": 1926.52,
@@ -1387,7 +1387,7 @@
 },
 {
 "date": "2024-08-27",
-"score": 61.3,
+"score": 69.2,
 "verdict": "ADD",
 "gold_usd": 2516.0,
 "gold_gbp": 1897.79,
@@ -1396,7 +1396,7 @@
 },
 {
 "date": "2024-09-04",
-"score": 59.0,
+"score": 72.5,
 "verdict": "ADD",
 "gold_usd": 2493.4,
 "gold_gbp": 1896.88,
@@ -1405,7 +1405,7 @@
 },
 {
 "date": "2024-09-11",
-"score": 64.1,
+"score": 73.2,
 "verdict": "ADD",
 "gold_usd": 2512.1,
 "gold_gbp": 1926.53,
@@ -1414,7 +1414,7 @@
 },
 {
 "date": "2024-09-18",
-"score": 68.5,
+"score": 75.3,
 "verdict": "ADD",
 "gold_usd": 2570.7,
 "gold_gbp": 1947.33,
@@ -1423,8 +1423,8 @@
 },
 {
 "date": "2024-09-25",
-"score": 66.4,
-"verdict": "ADD",
+"score": 81.8,
+"verdict": "ACCUMULATE",
 "gold_usd": 2659.2,
 "gold_gbp": 1997.03,
 "regime": "disinflationary_easing",
@@ -1432,8 +1432,8 @@
 },
 {
 "date": "2024-10-02",
-"score": 68.2,
-"verdict": "ADD",
+"score": 87.3,
+"verdict": "ACCUMULATE",
 "gold_usd": 2647.1,
 "gold_gbp": 1995.38,
 "regime": "disinflationary_easing",
@@ -1441,17 +1441,17 @@
 },
 {
 "date": "2024-10-09",
-"score": 56.8,
-"verdict": "HOLD",
+"score": 77.6,
+"verdict": "ACCUMULATE",
 "gold_usd": 2606.0,
 "gold_gbp": 1994.14,
-"regime": "neutral",
+"regime": "disinflationary_easing",
 "backfilled": true
 },
 {
 "date": "2024-10-16",
-"score": 48.6,
-"verdict": "HOLD",
+"score": 63.7,
+"verdict": "ADD",
 "gold_usd": 2674.0,
 "gold_gbp": 2058.47,
 "regime": "neutral",
@@ -1459,8 +1459,8 @@
 },
 {
 "date": "2024-10-23",
-"score": 44.7,
-"verdict": "HOLD",
+"score": 53.7,
+"verdict": "ADD",
 "gold_usd": 2714.4,
 "gold_gbp": 2101.95,
 "regime": "neutral",
@@ -1468,8 +1468,8 @@
 },
 {
 "date": "2024-10-30",
-"score": 36.3,
-"verdict": "TRIM",
+"score": 44.1,
+"verdict": "HOLD",
 "gold_usd": 2788.5,
 "gold_gbp": 2142.68,
 "regime": "hostile",
@@ -1477,7 +1477,7 @@
 },
 {
 "date": "2024-11-06",
-"score": 31.8,
+"score": 36.7,
 "verdict": "TRIM",
 "gold_usd": 2667.6,
 "gold_gbp": 2045.14,
@@ -1486,8 +1486,8 @@
 },
 {
 "date": "2024-11-13",
-"score": 25.6,
-"verdict": "SELL/REDUCE",
+"score": 30.2,
+"verdict": "TRIM",
 "gold_usd": 2580.8,
 "gold_gbp": 2025.88,
 "regime": "hostile",
@@ -1495,8 +1495,8 @@
 },
 {
 "date": "2024-11-20",
-"score": 25.3,
-"verdict": "SELL/REDUCE",
+"score": 29.1,
+"verdict": "TRIM",
 "gold_usd": 2648.2,
 "gold_gbp": 2086.09,
 "regime": "hostile",
@@ -1504,8 +1504,8 @@
 },
 {
 "date": "2024-11-27",
-"score": 25.7,
-"verdict": "SELL/REDUCE",
+"score": 29.7,
+"verdict": "TRIM",
 "gold_usd": 2639.9,
 "gold_gbp": 2099.51,
 "regime": "hostile",
@@ -1513,7 +1513,7 @@
 },
 {
 "date": "2024-12-05",
-"score": 28.7,
+"score": 32.5,
 "verdict": "TRIM",
 "gold_usd": 2626.6,
 "gold_gbp": 2068.0,
@@ -1522,8 +1522,8 @@
 },
 {
 "date": "2024-12-12",
-"score": 26.9,
-"verdict": "SELL/REDUCE",
+"score": 33.5,
+"verdict": "TRIM",
 "gold_usd": 2687.5,
 "gold_gbp": 2105.15,
 "regime": "hostile",
@@ -1531,7 +1531,7 @@
 },
 {
 "date": "2024-12-19",
-"score": 21.0,
+"score": 15.0,
 "verdict": "SELL/REDUCE",
 "gold_usd": 2592.2,
 "gold_gbp": 2062.59,
@@ -1540,7 +1540,7 @@
 },
 {
 "date": "2024-12-27",
-"score": 21.6,
+"score": 14.7,
 "verdict": "SELL/REDUCE",
 "gold_usd": 2617.2,
 "gold_gbp": 2088.79,
@@ -1549,7 +1549,7 @@
 },
 {
 "date": "2025-01-06",
-"score": 20.7,
+"score": 15.5,
 "verdict": "SELL/REDUCE",
 "gold_usd": 2638.4,
 "gold_gbp": 2123.15,
@@ -1558,7 +1558,7 @@
 },
 {
 "date": "2025-01-13",
-"score": 24.8,
+"score": 27.3,
 "verdict": "SELL/REDUCE",
 "gold_usd": 2673.5,
 "gold_gbp": 2190.51,
@@ -1567,7 +1567,7 @@
 },
 {
 "date": "2025-01-21",
-"score": 21.9,
+"score": 26.8,
 "verdict": "SELL/REDUCE",
 "gold_usd": 2755.0,
 "gold_gbp": 2234.14,
@@ -1576,7 +1576,7 @@
 },
 {
 "date": "2025-01-28",
-"score": 30.2,
+"score": 36.2,
 "verdict": "TRIM",
 "gold_usd": 2766.8,
 "gold_gbp": 2220.44,
@@ -1585,7 +1585,7 @@
 },
 {
 "date": "2025-02-04",
-"score": 32.4,
+"score": 35.1,
 "verdict": "TRIM",
 "gold_usd": 2853.3,
 "gold_gbp": 2295.17,
@@ -1594,7 +1594,7 @@
 },
 {
 "date": "2025-02-11",
-"score": 33.0,
+"score": 35.8,
 "verdict": "TRIM",
 "gold_usd": 2912.5,
 "gold_gbp": 2356.27,
@@ -1603,7 +1603,7 @@
 },
 {
 "date": "2025-02-19",
-"score": 42.1,
+"score": 46.1,
 "verdict": "TRIM",
 "gold_usd": 2919.4,
 "gold_gbp": 2312.25,
@@ -1612,16 +1612,16 @@
 },
 {
 "date": "2025-02-26",
-"score": 52.7,
+"score": 53.8,
 "verdict": "HOLD",
 "gold_usd": 2916.8,
 "gold_gbp": 2301.33,
-"regime": "disinflationary_easing",
+"regime": "neutral",
 "backfilled": true
 },
 {
 "date": "2025-03-05",
-"score": 54.4,
+"score": 57.7,
 "verdict": "HOLD",
 "gold_usd": 2915.3,
 "gold_gbp": 2278.6,
@@ -1630,7 +1630,7 @@
 },
 {
 "date": "2025-03-12",
-"score": 53.9,
+"score": 60.8,
 "verdict": "HOLD",
 "gold_usd": 2939.1,
 "gold_gbp": 2270.48,
@@ -1639,8 +1639,8 @@
 },
 {
 "date": "2025-03-19",
-"score": 55.0,
-"verdict": "HOLD",
+"score": 64.4,
+"verdict": "ADD",
 "gold_usd": 3035.9,
 "gold_gbp": 2335.21,
 "regime": "disinflationary_easing",
@@ -1648,7 +1648,7 @@
 },
 {
 "date": "2025-03-26",
-"score": 66.4,
+"score": 74.9,
 "verdict": "ADD",
 "gold_usd": 3020.9,
 "gold_gbp": 2333.95,
@@ -1657,7 +1657,7 @@
 },
 {
 "date": "2025-04-02",
-"score": 64.1,
+"score": 74.7,
 "verdict": "ADD",
 "gold_usd": 3139.9,
 "gold_gbp": 2406.73,
@@ -1666,7 +1666,7 @@
 },
 {
 "date": "2025-04-09",
-"score": 61.3,
+"score": 73.6,
 "verdict": "ADD",
 "gold_usd": 3056.5,
 "gold_gbp": 2383.15,
@@ -1675,7 +1675,7 @@
 },
 {
 "date": "2025-04-16",
-"score": 61.8,
+"score": 66.8,
 "verdict": "ADD",
 "gold_usd": 3326.6,
 "gold_gbp": 2513.68,
@@ -1684,8 +1684,8 @@
 },
 {
 "date": "2025-04-24",
-"score": 64.4,
-"verdict": "ADD",
+"score": 79.5,
+"verdict": "ACCUMULATE",
 "gold_usd": 3332.0,
 "gold_gbp": 2500.33,
 "regime": "disinflationary_easing",
@@ -1693,8 +1693,8 @@
 },
 {
 "date": "2025-05-01",
-"score": 67.3,
-"verdict": "ADD",
+"score": 84.9,
+"verdict": "ACCUMULATE",
 "gold_usd": 3210.0,
 "gold_gbp": 2416.01,
 "regime": "disinflationary_easing",
@@ -1702,8 +1702,8 @@
 },
 {
 "date": "2025-05-08",
-"score": 58.0,
-"verdict": "ADD",
+"score": 72.5,
+"verdict": "ACCUMULATE",
 "gold_usd": 3296.6,
 "gold_gbp": 2490.75,
 "regime": "neutral",
@@ -1711,8 +1711,8 @@
 },
 {
 "date": "2025-05-15",
-"score": 59.1,
-"verdict": "ADD",
+"score": 72.4,
+"verdict": "ACCUMULATE",
 "gold_usd": 3220.7,
 "gold_gbp": 2420.32,
 "regime": "neutral",
@@ -1720,8 +1720,8 @@
 },
 {
 "date": "2025-05-22",
-"score": 54.0,
-"verdict": "HOLD",
+"score": 69.0,
+"verdict": "ACCUMULATE",
 "gold_usd": 3292.3,
 "gold_gbp": 2453.42,
 "regime": "neutral",
@@ -1729,8 +1729,8 @@
 },
 {
 "date": "2025-05-30",
-"score": 52.6,
-"verdict": "HOLD",
+"score": 67.2,
+"verdict": "ACCUMULATE",
 "gold_usd": 3288.9,
 "gold_gbp": 2457.29,
 "regime": "neutral",
@@ -1738,8 +1738,8 @@
 },
 {
 "date": "2025-06-06",
-"score": 51.3,
-"verdict": "HOLD",
+"score": 65.5,
+"verdict": "ADD",
 "gold_usd": 3322.7,
 "gold_gbp": 2467.46,
 "regime": "neutral",
@@ -1747,8 +1747,8 @@
 },
 {
 "date": "2025-06-13",
-"score": 54.9,
-"verdict": "HOLD",
+"score": 69.9,
+"verdict": "ADD",
 "gold_usd": 3431.2,
 "gold_gbp": 2480.9,
 "regime": "neutral",
@@ -1756,8 +1756,8 @@
 },
 {
 "date": "2025-06-23",
-"score": 55.0,
-"verdict": "HOLD",
+"score": 68.8,
+"verdict": "ADD",
 "gold_usd": 3377.7,
 "gold_gbp": 2493.62,
 "regime": "neutral",
@@ -1765,8 +1765,8 @@
 },
 {
 "date": "2025-06-30",
-"score": 57.9,
-"verdict": "HOLD",
+"score": 67.8,
+"verdict": "ADD",
 "gold_usd": 3294.4,
 "gold_gbp": 2399.31,
 "regime": "neutral",
@@ -1774,8 +1774,8 @@
 },
 {
 "date": "2025-07-07",
-"score": 47.6,
-"verdict": "HOLD",
+"score": 63.8,
+"verdict": "ADD",
 "gold_usd": 3332.2,
 "gold_gbp": 2445.9,
 "regime": "neutral",
@@ -1783,8 +1783,8 @@
 },
 {
 "date": "2025-07-14",
-"score": 63.0,
-"verdict": "ADD",
+"score": 79.9,
+"verdict": "ACCUMULATE",
 "gold_usd": 3351.5,
 "gold_gbp": 2495.9,
 "regime": "disinflationary_easing",
@@ -1792,8 +1792,8 @@
 },
 {
 "date": "2025-07-21",
-"score": 64.9,
-"verdict": "ADD",
+"score": 83.6,
+"verdict": "ACCUMULATE",
 "gold_usd": 3401.9,
 "gold_gbp": 2521.9,
 "regime": "disinflationary_easing",
@@ -1801,8 +1801,8 @@
 },
 {
 "date": "2025-07-28",
-"score": 55.1,
-"verdict": "HOLD",
+"score": 71.7,
+"verdict": "ACCUMULATE",
 "gold_usd": 3309.1,
 "gold_gbp": 2476.83,
 "regime": "reflation",
@@ -1810,8 +1810,8 @@
 },
 {
 "date": "2025-08-04",
-"score": 67.7,
-"verdict": "ADD",
+"score": 81.5,
+"verdict": "ACCUMULATE",
 "gold_usd": 3374.4,
 "gold_gbp": 2537.62,
 "regime": "disinflationary_easing",
@@ -1819,8 +1819,8 @@
 },
 {
 "date": "2025-08-11",
-"score": 66.9,
-"verdict": "ADD",
+"score": 81.5,
+"verdict": "ACCUMULATE",
 "gold_usd": 3353.1,
 "gold_gbp": 2495.75,
 "regime": "disinflationary_easing",
@@ -1828,8 +1828,8 @@
 },
 {
 "date": "2025-08-18",
-"score": 61.2,
-"verdict": "ADD",
+"score": 73.0,
+"verdict": "ACCUMULATE",
 "gold_usd": 3331.7,
 "gold_gbp": 2466.42,
 "regime": "disinflationary_easing",
@@ -1837,8 +1837,8 @@
 },
 {
 "date": "2025-08-25",
-"score": 71.2,
-"verdict": "ADD",
+"score": 84.4,
+"verdict": "ACCUMULATE",
 "gold_usd": 3373.8,
 "gold_gbp": 2507.75,
 "regime": "disinflationary_easing",
@@ -1846,8 +1846,8 @@
 },
 {
 "date": "2025-09-02",
-"score": 66.8,
-"verdict": "ADD",
+"score": 83.6,
+"verdict": "ACCUMULATE",
 "gold_usd": 3549.4,
 "gold_gbp": 2652.08,
 "regime": "disinflationary_easing",
@@ -1855,8 +1855,8 @@
 },
 {
 "date": "2025-09-09",
-"score": 71.3,
-"verdict": "ADD",
+"score": 85.8,
+"verdict": "ACCUMULATE",
 "gold_usd": 3643.3,
 "gold_gbp": 2694.53,
 "regime": "disinflationary_easing",
@@ -1864,7 +1864,7 @@
 },
 {
 "date": "2025-09-16",
-"score": 73.1,
+"score": 88.1,
 "verdict": "ACCUMULATE",
 "gold_usd": 3688.9,
 "gold_gbp": 2701.71,
@@ -1873,8 +1873,8 @@
 },
 {
 "date": "2025-09-23",
-"score": 65.7,
-"verdict": "ADD",
+"score": 80.1,
+"verdict": "ACCUMULATE",
 "gold_usd": 3780.6,
 "gold_gbp": 2795.38,
 "regime": "disinflationary_easing",
@@ -1882,17 +1882,17 @@
 },
 {
 "date": "2025-09-30",
-"score": 62.0,
-"verdict": "ADD",
+"score": 79.8,
+"verdict": "ACCUMULATE",
 "gold_usd": 3840.8,
 "gold_gbp": 2857.02,
-"regime": "reflation",
+"regime": "disinflationary_easing",
 "backfilled": true
 },
 {
 "date": "2025-10-07",
-"score": 61.4,
-"verdict": "ADD",
+"score": 71.4,
+"verdict": "ACCUMULATE",
 "gold_usd": 3976.6,
 "gold_gbp": 2962.96,
 "regime": "neutral",
@@ -1900,8 +1900,8 @@
 },
 {
 "date": "2025-10-14",
-"score": 63.5,
-"verdict": "ADD",
+"score": 72.7,
+"verdict": "ACCUMULATE",
 "gold_usd": 4138.7,
 "gold_gbp": 3106.76,
 "regime": "neutral",
@@ -1909,8 +1909,8 @@
 },
 {
 "date": "2025-10-21",
-"score": 59.9,
-"verdict": "ADD",
+"score": 69.0,
+"verdict": "ACCUMULATE",
 "gold_usd": 4087.7,
 "gold_gbp": 3058.46,
 "regime": "neutral",
@@ -1918,26 +1918,26 @@
 },
 {
 "date": "2025-10-28",
-"score": 63.0,
-"verdict": "ADD",
+"score": 70.0,
+"verdict": "ACCUMULATE",
 "gold_usd": 3966.2,
 "gold_gbp": 2972.94,
-"regime": "disinflationary_easing",
-"backfilled": true
-},
-{
-"date": "2025-11-04",
-"score": 50.3,
-"verdict": "HOLD",
-"gold_usd": 3947.7,
-"gold_gbp": 3005.42,
 "regime": "neutral",
 "backfilled": true
 },
 {
+"date": "2025-11-04",
+"score": 72.3,
+"verdict": "ACCUMULATE",
+"gold_usd": 3947.7,
+"gold_gbp": 3005.42,
+"regime": "disinflationary_easing",
+"backfilled": true
+},
+{
 "date": "2025-11-11",
-"score": 50.5,
-"verdict": "HOLD",
+"score": 59.4,
+"verdict": "ADD",
 "gold_usd": 4106.8,
 "gold_gbp": 3117.59,
 "regime": "neutral",
@@ -1945,8 +1945,8 @@
 },
 {
 "date": "2025-11-18",
-"score": 54.3,
-"verdict": "HOLD",
+"score": 68.6,
+"verdict": "ADD",
 "gold_usd": 4061.3,
 "gold_gbp": 3086.99,
 "regime": "neutral",
@@ -1954,8 +1954,8 @@
 },
 {
 "date": "2025-11-25",
-"score": 50.7,
-"verdict": "HOLD",
+"score": 63.7,
+"verdict": "ADD",
 "gold_usd": 4139.2,
 "gold_gbp": 3158.21,
 "regime": "neutral",
@@ -1963,8 +1963,8 @@
 },
 {
 "date": "2025-12-03",
-"score": 51.7,
-"verdict": "HOLD",
+"score": 57.0,
+"verdict": "ADD",
 "gold_usd": 4199.3,
 "gold_gbp": 3176.6,
 "regime": "neutral",
@@ -1972,8 +1972,8 @@
 },
 {
 "date": "2025-12-10",
-"score": 45.1,
-"verdict": "HOLD",
+"score": 58.4,
+"verdict": "ADD",
 "gold_usd": 4196.4,
 "gold_gbp": 3154.35,
 "regime": "hostile",
@@ -1981,8 +1981,8 @@
 },
 {
 "date": "2025-12-17",
-"score": 42.5,
-"verdict": "TRIM",
+"score": 50.4,
+"verdict": "HOLD",
 "gold_usd": 4347.5,
 "gold_gbp": 3238.36,
 "regime": "hostile",
@@ -1990,17 +1990,17 @@
 },
 {
 "date": "2025-12-24",
-"score": 47.5,
+"score": 49.7,
 "verdict": "HOLD",
 "gold_usd": 4480.6,
 "gold_gbp": 3315.62,
-"regime": "neutral",
+"regime": "hostile",
 "backfilled": true
 },
 {
 "date": "2026-01-02",
-"score": 52.0,
-"verdict": "HOLD",
+"score": 66.9,
+"verdict": "ADD",
 "gold_usd": 4314.4,
 "gold_gbp": 3202.1,
 "regime": "neutral",
@@ -2008,8 +2008,8 @@
 },
 {
 "date": "2026-01-09",
-"score": 48.2,
-"verdict": "HOLD",
+"score": 61.2,
+"verdict": "ADD",
 "gold_usd": 4490.3,
 "gold_gbp": 3341.49,
 "regime": "neutral",
@@ -2017,8 +2017,8 @@
 },
 {
 "date": "2026-01-16",
-"score": 47.9,
-"verdict": "HOLD",
+"score": 57.8,
+"verdict": "ADD",
 "gold_usd": 4588.4,
 "gold_gbp": 3428.96,
 "regime": "neutral",
@@ -2026,8 +2026,8 @@
 },
 {
 "date": "2026-01-26",
-"score": 50.4,
-"verdict": "HOLD",
+"score": 54.4,
+"verdict": "ADD",
 "gold_usd": 5079.7,
 "gold_gbp": 3717.98,
 "regime": "neutral",
@@ -2035,8 +2035,8 @@
 },
 {
 "date": "2026-02-02",
-"score": 53.1,
-"verdict": "HOLD",
+"score": 69.9,
+"verdict": "ADD",
 "gold_usd": 4622.5,
 "gold_gbp": 3379.23,
 "regime": "neutral",
@@ -2044,8 +2044,8 @@
 },
 {
 "date": "2026-02-09",
-"score": 57.6,
-"verdict": "HOLD",
+"score": 71.4,
+"verdict": "ADD",
 "gold_usd": 5050.9,
 "gold_gbp": 3711.45,
 "regime": "reflation",
@@ -2053,7 +2053,7 @@
 },
 {
 "date": "2026-02-17",
-"score": 58.7,
+"score": 74.5,
 "verdict": "ADD",
 "gold_usd": 4882.9,
 "gold_gbp": 3583.07,
@@ -2062,7 +2062,7 @@
 },
 {
 "date": "2026-02-24",
-"score": 60.3,
+"score": 74.8,
 "verdict": "ADD",
 "gold_usd": 5155.8,
 "gold_gbp": 3819.98,
@@ -2071,8 +2071,8 @@
 },
 {
 "date": "2026-03-03",
-"score": 55.9,
-"verdict": "HOLD",
+"score": 71.8,
+"verdict": "ADD",
 "gold_usd": 5107.4,
 "gold_gbp": 3808.49,
 "regime": "reflation",
@@ -2080,7 +2080,7 @@
 },
 {
 "date": "2026-03-10",
-"score": 61.5,
+"score": 68.9,
 "verdict": "ADD",
 "gold_usd": 5229.7,
 "gold_gbp": 3895.5,
@@ -2089,8 +2089,8 @@
 },
 {
 "date": "2026-03-17",
-"score": 56.1,
-"verdict": "HOLD",
+"score": 75.0,
+"verdict": "ADD",
 "gold_usd": 5001.0,
 "gold_gbp": 3756.1,
 "regime": "disinflationary_easing",
@@ -2098,7 +2098,7 @@
 },
 {
 "date": "2026-03-24",
-"score": 44.7,
+"score": 52.1,
 "verdict": "HOLD",
 "gold_usd": 4399.3,
 "gold_gbp": 3277.13,
@@ -2107,26 +2107,26 @@
 },
 {
 "date": "2026-03-31",
-"score": 40.5,
-"verdict": "TRIM",
+"score": 52.0,
+"verdict": "HOLD",
 "gold_usd": 4647.6,
 "gold_gbp": 3509.4,
-"regime": "hostile",
-"backfilled": true
-},
-{
-"date": "2026-04-08",
-"score": 50.5,
-"verdict": "HOLD",
-"gold_usd": 4749.5,
-"gold_gbp": 3545.98,
 "regime": "neutral",
 "backfilled": true
 },
 {
-"date": "2026-04-15",
-"score": 52.4,
+"date": "2026-04-08",
+"score": 54.4,
 "verdict": "HOLD",
+"gold_usd": 4749.5,
+"gold_gbp": 3545.98,
+"regime": "hostile",
+"backfilled": true
+},
+{
+"date": "2026-04-15",
+"score": 63.8,
+"verdict": "ADD",
 "gold_usd": 4800.0,
 "gold_gbp": 3536.25,
 "regime": "neutral",
@@ -2134,8 +2134,8 @@
 },
 {
 "date": "2026-04-22",
-"score": 54.7,
-"verdict": "HOLD",
+"score": 69.9,
+"verdict": "ADD",
 "gold_usd": 4732.5,
 "gold_gbp": 3505.46,
 "regime": "reflation",
@@ -2143,25 +2143,133 @@
 },
 {
 "date": "2026-04-29",
-"score": 44.7,
-"verdict": "HOLD",
+"score": 63.0,
+"verdict": "ADD",
 "gold_usd": 4545.2,
 "gold_gbp": 3369.66,
-"regime": "hostile",
-"backfilled": true
-},
-{
-"date": "2026-05-06",
-"score": 49.1,
-"verdict": "HOLD",
-"gold_usd": 4681.9,
-"gold_gbp": 3444.66,
 "regime": "neutral",
 "backfilled": true
 },
 {
+"date": "2026-05-06",
+"score": 53.3,
+"verdict": "ADD",
+"gold_usd": 4681.9,
+"gold_gbp": 3444.66,
+"regime": "hostile",
+"backfilled": true
+},
+{
+"date": "2026-05-13",
+"score": 61.1,
+"verdict": "ADD",
+"gold_usd": 4697.7,
+"gold_gbp": 3473.01,
+"regime": "neutral",
+"backfilled": true
+},
+{
+"date": "2026-05-20",
+"score": 46.4,
+"verdict": "HOLD",
+"gold_usd": 4531.3,
+"gold_gbp": 3373.01,
+"regime": "hostile",
+"backfilled": true
+},
+{
+"date": "2026-05-28",
+"score": 41.1,
+"verdict": "HOLD",
+"gold_usd": 4499.3,
+"gold_gbp": 3346.58,
+"regime": "hostile",
+"backfilled": true
+},
+{
+"date": "2026-06-04",
+"score": 38.1,
+"verdict": "HOLD",
+"gold_usd": 4475.8,
+"gold_gbp": 3333.43,
+"regime": "hostile",
+"backfilled": true
+},
+{
+"date": "2026-06-11",
+"score": 37.8,
+"verdict": "TRIM",
+"gold_usd": 4090.3,
+"gold_gbp": 3049.32,
+"regime": "neutral",
+"backfilled": true
+},
+{
+"date": "2026-06-18",
+"score": 33.2,
+"verdict": "TRIM",
+"gold_usd": 4224.1,
+"gold_gbp": 3199.59,
+"regime": "neutral",
+"backfilled": true
+},
+{
+"date": "2026-06-26",
+"score": 33.9,
+"verdict": "TRIM",
+"gold_usd": 4078.7,
+"gold_gbp": 3056.21,
+"regime": "hostile",
+"backfilled": true
+},
+{
+"date": "2026-07-06",
+"score": 24.3,
+"verdict": "TRIM",
+"gold_usd": 4155.1,
+"gold_gbp": 3101.31,
+"regime": "neutral",
+"backfilled": true
+},
+{
+"date": "2026-07-13",
+"score": 21.3,
+"verdict": "SELL/REDUCE",
+"gold_usd": 3997.0,
+"gold_gbp": 2994.47,
+"regime": "hostile",
+"backfilled": true
+},
+{
+"date": "2026-07-20",
+"score": 16.3,
+"verdict": "SELL/REDUCE",
+"gold_usd": 4010.3,
+"gold_gbp": 2985.71,
+"regime": "hostile",
+"backfilled": true
+},
+{
+"date": "2026-07-27",
+"score": 7.8,
+"verdict": "SELL/REDUCE",
+"gold_usd": 4074.5,
+"gold_gbp": 3065.86,
+"regime": "hostile",
+"backfilled": true
+},
+{
+"date": "2026-08-03",
+"score": 9.7,
+"verdict": "SELL/REDUCE",
+"gold_usd": 4033.7,
+"gold_gbp": 3004.17,
+"regime": "hostile",
+"backfilled": true
+},
+{
 "date": "2026-08-07",
-"score": 25.7,
+"score": 22.3,
 "verdict": "SELL/REDUCE",
 "gold_usd": 4340.7,
 "gold_gbp": 3152.65,

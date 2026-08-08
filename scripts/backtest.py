@@ -4,12 +4,21 @@ print band-by-band forward 3-month gold returns. The engine is only worth trusti
 if high bands led to better forward returns than low bands.
 
 Uses data/series_cache.json written by fetch_and_score.py (run that first).
-Signals J (central banks) and K (ETF flows) are manual inputs with no history, so
-they are excluded and weights renormalise — exactly what the live engine does when
-a series is stale. COT and GPR percentile windows are shorter at the start of the
-replay (less lookback exists in the cache); treat the earliest scores as softer.
-Note: GPR is monthly and published with a lag, so the replay sees each month's
-value ~immediately — a mild lookahead on a 5-weight signal.
+
+Honesty measures baked in:
+- Publication lags are applied so the replay only sees data when it was actually
+  available: COT report dates shifted +3 calendar days (CFTC publishes Friday for
+  Tuesday positions), GPR +32 days (monthly index published the following month),
+  broad dollar +7 days (Fed publishes DTWEXBGS with ~1 week lag).
+- Signals J (central banks) and K (ETF flows) are manual inputs with no history, so
+  they are excluded and weights renormalise — the live engine does the same while
+  manual_inputs.json carries placeholder values, so replay and live configurations
+  match.
+- Weekly samples of 63-day forward returns overlap ~92%; the effective number of
+  independent observations is printed, and a non-overlapping subsample Spearman is
+  reported alongside the full-sample one. Bands with N<20 are flagged.
+- COT and GPR percentile windows are shorter at the start of the replay (less
+  lookback exists in the cache); treat the earliest scores as softer.
 
 Usage:
   python scripts/backtest.py                 # print the honesty table
@@ -18,6 +27,7 @@ Usage:
                                              # "backfilled"; live rows always win)
 """
 
+import datetime as dt
 import json
 import os
 import sys
@@ -30,6 +40,15 @@ DATA_DIR = os.path.join(ROOT, "data")
 
 eng.warn = lambda msg: None  # replay would otherwise spam J/K-excluded warnings
 
+# Days each series must be lagged so the replay only sees published data.
+PUBLICATION_LAG_DAYS = {"cot": 3, "gpr": 32, "dollar": 7}
+
+
+def shift_dates(series, days):
+    return eng.Series(
+        [(dt.date.fromisoformat(d) + dt.timedelta(days=days)).isoformat() for d in series.dates],
+        list(series.values))
+
 
 def load_cache():
     path = os.path.join(DATA_DIR, "series_cache.json")
@@ -37,7 +56,11 @@ def load_cache():
         sys.exit("data/series_cache.json not found — run scripts/fetch_and_score.py first.")
     with open(path) as f:
         raw = json.load(f)
-    return {k: eng.Series(v["dates"], v["values"]) for k, v in raw.items()}
+    cache = {k: eng.Series(v["dates"], v["values"]) for k, v in raw.items()}
+    for k, lag in PUBLICATION_LAG_DAYS.items():
+        if k in cache:
+            cache[k] = shift_dates(cache[k], lag)
+    return cache
 
 
 def fake_freshness(bundle):
@@ -64,12 +87,43 @@ def score_asof(cache, date):
             return None
     signals = eng.compute_signals(d, fake_freshness(d), MANUAL_NEUTRAL)
     regime_key, regime_name, _ = eng.classify_regime(d)
+    fv_mod = 0.0
     try:
-        fv_gap = eng.fair_value_gap(d["gold_usd"], d["dfii10"], d["dollar"])
+        fv = eng.fair_value_gap(d["gold_usd"], d["dfii10"], d["dollar"])
+        if fv:
+            gap, beta1, _asof = fv
+            if beta1 < 0:  # same sanity gate as the live engine
+                fv_mod = eng.clamp(-gap / 4.0, -5, 5)
     except Exception:  # noqa: BLE001
-        fv_gap = None
-    score, *_ = eng.compute_composite(signals, regime_key, fv_gap)
-    return round(score, 1), eng.verdict_for(score), regime_key
+        pass
+    score, *_ = eng.compute_composite(signals, regime_key, fv_mod)
+    return round(score, 1), regime_key
+
+
+def ranks(xs):
+    """Ranks with ties averaged (scores are rounded, so ties are common)."""
+    order = sorted(range(len(xs)), key=lambda i: xs[i])
+    r = [0.0] * len(xs)
+    i = 0
+    while i < len(order):
+        j = i
+        while j + 1 < len(order) and xs[order[j + 1]] == xs[order[i]]:
+            j += 1
+        avg = (i + j) / 2.0
+        for k in range(i, j + 1):
+            r[order[k]] = avg
+        i = j + 1
+    return r
+
+
+def spearman(xs, ys):
+    rx, ry = ranks(xs), ranks(ys)
+    n = len(xs)
+    mx, my = sum(rx) / n, sum(ry) / n
+    cov = sum((a - mx) * (b - my) for a, b in zip(rx, ry))
+    vx = sum((a - mx) ** 2 for a in rx)
+    vy = sum((b - my) ** 2 for b in ry)
+    return cov / (vx * vy) ** 0.5 if vx and vy else 0.0
 
 
 def main():
@@ -77,59 +131,66 @@ def main():
     cache = load_cache()
     gold = cache["gold_usd"]
 
-    # Weekly replay dates over the last ~5 years, leaving 63 trading days of forward data
     n = len(gold)
     start_i = max(300, n - 1260)
-    replay_idx = list(range(start_i, n - 63, 5))
+    # Replay weekly to the present; rows with >=63 trading days of forward data feed
+    # the honesty table, later rows exist only so the dashboard history is unbroken.
+    replay_idx = list(range(start_i, n, 5))
+    if (n - 1) not in replay_idx:
+        replay_idx.append(n - 1)
 
-    rows = []
+    rows, prev_verdict = [], None
     for i in replay_idx:
         date = gold.dates[i]
         res = score_asof(cache, date)
         if res is None:
             continue
-        score, verdict, regime = res
-        fwd = gold.values[i + 63] / gold.values[i] - 1.0
-        rows.append({"date": date, "score": score, "verdict": verdict,
-                     "regime": regime, "gold_usd": round(gold.values[i], 2), "fwd_3m": fwd})
-    if not rows:
+        score, regime = res
+        verdict = eng.verdict_for(score, prev_verdict)
+        prev_verdict = verdict
+        fwd = gold.values[i + 63] / gold.values[i] - 1.0 if i + 63 < n else None
+        rows.append({"date": date, "score": score, "verdict": verdict, "regime": regime,
+                     "gold_usd": round(gold.values[i], 2), "fwd_3m": fwd})
+    scored = [r for r in rows if r["fwd_3m"] is not None]
+    if not scored:
         sys.exit("No replayable dates — cache too short.")
 
-    print(f"Replayed {len(rows)} weekly dates: {rows[0]['date']} → {rows[-1]['date']}")
-    print(f"(J/K excluded — no manual history. Early COT/GPR percentiles use shorter lookback.)\n")
+    eff_n = max(1, len(scored) // 13)  # 63-day windows sampled every 5 days overlap ~92%
+    print(f"Replayed {len(rows)} weekly dates: {rows[0]['date']} → {rows[-1]['date']} "
+          f"({len(scored)} with forward returns)")
+    print(f"Publication lags applied: COT +3d, GPR +32d, dollar +7d. J/K excluded "
+          f"(matches live engine while manual inputs are placeholder).")
+    print(f"CAUTION: overlapping windows — {len(scored)} samples ≈ {eff_n} independent "
+          f"observations. Averages are descriptive, not proof.\n")
 
     order = ["ACCUMULATE", "ADD", "HOLD", "TRIM", "SELL/REDUCE"]
-    print(f"{'BAND':<12} {'N':>4} {'AVG 3M FWD':>11} {'MEDIAN':>8} {'% POSITIVE':>11}")
-    print("-" * 50)
+    print(f"{'BAND':<14} {'N':>4} {'AVG 3M FWD':>11} {'MEDIAN':>8} {'% POSITIVE':>11}")
+    print("-" * 54)
     for band in order:
-        sel = [r["fwd_3m"] for r in rows if r["verdict"] == band]
+        sel = sorted(r["fwd_3m"] for r in scored if r["verdict"] == band)
         if not sel:
-            print(f"{band:<12} {0:>4} {'—':>11} {'—':>8} {'—':>11}")
+            print(f"{band:<14} {0:>4} {'—':>11} {'—':>8} {'—':>11}")
             continue
-        sel.sort()
+        flag = "*" if len(sel) < 20 else " "
         avg = sum(sel) / len(sel)
         med = sel[len(sel) // 2]
         pos = 100 * sum(1 for x in sel if x > 0) / len(sel)
-        print(f"{band:<12} {len(sel):>4} {avg:>+10.1%} {med:>+7.1%} {pos:>10.0f}%")
-
-    all_fwd = sorted(r["fwd_3m"] for r in rows)
-    print("-" * 50)
-    print(f"{'ALL':<12} {len(all_fwd):>4} {sum(all_fwd)/len(all_fwd):>+10.1%} "
+        print(f"{band + flag:<14} {len(sel):>4} {avg:>+10.1%} {med:>+7.1%} {pos:>10.0f}%")
+    all_fwd = sorted(r["fwd_3m"] for r in scored)
+    print("-" * 54)
+    print(f"{'ALL':<14} {len(all_fwd):>4} {sum(all_fwd)/len(all_fwd):>+10.1%} "
           f"{all_fwd[len(all_fwd)//2]:>+7.1%} "
           f"{100*sum(1 for x in all_fwd if x>0)/len(all_fwd):>10.0f}%")
+    print("(* = N<20: too few observations to mean anything)")
 
-    # Rank correlation between score and forward return (Spearman via rank differences)
-    def ranks(xs):
-        order_i = sorted(range(len(xs)), key=lambda i: xs[i])
-        r = [0] * len(xs)
-        for rank, i in enumerate(order_i):
-            r[i] = rank
-        return r
-    rs, rf = ranks([r["score"] for r in rows]), ranks([r["fwd_3m"] for r in rows])
-    m = len(rows)
-    rho = 1 - 6 * sum((a - b) ** 2 for a, b in zip(rs, rf)) / (m * (m * m - 1))
-    print(f"\nSpearman rank correlation (score vs fwd 3m return): {rho:+.2f}")
-    if rho < 0.05:
+    rho = spearman([r["score"] for r in scored], [r["fwd_3m"] for r in scored])
+    sub = scored[::13]  # ~non-overlapping quarterly samples
+    rho_nol = spearman([r["score"] for r in sub], [r["fwd_3m"] for r in sub]) if len(sub) > 3 else float("nan")
+    changes = sum(1 for a, b in zip(rows, rows[1:]) if a["verdict"] != b["verdict"])
+    print(f"\nSpearman rank corr (score vs fwd 3m): {rho:+.2f} full sample; "
+          f"{rho_nol:+.2f} on {len(sub)} non-overlapping samples")
+    print(f"Verdict changes across the replay (with hysteresis): {changes}")
+    if rho < 0.10:
         print("Read that honestly: over this window the score had little-to-no predictive "
               "edge on 3-month horizons. Treat the engine as a risk framework, not a crystal ball.")
 
@@ -145,17 +206,14 @@ def main():
             if r["date"] in live_dates:
                 continue
             gbp = cache.get("gold_gbp")
-            gbp_v = gbp.asof(r["date"]).last if gbp and len(gbp.asof(r["date"])) else None
+            gbp_t = gbp.asof(r["date"]) if gbp else None
             merged[r["date"]] = {"date": r["date"], "score": r["score"], "verdict": r["verdict"],
                                  "gold_usd": r["gold_usd"],
-                                 "gold_gbp": round(gbp_v, 2) if gbp_v else None,
+                                 "gold_gbp": round(gbp_t.last, 2) if gbp_t and len(gbp_t) else None,
                                  "regime": r["regime"], "backfilled": True}
         out = sorted(merged.values(), key=lambda h: h["date"])
-        with open(hist_path, "w") as f:
-            json.dump(out, f, indent=0)
-        docs_copy = os.path.join(ROOT, "docs", "data", "history.json")
-        with open(docs_copy, "w") as f:
-            json.dump(out, f, indent=0)
+        eng.write_json(hist_path, out, indent=0)
+        eng.write_json(os.path.join(ROOT, "docs", "data", "history.json"), out, indent=0)
         print(f"\nWrote {len(out)} rows to data/history.json (+ docs/data mirror), "
               f"{sum(1 for h in out if h.get('backfilled'))} backfilled.")
 

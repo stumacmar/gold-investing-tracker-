@@ -1,14 +1,16 @@
 {
-  "_doc": "Manually maintained inputs, updated roughly quarterly from World Gold Council 'Gold Demand Trends' (gold.org). Update the numbers AND the last_updated date — the engine drops a signal as stale when last_updated is more than ~130 days old, and the dashboard shows it greyed out. Fields: central_banks.recent_4q_tonnes = official-sector net purchases over the last four reported quarters; five_year_avg_annual_tonnes = average annual net purchases over the trailing five years. etf_flows.last_3m_net_tonnes = global gold-ETF net flows over the last three months (positive = inflows).",
+  "_doc": "Manually maintained inputs, updated roughly quarterly from World Gold Council 'Gold Demand Trends' (gold.org). IMPORTANT: while \"placeholder\": true is set, the signal is EXCLUDED from scoring (shown greyed on the dashboard) — set it to false only once you have entered real WGC figures. Update the numbers AND the last_updated date each quarter; the engine also drops the signal as stale when last_updated is more than ~130 days old. Fields: central_banks.recent_4q_tonnes = official-sector net purchases over the last four reported quarters; five_year_avg_annual_tonnes = average annual net purchases over the trailing five years. etf_flows.last_3m_net_tonnes = global gold-ETF net flows over the last three months (positive = inflows).",
   "central_banks": {
+    "placeholder": true,
     "last_updated": "2026-07-30",
     "recent_4q_tonnes": 900,
     "five_year_avg_annual_tonnes": 950,
-    "note": "Seed values — replace with the latest WGC Gold Demand Trends figures."
+    "note": "PLACEHOLDER seed values — replace with the latest WGC Gold Demand Trends figures, then set placeholder to false."
   },
   "etf_flows": {
+    "placeholder": true,
     "last_updated": "2026-07-30",
     "last_3m_net_tonnes": 120,
-    "note": "Seed values — replace with the latest WGC / ETF flow figures."
+    "note": "PLACEHOLDER seed values — replace with the latest WGC / ETF flow figures, then set placeholder to false."
   }
 }
