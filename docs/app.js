@@ -26,8 +26,7 @@ function renderGauge(d) {
   $("verdict").style.color = verdictColor(d.verdict);
   $("band-note").textContent = d.band_note || "";
   $("confidence").textContent =
-    `Data confidence ${d.confidence.level} (freshness & agreement, not model validity) · ` +
-    `${d.confidence.freshness_pct}% of weight live`;
+    `Data confidence ${d.confidence.level} · ${d.confidence.freshness_pct}% of weight live`;
   const live = d.signals.filter((s) => !s.stale && s.score !== null);
   const top = live.slice().sort((a, b) =>
     Math.abs(b.score * b.eff_weight) - Math.abs(a.score * a.eff_weight)).slice(0, 2);

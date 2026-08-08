@@ -921,14 +921,11 @@ def main():
 
     ggbp = d.get("gold_gbp")
     band_notes = {
-        "SELL/REDUCE": "A low band means the usual macro tailwinds are absent. The backtest shows no "
-                       "demonstrated edge in low bands as a sell-timing signal — treat it as risk posture, "
-                       "not an instruction.",
-        "TRIM": "A low band means the usual macro tailwinds are absent. The backtest shows no demonstrated "
-                "edge in low bands as a sell-timing signal — treat it as risk posture, not an instruction.",
-        "HOLD": "Signals conflict or the edge is small. Doing nothing is a position.",
-        "ADD": "High bands preceded above-average 3-month returns in the replay — on a small sample.",
-        "ACCUMULATE": "High bands preceded above-average 3-month returns in the replay — on a small sample.",
+        "SELL/REDUCE": "Macro tailwinds absent — risk posture, not a sell-timing call.",
+        "TRIM": "Macro tailwinds absent — risk posture, not a sell-timing call.",
+        "HOLD": "Signals conflict; the edge is small.",
+        "ADD": "High bands preceded above-average 3m returns (small sample).",
+        "ACCUMULATE": "High bands preceded above-average 3m returns (small sample).",
     }
     latest = {
         "generated_at": dt.datetime.utcnow().isoformat() + "Z",
