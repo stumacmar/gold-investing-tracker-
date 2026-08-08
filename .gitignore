@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.DS_Store
+# Regenerated on every run by fetch_and_score.py, only needed locally by backtest.py.
+# Committing 650KB twice a day would bloat git history for nothing.
+data/series_cache.json

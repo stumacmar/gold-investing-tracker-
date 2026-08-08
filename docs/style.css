@@ -1,0 +1,196 @@
+/* Gold Signal Engine — dealing-room dark. One gold accent, used sparingly. */
+
+:root {
+  --bg: #101512;
+  --panel: #151b16;
+  --panel-2: #1a211b;
+  --line: #232b24;
+  --text: #e9e6dc;
+  --muted: #8d968b;
+  --faint: #5c655b;
+  --gold: #c9a227;
+  --gold-bright: #e0bc47;
+  --neg: #b0563f;
+  --pos: #7d9464;
+  --display: "Oswald", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", -apple-system, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.45;
+  font-variant-numeric: tabular-nums;
+  padding: max(10px, env(safe-area-inset-top)) 12px calc(24px + env(safe-area-inset-bottom));
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+a { color: var(--gold); }
+
+/* ---------------- masthead */
+.masthead {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 2px 14px;
+}
+.brand {
+  font-family: var(--display); font-weight: 600; font-size: 15px;
+  letter-spacing: 0.22em; color: var(--muted);
+}
+.asof { font-size: 12px; color: var(--faint); }
+
+/* ---------------- gauge */
+.gauge-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px 18px 18px;
+  margin-bottom: 12px;
+}
+.gauge { position: relative; }
+.gauge-track {
+  position: relative; height: 26px; border-radius: 4px; overflow: visible;
+  background: var(--panel-2);
+}
+.band { position: absolute; top: 0; height: 100%; }
+.band-sell  { background: #35201b; border-radius: 4px 0 0 4px; }
+.band-trim  { background: #302a1c; }
+.band-hold  { background: #232a22; }
+.band-add   { background: #2a2f1e; }
+.band-accum { background: #3a3113; border-radius: 0 4px 4px 0; }
+
+.needle {
+  position: absolute; top: -7px; bottom: -7px; width: 3px; left: 0%;
+  background: var(--gold-bright);
+  box-shadow: 0 0 8px rgba(224, 188, 71, 0.55);
+  border-radius: 2px;
+  transition: left 1.1s cubic-bezier(.22,.9,.34,1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .needle { transition: none; }
+}
+
+.gauge-ticks, .gauge-band-labels { position: relative; height: 16px; margin-top: 6px; }
+.gauge-ticks span, .gauge-band-labels span {
+  position: absolute; transform: translateX(-50%);
+  font-size: 10px; color: var(--faint); letter-spacing: 0.05em;
+}
+.gauge-ticks span:first-child { transform: none; }
+.gauge-ticks span:last-child { transform: translateX(-100%); }
+.gauge-band-labels { height: 14px; margin-top: 0; }
+.gauge-band-labels span { font-family: var(--display); letter-spacing: 0.14em; font-size: 9px; }
+
+.verdict-block { text-align: center; margin-top: 18px; }
+.score-num {
+  font-family: var(--display); font-weight: 600; font-size: 56px; line-height: 1;
+  color: var(--gold);
+}
+.score-denom { font-size: 20px; color: var(--faint); font-weight: 400; margin-left: 4px; }
+.verdict {
+  font-family: var(--display); font-weight: 600; font-size: 34px;
+  letter-spacing: 0.18em; margin-top: 2px;
+}
+.confidence { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+/* ---------------- stats row */
+.stats {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+  margin-bottom: 12px;
+}
+@media (min-width: 560px) { .stats { grid-template-columns: repeat(5, 1fr); } }
+.stat {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+  padding: 10px 12px;
+}
+.stat .k { font-size: 10px; letter-spacing: 0.12em; color: var(--faint); text-transform: uppercase; }
+.stat .v { font-family: var(--display); font-size: 20px; font-weight: 500; margin-top: 2px; }
+.stat .s { font-size: 11px; color: var(--muted); margin-top: 1px; }
+.stat .v.up { color: var(--pos); } .stat .v.down { color: var(--neg); }
+
+/* ---------------- panels */
+.panel {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+  padding: 16px 16px 14px; margin-bottom: 12px;
+}
+.panel-title {
+  font-family: var(--display); font-size: 12px; font-weight: 500;
+  letter-spacing: 0.22em; color: var(--muted); margin-bottom: 12px;
+}
+
+.regime-name { font-family: var(--display); font-size: 24px; font-weight: 500; letter-spacing: 0.04em; }
+.regime-desc { color: var(--muted); font-size: 13px; margin-top: 6px; }
+
+/* ---------------- chart */
+.chart-wrap { position: relative; height: 260px; }
+.chart-note { font-size: 11px; color: var(--faint); margin-top: 8px; }
+
+/* ---------------- signals */
+.signal { border-top: 1px solid var(--line); }
+.signal:first-child { border-top: none; }
+.signal-head {
+  display: grid;
+  grid-template-columns: 26px 1fr 92px 44px;
+  gap: 8px; align-items: center;
+  padding: 11px 2px; min-height: 44px;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+  background: none; border: none; width: 100%; text-align: left;
+  color: inherit; font: inherit;
+}
+.sig-id {
+  font-family: var(--display); font-weight: 600; font-size: 14px;
+  color: var(--faint); text-align: center;
+  border: 1px solid var(--line); border-radius: 5px; padding: 3px 0;
+}
+.sig-name { font-weight: 600; font-size: 14px; }
+.sig-value { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.sig-weight { font-size: 11px; color: var(--faint); text-align: right; }
+
+.scorebar { position: relative; height: 8px; background: var(--panel-2); border-radius: 4px; }
+.scorebar::after {
+  content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px;
+  background: var(--faint); opacity: 0.6;
+}
+.scorebar .fill { position: absolute; top: 0; height: 100%; border-radius: 4px; }
+.scorebar .fill.pos { left: 50%; background: var(--pos); }
+.scorebar .fill.neg { right: 50%; background: var(--neg); }
+.sig-score { font-family: var(--display); font-size: 13px; text-align: right; }
+.sig-score.pos { color: var(--pos); } .sig-score.neg { color: var(--neg); }
+
+.signal-body { display: none; padding: 0 2px 12px; }
+.signal.open .signal-body { display: block; }
+.sig-rationale { font-size: 13px; color: var(--text); opacity: 0.9; }
+.sig-spark { margin-top: 10px; }
+.sig-spark svg { width: 100%; height: 56px; display: block; }
+.spark-caption { font-size: 10px; color: var(--faint); margin-top: 3px; }
+
+.signal.stale { opacity: 0.45; }
+.signal.stale .sig-name::after {
+  content: " · STALE"; color: var(--neg); font-size: 10px; letter-spacing: 0.1em;
+}
+
+/* ---------------- flips */
+.flip-item { display: flex; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13.5px; }
+.flip-item:first-child { border-top: none; }
+.flip-id {
+  font-family: var(--display); font-weight: 600; color: var(--gold);
+  min-width: 20px;
+}
+
+/* ---------------- GBP lens */
+.gbp-price { font-family: var(--display); font-size: 26px; font-weight: 500; color: var(--text); }
+.gbp-note { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* ---------------- freshness */
+.freshness table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.freshness td { padding: 4px 6px 4px 0; color: var(--muted); border-top: 1px solid var(--line); }
+.freshness tr:first-child td { border-top: none; }
+.freshness td.src { color: var(--text); }
+.freshness td.age { text-align: right; white-space: nowrap; }
+.badge-stale { color: var(--neg); font-size: 10px; letter-spacing: 0.08em; }
+.colophon { font-size: 11px; color: var(--faint); margin-top: 14px; }
