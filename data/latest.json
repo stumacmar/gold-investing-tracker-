@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-08-08T21:38:08.876275Z",
+ "generated_at": "2026-08-08T23:06:54.916483Z",
  "as_of": "2026-08-07",
- "score": 22.3,
+ "score": 23.4,
  "verdict": "SELL/REDUCE",
  "band_note": "Macro tailwinds absent \u2014 risk posture, not a sell-timing call.",
  "bands": {
@@ -14,7 +14,7 @@
  "confidence": {
   "level": "Med",
   "freshness_pct": 94,
-  "dispersion": 0.62
+  "dispersion": 0.7
  },
  "regime": {
   "key": "hostile",
@@ -412,9 +412,9 @@
    "id": "E",
    "name": "Trend & momentum",
    "weight": 12,
-   "score": -0.36,
+   "score": 0.22,
    "value": "$4,341 (50DMA $4,169)",
-   "rationale": "Price above the 50DMA and below the 200DMA, death cross in force \u2014 the tape is against you.",
+   "rationale": "Price above the 50DMA, below the 200DMA (death cross in force), +5.8% over 20 sessions \u2014 the trend is doing the heavy lifting.",
    "spark": [
     [
      "2025-07-28",
@@ -579,7 +579,7 @@
    ],
    "flip": {
     "text": "A close below the 50DMA at $4,169 starts flipping trend bearish.",
-    "distance": 0.3558379666401906
+    "distance": 0.2206589316478575
    },
    "stale": false,
    "eff_weight": 12.0
@@ -588,9 +588,9 @@
    "id": "C",
    "name": "Policy trajectory",
    "weight": 10,
-   "score": -1.09,
+   "score": -1.45,
    "value": "4.25% (+0.38pp 3m)",
-   "rationale": "2Y yield 4.25%, +0.38pp over 3m \u2014 rate expectations are firming against gold.",
+   "rationale": "2Y yield 4.25%, +0.38pp over 3m; 2Y 0.62pp above the funds rate (no cuts priced) \u2014 rate expectations are firming against gold.",
    "spark": [
     [
      "2025-07-24",
@@ -755,7 +755,7 @@
    ],
    "flip": {
     "text": "2Y yield below 3.87% flips the policy trajectory bullish.",
-    "distance": 1.0857142857142854
+    "distance": 1.4514285714285713
    },
    "stale": false,
    "eff_weight": 10.0
@@ -1601,6 +1601,182 @@
    "eff_weight": 5.0
   },
   {
+   "id": "M",
+   "name": "Labour market",
+   "weight": 5,
+   "score": -0.81,
+   "value": "198,750 claims / 4.1%",
+   "rationale": "Initial claims 4-wk avg 198,750 (-2.1% vs 3m ago), unemployment 4.1% (-0.20pp 3m) \u2014 labour market strong \u2014 no pressure on the Fed to ease.",
+   "spark": [
+    [
+     "2024-08-10",
+     228000.0
+    ],
+    [
+     "2024-08-31",
+     227000.0
+    ],
+    [
+     "2024-09-14",
+     223000.0
+    ],
+    [
+     "2024-10-05",
+     258000.0
+    ],
+    [
+     "2024-10-26",
+     219000.0
+    ],
+    [
+     "2024-11-09",
+     218000.0
+    ],
+    [
+     "2024-11-30",
+     222000.0
+    ],
+    [
+     "2024-12-14",
+     222000.0
+    ],
+    [
+     "2025-01-04",
+     206000.0
+    ],
+    [
+     "2025-01-25",
+     212000.0
+    ],
+    [
+     "2025-02-08",
+     216000.0
+    ],
+    [
+     "2025-03-01",
+     224000.0
+    ],
+    [
+     "2025-03-22",
+     224000.0
+    ],
+    [
+     "2025-04-05",
+     223000.0
+    ],
+    [
+     "2025-04-26",
+     239000.0
+    ],
+    [
+     "2025-05-17",
+     225000.0
+    ],
+    [
+     "2025-05-31",
+     244000.0
+    ],
+    [
+     "2025-06-21",
+     236000.0
+    ],
+    [
+     "2025-07-12",
+     221000.0
+    ],
+    [
+     "2025-07-26",
+     219000.0
+    ],
+    [
+     "2025-08-16",
+     233000.0
+    ],
+    [
+     "2025-08-30",
+     236000.0
+    ],
+    [
+     "2025-09-20",
+     219000.0
+    ],
+    [
+     "2025-10-11",
+     222000.0
+    ],
+    [
+     "2025-10-25",
+     221000.0
+    ],
+    [
+     "2025-11-15",
+     222000.0
+    ],
+    [
+     "2025-12-06",
+     235000.0
+    ],
+    [
+     "2025-12-20",
+     215000.0
+    ],
+    [
+     "2026-01-10",
+     201000.0
+    ],
+    [
+     "2026-01-31",
+     230000.0
+    ],
+    [
+     "2026-02-14",
+     208000.0
+    ],
+    [
+     "2026-03-07",
+     213000.0
+    ],
+    [
+     "2026-03-28",
+     203000.0
+    ],
+    [
+     "2026-04-11",
+     208000.0
+    ],
+    [
+     "2026-05-02",
+     199000.0
+    ],
+    [
+     "2026-05-16",
+     210000.0
+    ],
+    [
+     "2026-06-06",
+     230000.0
+    ],
+    [
+     "2026-06-27",
+     217000.0
+    ],
+    [
+     "2026-07-11",
+     209000.0
+    ],
+    [
+     "2026-08-01",
+     199000.0
+    ]
+   ],
+   "flip": {
+    "text": "Claims 4-wk average crossing 203,000 (its level 3m ago) flips the labour signal.",
+    "distance": 0.8062397372742207
+   },
+   "stale": false,
+   "eff_weight": 5.0
+  },
+  {
    "id": "L",
    "name": "Gold/silver ratio",
    "weight": 2,
@@ -1809,7 +1985,7 @@
    "provider": "yahoo:GC=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:01.480657Z"
+   "fetched_at": "2026-08-08T23:06:48.875703Z"
   },
   "gold_gbp": {
    "last_date": "2026-08-06",
@@ -1818,7 +1994,7 @@
    "provider": "derived:GC=F/GBPUSD",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:02.408894Z"
+   "fetched_at": "2026-08-08T23:06:49.738952Z"
   },
   "silver": {
    "last_date": "2026-08-07",
@@ -1827,7 +2003,7 @@
    "provider": "yahoo:SI=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:03.157041Z"
+   "fetched_at": "2026-08-08T23:06:50.701817Z"
   },
   "dfii10": {
    "last_date": "2026-08-06",
@@ -1836,7 +2012,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:03.446049Z"
+   "fetched_at": "2026-08-08T23:06:50.945949Z"
   },
   "dgs10": {
    "last_date": "2026-08-06",
@@ -1845,7 +2021,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:03.767903Z"
+   "fetched_at": "2026-08-08T23:06:51.217647Z"
   },
   "dgs2": {
    "last_date": "2026-08-06",
@@ -1854,7 +2030,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:04.064431Z"
+   "fetched_at": "2026-08-08T23:06:51.493816Z"
   },
   "t10yie": {
    "last_date": "2026-08-07",
@@ -1863,7 +2039,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:04.346844Z"
+   "fetched_at": "2026-08-08T23:06:51.745174Z"
   },
   "t5yifr": {
    "last_date": "2026-08-07",
@@ -1872,7 +2048,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:04.608430Z"
+   "fetched_at": "2026-08-08T23:06:52.022985Z"
   },
   "dollar": {
    "last_date": "2026-07-31",
@@ -1881,7 +2057,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:04.852791Z"
+   "fetched_at": "2026-08-08T23:06:52.273882Z"
   },
   "vix": {
    "last_date": "2026-08-06",
@@ -1890,7 +2066,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:05.116053Z"
+   "fetched_at": "2026-08-08T23:06:52.558137Z"
   },
   "baa10y": {
    "last_date": "2026-08-06",
@@ -1899,7 +2075,34 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:07.413126Z"
+   "fetched_at": "2026-08-08T23:06:52.818830Z"
+  },
+  "effr": {
+   "last_date": "2026-08-06",
+   "age_days": 2,
+   "cadence": "daily",
+   "provider": "fred-csv",
+   "ok": true,
+   "stale": false,
+   "fetched_at": "2026-08-08T23:06:53.059345Z"
+  },
+  "icsa": {
+   "last_date": "2026-08-01",
+   "age_days": 7,
+   "cadence": "weekly",
+   "provider": "fred-csv",
+   "ok": true,
+   "stale": false,
+   "fetched_at": "2026-08-08T23:06:53.304412Z"
+  },
+  "unrate": {
+   "last_date": "2026-07-01",
+   "age_days": 38,
+   "cadence": "monthly",
+   "provider": "fred-csv",
+   "ok": true,
+   "stale": false,
+   "fetched_at": "2026-08-08T23:06:53.512116Z"
   },
   "cot": {
    "last_date": "2026-08-04",
@@ -1908,7 +2111,7 @@
    "provider": "cftc-socrata",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:08.131894Z"
+   "fetched_at": "2026-08-08T23:06:54.257045Z"
   },
   "gpr": {
    "last_date": "2026-07-01",
@@ -1917,7 +2120,7 @@
    "provider": "iacoviello-xls",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:08.864940Z"
+   "fetched_at": "2026-08-08T23:06:54.905877Z"
   },
   "central_banks": {
    "last_date": "2026-07-30",
@@ -1926,7 +2129,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:08.865216Z"
+   "fetched_at": "2026-08-08T23:06:54.906004Z"
   },
   "etf_flows": {
    "last_date": "2026-07-30",
@@ -1935,7 +2138,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-08T21:38:08.865221Z"
+   "fetched_at": "2026-08-08T23:06:54.906007Z"
   }
  },
  "warnings": [

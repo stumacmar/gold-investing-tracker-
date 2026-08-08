@@ -1,7 +1,7 @@
 # Gold Signal Engine
 
 A regime-aware scoring model for gold. Twice a day it fetches the macro data that
-actually drives the gold price, scores 12 signals, and publishes a **0–100 Gold
+actually drives the gold price, scores 13 signals, and publishes a **0–100 Gold
 Signal Score** with a one-word verdict on a [GitHub Pages dashboard](docs/).
 Every score is traceable to its inputs — no black boxes.
 
@@ -35,7 +35,7 @@ Alongside the verdict the engine always reports:
   because a sterling investor can be right on gold and still lose the move to
   the currency.
 
-## The 12 signals
+## The 13 signals
 
 Each signal scores **−2 to +2** (positive = bullish for gold) with a
 plain-English rationale generated from the actual numbers.
@@ -44,9 +44,9 @@ plain-English rationale generated from the actual numbers.
 |---|---|---|---|
 | A | Real yields | 20 | Level and 3-month change of 10Y TIPS yield (`DFII10`). Falling/negative real yields are the single most important driver of gold. −0.5pp over 3m ⇒ +2; +0.5pp ⇒ −2; small bonus below 0%, penalty above 2%. |
 | B | Dollar | 15 | Broad dollar (`DTWEXBGS`) vs its 200DMA plus 3-month momentum. A weakening dollar is bullish. |
-| C | Policy trajectory | 10 | 3-month change in the 2Y yield (`DGS2`) as a proxy for rate expectations. Falling 2Y = easing being priced = bullish. |
+| C | Policy trajectory | 10 | Two parts: 3-month change in the 2Y yield (`DGS2`), and the 2Y minus effective fed funds spread (`EFFR`) — a direct read on how much easing or tightening the market has actually priced relative to the current policy rate. 2Y falling and sitting below the funds rate = cuts priced = bullish. |
 | D | Inflation expectations | 8 | 3-month change in 10Y breakevens (`T10YIE`), with 5y5y (`T5YIFR`) as context. Breakevens rising **while real yields fall** earns a bonus — that combination is the strongest macro mix gold gets. |
-| E | Trend & momentum | 12 | Price vs 50DMA and 200DMA, golden/death cross, and the 12-month return's percentile within 5 years of rolling 12-month returns. |
+| E | Trend & momentum | 12 | Price vs 50DMA and 200DMA, golden/death cross, the 12-month return's percentile within 5 years of rolling 12-month returns, plus a 20-session rate-of-change so a violent week registers within days instead of waiting for a moving average to be reclaimed. |
 | F | Positioning (COT) | 8 | CFTC managed-money net longs in COMEX gold as a percentile of the 5y range. **Contrarian at extremes, asymmetrically**: washed-out longs (<10th pct) are a strong bullish signal (+1.5); crowded longs (>90th) are a deliberately softer penalty (−0.75), because in the 2021–26 sample crowded readings preceded +10.8% average 3-month rallies — crowded can stay crowded in a strong bull. |
 | G | Valuation stretch | 8 | % deviation from the 200DMA and RSI(14). >20% above the 200DMA or RSI>75 draws an overbought penalty; deep oversold earns a bonus. (The threshold was raised from 15% after review: 15% fired on 39% of bull-run days that went on to average +9.4% forward.) |
 | H | Fear & credit | 6 | VIX regime (`VIXCLS`) and 3-month widening of the BAA-Treasury spread (`BAA10Y`). Stress = safe-haven bid. |
@@ -54,6 +54,7 @@ plain-English rationale generated from the actual numbers.
 | J | Central bank demand | 4 | **Manual, quarterly** (from WGC): last 4 quarters of official-sector net purchases vs the 5y average annual pace. |
 | K | ETF flows | 2 | **Manual, quarterly**: 3-month global gold-ETF net flows — Western participation confirming or diverging from price. |
 | L | Gold/silver ratio | 2 | Extreme ratio percentiles as a risk-appetite tell. Silver confirming (low/falling ratio) is healthy; silver absent at the highs is a tired-rally warning. |
+| M | Labour market | 5 | Initial jobless claims 4-week average vs 3 months ago (`ICSA`) and unemployment-rate momentum (`UNRATE`). A cracking labour market is what historically forces the easing cycles that start gold's best regimes — it leads the 2Y rather than echoing it. |
 
 **Fair-value anchor — with a sanity gate.** A rolling 5-year regression of
 ln(gold) on the 10Y real yield and ln(broad dollar). The residual — "gold is
@@ -103,22 +104,23 @@ The engine never silently scores on dead or fake data.
 `scripts/backtest.py` replays the scoring weekly over ~5 years of history and
 prints forward 3-month gold returns by verdict band. It applies **publication
 lags** so the replay only sees data when it was actually available (COT +3
-days, GPR +32 days, broad dollar +7 days), excludes J and K exactly as the
-live engine does while manual inputs are placeholder, and states its own
-statistical limits: 240 weekly samples of overlapping 63-day windows are only
-**~18 independent observations**, so the table is descriptive, not proof.
+days, GPR +32 days, broad dollar +7 days, claims +5, unemployment +37, fed
+funds +1), excludes J and K exactly as the live engine does while manual
+inputs are placeholder, and states its own statistical limits: 240 weekly
+samples of overlapping 63-day windows are only **~18 independent
+observations**, so the table is descriptive, not proof.
 
 Current result (2021-08 → 2026-08):
 
 | Band | N | Avg 3m fwd | % positive |
 |---|---|---|---|
-| ACCUMULATE | 38 | +11.0% | 84% |
-| ADD | 61 | +4.0% | 69% |
-| HOLD | 49 | +1.7% | 61% |
-| TRIM | 42 | +6.2% | 81% |
-| SELL/REDUCE | 50 | +4.4% | 74% |
+| ACCUMULATE | 52 | +9.2% | 81% |
+| ADD | 45 | +5.0% | 73% |
+| HOLD | 49 | +1.5% | 59% |
+| TRIM | 50 | +5.1% | 80% |
+| SELL/REDUCE | 44 | +4.5% | 70% |
 
-Spearman rank correlation: +0.12 full sample, +0.39 on 19 non-overlapping
+Spearman rank correlation: +0.15 full sample, +0.48 on 19 non-overlapping
 samples. Read it honestly: the top of the scale is encouraging (ACCUMULATE
 weeks clearly beat HOLD weeks), but **TRIM and SELL/REDUCE were still followed
 by positive returns** — in the 2024–26 central-bank-driven bull, gold kept
@@ -152,7 +154,7 @@ docs/                               static dashboard (GitHub Pages), reads docs/
 | Series | Source | Fallback |
 |---|---|---|
 | Gold, silver, XAUGBP | Stooq CSV | Yahoo Finance (`GC=F`, `SI=F`, derived GBP via `GBPUSD=X`) |
-| DFII10, DGS10, DGS2, T10YIE, T5YIFR, DTWEXBGS, VIXCLS, BAA10Y | FRED API (`FRED_API_KEY` secret) | FRED keyless CSV endpoint |
+| DFII10, DGS10, DGS2, T10YIE, T5YIFR, DTWEXBGS, VIXCLS, BAA10Y, EFFR, ICSA, UNRATE | FRED API (`FRED_API_KEY` secret) | FRED keyless CSV endpoint |
 | COT managed money (gold) | CFTC Socrata API (disaggregated futures-only) | — |
 | Geopolitical Risk index | matteoiacoviello.com xls | last good copy cached in `data/gpr_cache.json` |
 | Central bank buying, ETF flows | `data/manual_inputs.json`, updated quarterly by hand from WGC | staleness-dated |

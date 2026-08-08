@@ -129,6 +129,7 @@ const SOURCE_LABELS = {
   dfii10: "10Y real yield (DFII10)", dgs10: "10Y nominal (DGS10)", dgs2: "2Y yield (DGS2)",
   t10yie: "10Y breakeven (T10YIE)", t5yifr: "5y5y inflation (T5YIFR)",
   dollar: "Broad dollar (DTWEXBGS)", vix: "VIX (VIXCLS)", baa10y: "Credit (BAA10Y)",
+  effr: "Fed funds rate (EFFR)", icsa: "Initial claims (ICSA)", unrate: "Unemployment (UNRATE)",
   cot: "COT managed money", gpr: "Geopolitical risk (GPR)",
   central_banks: "Central bank buying (manual)", etf_flows: "ETF flows (manual)",
 };

@@ -41,7 +41,8 @@ DATA_DIR = os.path.join(ROOT, "data")
 eng.warn = lambda msg: None  # replay would otherwise spam J/K-excluded warnings
 
 # Days each series must be lagged so the replay only sees published data.
-PUBLICATION_LAG_DAYS = {"cot": 3, "gpr": 32, "dollar": 7}
+PUBLICATION_LAG_DAYS = {"cot": 3, "gpr": 32, "dollar": 7,
+                        "icsa": 5, "unrate": 37, "effr": 1}
 
 
 def shift_dates(series, days):
@@ -77,13 +78,15 @@ MANUAL_NEUTRAL = {
 }
 
 CORE = ["gold_usd", "dfii10", "dgs10", "dgs2", "t10yie", "t5yifr",
-        "dollar", "vix", "baa10y", "silver", "cot", "gpr"]
+        "dollar", "vix", "baa10y", "silver", "cot", "gpr",
+        "effr", "icsa", "unrate"]
+MIN_OBS = {"gpr": 30, "cot": 30, "icsa": 30, "unrate": 12}
 
 
 def score_asof(cache, date):
     d = {k: s.asof(date) for k, s in cache.items()}
     for k in CORE:
-        if len(d.get(k, [])) < (30 if k in ("gpr", "cot") else 300):
+        if len(d.get(k, [])) < MIN_OBS.get(k, 300):
             return None
     signals = eng.compute_signals(d, fake_freshness(d), MANUAL_NEUTRAL)
     regime_key, regime_name, _ = eng.classify_regime(d)
@@ -158,7 +161,8 @@ def main():
     eff_n = max(1, len(scored) // 13)  # 63-day windows sampled every 5 days overlap ~92%
     print(f"Replayed {len(rows)} weekly dates: {rows[0]['date']} → {rows[-1]['date']} "
           f"({len(scored)} with forward returns)")
-    print(f"Publication lags applied: COT +3d, GPR +32d, dollar +7d. J/K excluded "
+    lags = ", ".join(f"{k} +{v}d" for k, v in PUBLICATION_LAG_DAYS.items())
+    print(f"Publication lags applied: {lags}. J/K excluded "
           f"(matches live engine while manual inputs are placeholder).")
     print(f"CAUTION: overlapping windows — {len(scored)} samples ≈ {eff_n} independent "
           f"observations. Averages are descriptive, not proof.\n")

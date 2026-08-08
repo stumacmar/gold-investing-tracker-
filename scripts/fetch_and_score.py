@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gold Signal Engine — fetch market data, score 12 signals (A-L), write dashboard JSON.
+"""Gold Signal Engine — fetch market data, score 13 signals (A-M), write dashboard JSON.
 
 Data flow:
   fetch everything (with retries + fallbacks + per-series freshness stamps)
@@ -371,9 +371,20 @@ def sig_C_policy(d):
     s = d["dgs2"]
     chg = s.change(M3)
     # 0.4pp saturated on ~47% of days (direction-only flag); 0.7pp keeps gradation.
-    score = clamp(-chg / 0.7 * 2.0, -2, 2)
-    rationale = (f"2Y yield {s.last:.2f}%, {fmt_pp(chg)} over 3m — "
-                 f"{'the market is pricing easing; that pays gold’s rent' if chg < 0 else 'rate expectations are firming against gold'}.")
+    mom = clamp(-chg / 0.7 * 2.0, -2, 2)
+    # 2Y minus effective fed funds = how much easing/tightening the market has actually
+    # priced relative to the current policy rate. 2Y 0.6pp below EFFR -> deep cuts priced.
+    effr = d.get("effr")
+    if effr is not None and len(effr):
+        spread = s.last - effr.last
+        priced = clamp(-spread / 0.6 * 2.0, -2, 2)
+        score = clamp(0.6 * mom + 0.4 * priced, -2, 2)
+        spread_txt = (f"; 2Y {abs(spread):.2f}pp {'below' if spread < 0 else 'above'} the funds rate "
+                      f"({'cuts' if spread < 0 else 'no cuts'} priced)")
+    else:
+        score, spread_txt = mom, ""
+    rationale = (f"2Y yield {s.last:.2f}%, {fmt_pp(chg)} over 3m{spread_txt} — "
+                 f"{'the market is pricing easing; that pays gold’s rent' if score > 0 else 'rate expectations are firming against gold'}.")
     flip = {"text": f"2Y yield {'above' if chg < 0 else 'below'} {s.ago(M3):.2f}% flips the policy trajectory "
                     f"{'bearish' if chg < 0 else 'bullish'}.",
             "distance": abs(score)}
@@ -408,6 +419,10 @@ def sig_E_trend(d):
     px = s.last
     score = (0.5 if px > ma50 else -0.5) + (0.7 if px > ma200 else -0.7) \
         + (0.3 if ma50 > ma200 else -0.3)
+    # Short-horizon momentum so a violent week registers within days instead of waiting
+    # for the 200DMA to be reclaimed (a +7% week scores ~+0.7 here).
+    roc20 = s.pct_change(20)
+    score += clamp(roc20 / 10.0, -0.75, 0.75)
     # 12m return percentile vs 5y of rolling 12m returns
     rets = [s.values[i] / s.values[i - 252] - 1 for i in range(len(s) - 1260, len(s)) if i >= 252]
     if rets:
@@ -416,8 +431,9 @@ def sig_E_trend(d):
         score += (pct - 50) / 50 * 0.5
     score = clamp(score, -2, 2)
     cross = "golden cross intact" if ma50 > ma200 else "death cross in force"
-    rationale = (f"Price {'above' if px > ma50 else 'below'} the 50DMA and "
-                 f"{'above' if px > ma200 else 'below'} the 200DMA, {cross} — "
+    rationale = (f"Price {'above' if px > ma50 else 'below'} the 50DMA, "
+                 f"{'above' if px > ma200 else 'below'} the 200DMA ({cross}), "
+                 f"{roc20:+.1f}% over 20 sessions — "
                  f"{'the trend is doing the heavy lifting' if score > 0 else 'the tape is against you'}.")
     flip = {"text": f"A close {'below' if px > ma50 else 'above'} the 50DMA at ${ma50:,.0f} starts flipping trend "
                     f"{'bearish' if px > ma50 else 'bullish'}.",
@@ -527,6 +543,30 @@ def sig_I_geopolitics(d):
     return dict(id="I", name="Geopolitics (GPR)", weight=5, score=round(score, 2),
                 value=f"{s.last:.0f} (5y avg {avg5:.0f})", rationale=rationale,
                 spark=s.spark(points=30, span=60), flip=flip)
+
+
+def sig_M_labour(d):
+    icsa, un = d["icsa"], d["unrate"]
+    a_now = icsa.ma(4)
+    a_then = sum(icsa.values[-17:-13]) / 4  # 4-wk avg ending 13 weeks (~3m) ago
+    claims_chg = (a_now / a_then - 1) * 100
+    un_chg = un.change(3)  # monthly series: 3 observations = 3 months
+    score = clamp(clamp(claims_chg / 15.0, -1, 1) + clamp(un_chg / 0.3, -1, 1), -2, 2)
+    if score > 0.5:
+        tone = "labour market cracking — easing gets closer, and that pays gold"
+    elif score > 0:
+        tone = "labour softening at the edges"
+    elif score < -0.5:
+        tone = "labour market strong — no pressure on the Fed to ease"
+    else:
+        tone = "labour steady — no signal for policy either way"
+    rationale = (f"Initial claims 4-wk avg {a_now:,.0f} ({claims_chg:+.1f}% vs 3m ago), "
+                 f"unemployment {un.last:.1f}% ({fmt_pp(un_chg)} 3m) — {tone}.")
+    flip = {"text": f"Claims 4-wk average crossing {a_then:,.0f} (its level 3m ago) flips the labour signal.",
+            "distance": abs(score)}
+    return dict(id="M", name="Labour market", weight=5, score=round(score, 2),
+                value=f"{a_now:,.0f} claims / {un.last:.1f}%", rationale=rationale,
+                spark=icsa.spark(span=104), flip=flip)
 
 
 def sig_J_central_banks(manual):
@@ -758,15 +798,18 @@ def build_data_bundle():
 
     fred_ids = {"dfii10": "DFII10", "dgs10": "DGS10", "dgs2": "DGS2",
                 "t10yie": "T10YIE", "t5yifr": "T5YIFR", "dollar": "DTWEXBGS",
-                "vix": "VIXCLS", "baa10y": "BAA10Y"}
+                "vix": "VIXCLS", "baa10y": "BAA10Y", "effr": "EFFR",
+                "icsa": "ICSA", "unrate": "UNRATE"}
+    fred_cadence = {"icsa": "weekly", "unrate": "monthly"}
     provider = "fred-api" if os.environ.get("FRED_API_KEY") else "fred-csv"
     for key, sid in fred_ids.items():
+        cadence = fred_cadence.get(key, "daily")
         try:
             d[key] = fetch_fred(sid)
-            fresh[key] = stamp(d[key].last_date, "daily", provider, key=key)
+            fresh[key] = stamp(d[key].last_date, cadence, provider, key=key)
         except Exception as e:  # noqa: BLE001
             warn(f"FRED {sid} failed: {e}")
-            fresh[key] = stamp(None, "daily", provider, ok=False)
+            fresh[key] = stamp(None, cadence, provider, ok=False)
 
     try:
         d["cot"] = fetch_cot_gold()
@@ -800,6 +843,7 @@ SIGNAL_DEPS = {
     "A": ["dfii10"], "B": ["dollar"], "C": ["dgs2"], "D": ["t10yie", "t5yifr", "dfii10"],
     "E": ["gold_usd"], "F": ["cot"], "G": ["gold_usd"], "H": ["vix", "baa10y"],
     "I": ["gpr"], "J": ["central_banks"], "K": ["etf_flows"], "L": ["gold_usd", "silver"],
+    "M": ["icsa", "unrate"],
 }
 
 
@@ -811,13 +855,15 @@ def compute_signals(d, fresh, manual):
         "G": lambda: sig_G_valuation(d), "H": lambda: sig_H_fear(d),
         "I": lambda: sig_I_geopolitics(d), "J": lambda: sig_J_central_banks(manual),
         "K": lambda: sig_K_etf_flows(manual), "L": lambda: sig_L_gold_silver(d),
+        "M": lambda: sig_M_labour(d),
     }
     names = {"A": "Real yields", "B": "Dollar", "C": "Policy trajectory",
              "D": "Inflation expectations", "E": "Trend & momentum", "F": "Positioning (COT)",
              "G": "Valuation stretch", "H": "Fear & credit", "I": "Geopolitics (GPR)",
-             "J": "Central bank demand", "K": "ETF flows", "L": "Gold/silver ratio"}
+             "J": "Central bank demand", "K": "ETF flows", "L": "Gold/silver ratio",
+             "M": "Labour market"}
     weights = {"A": 20, "B": 15, "C": 10, "D": 8, "E": 12, "F": 8,
-               "G": 8, "H": 6, "I": 5, "J": 4, "K": 2, "L": 2}
+               "G": 8, "H": 6, "I": 5, "J": 4, "K": 2, "L": 2, "M": 5}
     signals = []
     for sid, build in builders.items():
         deps = SIGNAL_DEPS[sid]
