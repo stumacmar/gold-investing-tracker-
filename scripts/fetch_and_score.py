@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gold Signal Engine — fetch market data, score 13 signals (A-M), write dashboard JSON.
+"""Gold Signal Engine — fetch market data, score 14 signals (A-N), write dashboard JSON.
 
 Data flow:
   fetch everything (with retries + fallbacks + per-series freshness stamps)
@@ -289,7 +289,7 @@ def load_manual_inputs():
 # Max acceptable age in days before a series is declared stale and dropped from scoring.
 STALE_DAYS = {"daily": 8, "weekly": 21, "monthly": 100, "manual": 130}
 # DTWEXBGS is daily data but the Fed publishes it with ~1 week lag.
-MAX_AGE_OVERRIDE = {"dollar": 16}
+MAX_AGE_OVERRIDE = {"dollar": 16, "usdjpy": 10}
 
 
 def stamp(series_last_date, cadence, provider, ok=True, key=None):
@@ -545,6 +545,75 @@ def sig_I_geopolitics(d):
                 spark=s.spark(points=30, span=60), flip=flip)
 
 
+INTERVENTION_SNAP_PCT = 1.5  # one-session counter-trend yen move that marks official action
+INTERVENTION_LOOKBACK = 10   # sessions
+
+
+def detect_intervention(jpy):
+    """Largest counter-trend yen surge in the recent window, judged at the time it happened.
+
+    Evaluating "was the yen weak?" as of today is wrong: a successful intervention drags
+    the yen back below its own 200DMA within days, which would erase the very evidence
+    the detector exists to find. So each candidate session is tested against the 200DMA
+    deviation *at that session*.
+    Returns (pct_move, sessions_ago) for the qualifying snap, else (0.0, None).
+    """
+    n = len(jpy)
+    best, best_ago = 0.0, None
+    for ago in range(1, min(INTERVENTION_LOOKBACK + 1, n - 200)):
+        i = n - ago                      # index of the session being tested
+        chg = (jpy.values[i] / jpy.values[i - 1] - 1) * 100
+        if chg >= -INTERVENTION_SNAP_PCT:
+            continue
+        window = jpy.values[max(0, i - 199):i + 1]
+        dev_then = (jpy.values[i] / (sum(window) / len(window)) - 1) * 100
+        if dev_then > 0 and chg < best:  # yen was weak versus trend when it snapped
+            best, best_ago = chg, ago
+    return best, best_ago
+
+
+def sig_N_fx_stress(d):
+    """FX stress / intervention marker (USDJPY).
+
+    Two things bid gold through this channel, and neither is visible to a 3-month
+    dollar trend: (1) a yen pinned far below trend means accumulating pressure on the
+    world's largest creditor nation, and (2) an abrupt counter-trend snap is the
+    footprint of official intervention — which means Treasury sales, dollar liquidity
+    strain, and a bid for the asset with no counterparty.
+
+    Note the deliberate sign conflict with signal B: JPY is a component of DTWEXBGS,
+    so yen weakness lifts the broad dollar index and scores bearish there. That is why
+    a strong reading here also flips the regime to fx_stress, which downweights B.
+    """
+    s = d["usdjpy"]
+    dev = s.pct_dev_from_ma(200)  # positive = yen weaker than its own trend
+    stress = clamp(dev / 6.0, -1.0, 1.0)
+
+    sharpest, ago = detect_intervention(s)
+    intervention = clamp(-sharpest / INTERVENTION_SNAP_PCT, 0, 2.0) * 0.5 if ago else 0.0
+
+    score = clamp(stress + intervention, -2, 2)
+    if intervention > 0:
+        tone = (f"a {abs(sharpest):.1f}% single-session yen surge off a weak base "
+                f"{ago} session{'s' if ago > 1 else ''} ago is the footprint of official "
+                f"intervention — Treasury sales and dollar liquidity strain bid gold")
+    elif stress > 0.5:
+        tone = "yen well below trend — pressure building on the BoJ/MoF, a live tail risk for gold"
+    elif stress < -0.5:
+        tone = "yen strong versus trend — no FX stress channel supporting gold"
+    else:
+        tone = "no FX stress signal"
+    snap_txt = (f"; intervention-scale snap {sharpest:+.1f}% {ago} session"
+                f"{'s' if ago and ago > 1 else ''} ago" if ago else "; no intervention footprint")
+    rationale = f"USDJPY {s.last:.1f}, {dev:+.1f}% vs 200DMA{snap_txt} — {tone}."
+    flip = {"text": f"USDJPY back below its 200DMA ({s.ma(200):.1f}) removes the FX-stress "
+                    f"support; a fresh >{INTERVENTION_SNAP_PCT:.1f}% one-day yen surge re-fires it.",
+            "distance": abs(score)}
+    return dict(id="N", name="FX stress (yen)", weight=4, score=round(score, 2),
+                value=f"{s.last:.1f} ({dev:+.1f}% vs 200DMA)", rationale=rationale,
+                spark=s.spark(span=260), flip=flip)
+
+
 PAYROLL_BREAKEVEN = 100.0  # thousands/month roughly needed to absorb labour-force growth
 
 
@@ -705,6 +774,17 @@ def classify_regime(d):
         return ("crisis", "Crisis / risk-off",
                 "VIX or credit spreads are spiking. Fear signals dominate — but remember 2008 and March 2020: "
                 "gold can dip first on forced liquidation before the safe-haven bid takes over.")
+    # FX stress outranks the ordinary macro regimes: when the yen is being defended, the
+    # broad dollar index is measuring the stress rather than genuine dollar strength, so
+    # signal B must be discounted rather than read at face value.
+    jpy = d.get("usdjpy")
+    if jpy is not None and len(jpy) > 200:
+        _snap, ago = detect_intervention(jpy)
+        if ago:
+            return ("fx_stress", "FX stress / intervention",
+                    "The yen is being defended off a weak base. That means Treasury sales, dollar "
+                    "liquidity strain and a haven bid — and it inflates the broad dollar index, so the "
+                    "dollar signal is discounted here rather than read as genuine strength.")
     if ry_chg < -0.05 and usd_mom < 0:
         return ("disinflationary_easing", "Disinflationary easing",
                 "Real yields falling with a soft dollar — the best regime gold gets. Macro and trend signals carry extra weight.")
@@ -725,6 +805,9 @@ REGIME_WEIGHT_MULT = {
     # facts these signals score, so a big boost double-counts the trigger.
     "hostile": {"A": 1.15, "B": 1.15},
     "crisis": {"H": 2.0, "I": 1.4, "F": 0.8, "E": 0.8},
+    # B is discounted because the yen move is inflating the broad dollar index; N is NOT
+    # boosted — a rare-event signal the backtest cannot validate must never drive a verdict.
+    "fx_stress": {"B": 0.6, "H": 1.3},
     "neutral": {},
 }
 
@@ -815,6 +898,15 @@ def build_data_bundle():
     d["silver"] = silver
     fresh["silver"] = stamp(silver.last_date, "daily", prov)
 
+    # Yahoo first: FRED's DEXJPUS comes from the weekly H.10 release and runs up to a
+    # week behind, which is useless for spotting an intervention the week it happens.
+    usdjpy, prov = fetch_with_fallback(
+        "usdjpy",
+        ("yahoo:JPY=X", lambda: fetch_yahoo("JPY=X")),
+        ("fred:DEXJPUS", lambda: fetch_fred("DEXJPUS")))
+    d["usdjpy"] = usdjpy
+    fresh["usdjpy"] = stamp(usdjpy.last_date, "daily", prov, key="usdjpy")
+
     fred_ids = {"dfii10": "DFII10", "dgs10": "DGS10", "dgs2": "DGS2",
                 "t10yie": "T10YIE", "t5yifr": "T5YIFR", "dollar": "DTWEXBGS",
                 "vix": "VIXCLS", "baa10y": "BAA10Y", "effr": "EFFR",
@@ -862,7 +954,7 @@ SIGNAL_DEPS = {
     "A": ["dfii10"], "B": ["dollar"], "C": ["dgs2"], "D": ["t10yie", "t5yifr", "dfii10"],
     "E": ["gold_usd"], "F": ["cot"], "G": ["gold_usd"], "H": ["vix", "baa10y"],
     "I": ["gpr"], "J": ["central_banks"], "K": ["etf_flows"], "L": ["gold_usd", "silver"],
-    "M": ["icsa", "unrate", "payems"],
+    "M": ["icsa", "unrate", "payems"], "N": ["usdjpy"],
 }
 
 
@@ -874,15 +966,15 @@ def compute_signals(d, fresh, manual):
         "G": lambda: sig_G_valuation(d), "H": lambda: sig_H_fear(d),
         "I": lambda: sig_I_geopolitics(d), "J": lambda: sig_J_central_banks(manual),
         "K": lambda: sig_K_etf_flows(manual), "L": lambda: sig_L_gold_silver(d),
-        "M": lambda: sig_M_labour(d),
+        "M": lambda: sig_M_labour(d), "N": lambda: sig_N_fx_stress(d),
     }
     names = {"A": "Real yields", "B": "Dollar", "C": "Policy trajectory",
              "D": "Inflation expectations", "E": "Trend & momentum", "F": "Positioning (COT)",
              "G": "Valuation stretch", "H": "Fear & credit", "I": "Geopolitics (GPR)",
              "J": "Central bank demand", "K": "ETF flows", "L": "Gold/silver ratio",
-             "M": "Labour market"}
+             "M": "Labour market", "N": "FX stress (yen)"}
     weights = {"A": 20, "B": 15, "C": 10, "D": 8, "E": 12, "F": 8,
-               "G": 8, "H": 6, "I": 5, "J": 4, "K": 2, "L": 2, "M": 6}
+               "G": 8, "H": 6, "I": 5, "J": 4, "K": 2, "L": 2, "M": 6, "N": 4}
     signals = []
     for sid, build in builders.items():
         deps = SIGNAL_DEPS[sid]

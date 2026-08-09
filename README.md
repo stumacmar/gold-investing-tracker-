@@ -1,7 +1,7 @@
 # Gold Signal Engine
 
 A regime-aware scoring model for gold. Twice a day it fetches the macro data that
-actually drives the gold price, scores 13 signals, and publishes a **0–100 Gold
+actually drives the gold price, scores 14 signals, and publishes a **0–100 Gold
 Signal Score** with a one-word verdict on a [GitHub Pages dashboard](docs/).
 Every score is traceable to its inputs — no black boxes.
 
@@ -35,7 +35,7 @@ Alongside the verdict the engine always reports:
   because a sterling investor can be right on gold and still lose the move to
   the currency.
 
-## The 13 signals
+## The 14 signals
 
 Each signal scores **−2 to +2** (positive = bullish for gold) with a
 plain-English rationale generated from the actual numbers.
@@ -54,6 +54,7 @@ plain-English rationale generated from the actual numbers.
 | J | Central bank demand | 4 | **Manual, quarterly** (from WGC): last 4 quarters of official-sector net purchases vs the 5y average annual pace. |
 | K | ETF flows | 2 | **Manual, quarterly**: 3-month global gold-ETF net flows — Western participation confirming or diverging from price. |
 | L | Gold/silver ratio | 2 | Extreme ratio percentiles as a risk-appetite tell. Silver confirming (low/falling ratio) is healthy; silver absent at the highs is a tired-rally warning. |
+| N | FX stress (yen) | 4 | USDJPY (Yahoo `JPY=X`, FRED `DEXJPUS` fallback): deviation from the 200DMA plus an **intervention detector** — any counter-trend one-session yen surge beyond 1.5%, judged against the yen's position *at that session*, because a successful intervention drags the yen back below trend within days and would otherwise erase its own evidence. Both components are bullish for gold: a yen pinned below trend means accumulating pressure on the world's largest creditor, and official defence means Treasury sales and dollar liquidity strain. |
 | M | Labour market | 6 | Nonfarm payrolls (`PAYEMS`, 50%): 3-month average monthly job growth against the ~100k/month breakeven — the employment report is the release that actually reprices Fed expectations. Plus initial claims (`ICSA`, 25%) and unemployment-rate momentum (`UNRATE`, 25%) as corroboration. A cracking labour market is what historically forces the easing cycles that start gold's best regimes — it leads the 2Y rather than echoing it. |
 
 **Fair-value anchor — with a sanity gate.** A rolling 5-year regression of
@@ -80,6 +81,15 @@ Before final weighting the engine classifies the macro regime and re-weights:
    geopolitics (I) dominate; positioning and trend downweighted. Remember 2008
    and March 2020: gold can dip first on forced liquidation before the
    safe-haven bid takes over.
+5. **FX stress / intervention** — the yen is being defended off a weak base.
+   This regime exists to resolve a deliberate sign conflict: JPY is a component
+   of the broad dollar index, so yen weakness lifts `DTWEXBGS` and signal B
+   scores it as dollar strength (bearish gold) — when the actual mechanism is
+   bidding gold. Here B is **downweighted to 0.6×** because the index is
+   measuring stress rather than genuine dollar strength, and fear (H) is lifted
+   1.3×. Signal N itself is deliberately **not** boosted: a rare-event marker
+   the backtest cannot validate must never drive a verdict on its own.
+   Frequency in the 5-year replay: 8% of weeks (~10 distinct episodes).
 
 ## Composite
 
@@ -114,13 +124,13 @@ Current result (2021-08 → 2026-08):
 
 | Band | N | Avg 3m fwd | % positive |
 |---|---|---|---|
-| ACCUMULATE | 47 | +9.5% | 79% |
-| ADD | 50 | +4.8% | 74% |
-| HOLD | 47 | +1.8% | 60% |
-| TRIM | 50 | +4.8% | 80% |
-| SELL/REDUCE | 46 | +4.7% | 72% |
+| ACCUMULATE | 38 | +10.4% | 82% |
+| ADD | 62 | +4.9% | 74% |
+| HOLD | 49 | +1.5% | 57% |
+| TRIM | 48 | +5.6% | 83% |
+| SELL/REDUCE | 43 | +4.3% | 70% |
 
-Spearman rank correlation: +0.15 full sample, +0.43 on 19 non-overlapping
+Spearman rank correlation: +0.15 full sample, +0.44 on 19 non-overlapping
 samples. Read it honestly: the top of the scale is encouraging (ACCUMULATE
 weeks clearly beat HOLD weeks), but **TRIM and SELL/REDUCE were still followed
 by positive returns** — in the 2024–26 central-bank-driven bull, gold kept
@@ -153,7 +163,7 @@ docs/                               static dashboard (GitHub Pages), reads docs/
 
 | Series | Source | Fallback |
 |---|---|---|
-| Gold, silver, XAUGBP | Stooq CSV | Yahoo Finance (`GC=F`, `SI=F`, derived GBP via `GBPUSD=X`) |
+| Gold, silver, XAUGBP, USDJPY | Stooq CSV / Yahoo | Yahoo Finance (`GC=F`, `SI=F`, derived GBP via `GBPUSD=X`) |
 | DFII10, DGS10, DGS2, T10YIE, T5YIFR, DTWEXBGS, VIXCLS, BAA10Y, EFFR, ICSA, UNRATE, PAYEMS | FRED API (`FRED_API_KEY` secret) | FRED keyless CSV endpoint |
 | COT managed money (gold) | CFTC Socrata API (disaggregated futures-only) | — |
 | Geopolitical Risk index | matteoiacoviello.com xls | last good copy cached in `data/gpr_cache.json` |

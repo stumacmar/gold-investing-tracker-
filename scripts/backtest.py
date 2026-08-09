@@ -42,7 +42,7 @@ eng.warn = lambda msg: None  # replay would otherwise spam J/K-excluded warnings
 
 # Days each series must be lagged so the replay only sees published data.
 PUBLICATION_LAG_DAYS = {"cot": 3, "gpr": 32, "dollar": 7,
-                        "icsa": 5, "unrate": 37, "effr": 1, "payems": 37}
+                        "icsa": 5, "unrate": 37, "effr": 1, "payems": 37, "usdjpy": 0}
 
 
 def shift_dates(series, days):
@@ -79,7 +79,7 @@ MANUAL_NEUTRAL = {
 
 CORE = ["gold_usd", "dfii10", "dgs10", "dgs2", "t10yie", "t5yifr",
         "dollar", "vix", "baa10y", "silver", "cot", "gpr",
-        "effr", "icsa", "unrate", "payems"]
+        "effr", "icsa", "unrate", "payems", "usdjpy"]
 MIN_OBS = {"gpr": 30, "cot": 30, "icsa": 30, "unrate": 12, "payems": 15}
 
 
