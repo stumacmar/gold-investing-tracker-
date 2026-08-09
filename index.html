@@ -2,15 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#101512">
 <title>Gold Signal Engine</title>
-<!-- Root of the Pages site redirects to the dashboard in /docs. -->
-<meta http-equiv="refresh" content="0; url=docs/">
-<script>location.replace("docs/");</script>
-<style>body{background:#101512;color:#97a095;font-family:system-ui;padding:2rem;text-align:center}a{color:#c9a227}</style>
+<meta name="description" content="Regime-aware gold signal: real yields, dollar, positioning, fear — one 0–100 score.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<p><a href="docs/">Open the Gold Signal Engine dashboard →</a></p>
+<header class="masthead">
+  <div class="brand">GOLD SIGNAL ENGINE</div>
+  <div class="asof" id="asof">—</div>
+</header>
+
+<main>
+  <!-- Signature gauge -->
+  <section class="gauge-panel" aria-label="Gold signal gauge">
+    <div class="gauge" id="gauge">
+      <div class="gauge-track">
+        <div class="band band-sell"  style="left:0%;width:28%"></div>
+        <div class="band band-trim"  style="left:28%;width:15%"></div>
+        <div class="band band-hold"  style="left:43%;width:15%"></div>
+        <div class="band band-add"   style="left:58%;width:14%"></div>
+        <div class="band band-accum" style="left:72%;width:28%"></div>
+        <div class="needle" id="needle"></div>
+      </div>
+      <div class="gauge-ticks">
+        <span style="left:0%">0</span><span style="left:28%">28</span><span style="left:43%">43</span>
+        <span style="left:58%">58</span><span style="left:72%">72</span><span style="left:100%">100</span>
+      </div>
+      <div class="gauge-band-labels">
+        <span style="left:14%">SELL</span><span style="left:35.5%">TRIM</span><span style="left:50.5%">HOLD</span>
+        <span style="left:65%">ADD</span><span style="left:86%">ACCUMULATE</span>
+      </div>
+    </div>
+    <div class="verdict-block">
+      <div class="score-num"><span id="score">–</span><span class="score-denom">/100</span></div>
+      <div class="verdict" id="verdict">LOADING</div>
+      <div class="drivers" id="drivers"></div>
+      <div class="band-caption" id="band-note"></div>
+      <div class="confidence" id="confidence"></div>
+    </div>
+  </section>
+
+  <!-- Headline stats -->
+  <section class="stats" id="stats" aria-label="Headline stats"></section>
+
+  <!-- Regime -->
+  <section class="panel regime" id="regime-panel">
+    <div class="panel-title">REGIME</div>
+    <div class="regime-name" id="regime-name">—</div>
+    <p class="regime-desc" id="regime-desc"></p>
+  </section>
+
+  <!-- Score vs price chart -->
+  <section class="panel">
+    <div class="panel-title">SIGNAL vs GOLD — 2Y</div>
+    <div class="chart-wrap"><canvas id="chart"></canvas></div>
+    <div class="chart-note" id="chart-note"></div>
+  </section>
+
+  <!-- Signals -->
+  <section class="panel">
+    <div class="panel-title">THE 13 SIGNALS</div>
+    <div class="signals" id="signals"></div>
+  </section>
+
+  <!-- What would change my mind -->
+  <section class="panel">
+    <div class="panel-title">WHAT WOULD CHANGE MY MIND</div>
+    <div id="flips"></div>
+  </section>
+
+  <!-- GBP lens -->
+  <section class="panel">
+    <div class="panel-title">GBP LENS</div>
+    <div class="gbp-price" id="gbp-price">—</div>
+    <p class="gbp-note" id="gbp-note"></p>
+  </section>
+
+  <!-- Freshness footer -->
+  <footer class="panel freshness">
+    <div class="panel-title">DATA FRESHNESS</div>
+    <div class="fresh-banner" id="fresh-banner"></div>
+    <div id="freshness"></div>
+    <p class="colophon">Not investment advice. Model &amp; weights documented in the
+      <a href="https://github.com/stumacmar/gold-investing-tracker-#readme">README</a>.
+      Generated <span id="generated">—</span>.</p>
+  </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
+<script src="app.js" defer></script>
+<script>
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+</script>
 </body>
 </html>
