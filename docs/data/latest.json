@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-09T09:53:04.934413Z",
+ "generated_at": "2026-08-09T19:31:53.119719Z",
  "as_of": "2026-08-07",
  "score": 29.7,
  "verdict": "SELL/REDUCE",
@@ -36,6 +36,179 @@
   "usd_200dma": 4478.97,
   "gbp": 3152.65,
   "gbp_chg_1d_pct": 0.02
+ },
+ "volatility": {
+  "label": "ATR(14)",
+  "atr_abs": 83.13,
+  "atr_pct": 1.89,
+  "percentile_5y": 88,
+  "vs_median": 1.65,
+  "regime": "Elevated",
+  "advice": "Moves are running 1.7\u00d7 normal; trim position sizes accordingly.",
+  "source": "true ATR(14) from Yahoo GC=F OHLC",
+  "spark": [
+   [
+    "2025-07-28",
+    1.1763
+   ],
+   [
+    "2025-08-06",
+    1.1884
+   ],
+   [
+    "2025-08-14",
+    1.2526
+   ],
+   [
+    "2025-08-25",
+    1.0278
+   ],
+   [
+    "2025-09-04",
+    1.0897
+   ],
+   [
+    "2025-09-12",
+    1.0307
+   ],
+   [
+    "2025-09-23",
+    1.0731
+   ],
+   [
+    "2025-10-01",
+    1.168
+   ],
+   [
+    "2025-10-10",
+    1.3841
+   ],
+   [
+    "2025-10-21",
+    2.2877
+   ],
+   [
+    "2025-10-29",
+    2.2662
+   ],
+   [
+    "2025-11-07",
+    1.8934
+   ],
+   [
+    "2025-11-18",
+    1.9185
+   ],
+   [
+    "2025-11-26",
+    1.6055
+   ],
+   [
+    "2025-12-08",
+    1.4744
+   ],
+   [
+    "2025-12-17",
+    1.4172
+   ],
+   [
+    "2025-12-26",
+    1.2794
+   ],
+   [
+    "2026-01-07",
+    1.5194
+   ],
+   [
+    "2026-01-16",
+    1.2862
+   ],
+   [
+    "2026-01-27",
+    1.4025
+   ],
+   [
+    "2026-02-05",
+    3.9647
+   ],
+   [
+    "2026-02-13",
+    3.4829
+   ],
+   [
+    "2026-02-25",
+    2.777
+   ],
+   [
+    "2026-03-06",
+    2.6666
+   ],
+   [
+    "2026-03-16",
+    2.3517
+   ],
+   [
+    "2026-03-25",
+    3.2834
+   ],
+   [
+    "2026-04-06",
+    3.2469
+   ],
+   [
+    "2026-04-14",
+    2.6833
+   ],
+   [
+    "2026-04-23",
+    2.2332
+   ],
+   [
+    "2026-05-04",
+    2.1051
+   ],
+   [
+    "2026-05-12",
+    1.7946
+   ],
+   [
+    "2026-05-21",
+    1.6337
+   ],
+   [
+    "2026-06-02",
+    1.7401
+   ],
+   [
+    "2026-06-10",
+    2.137
+   ],
+   [
+    "2026-06-22",
+    2.3272
+   ],
+   [
+    "2026-06-30",
+    2.2638
+   ],
+   [
+    "2026-07-10",
+    2.0792
+   ],
+   [
+    "2026-07-21",
+    1.9057
+   ],
+   [
+    "2026-07-29",
+    1.6684
+   ],
+   [
+    "2026-08-07",
+    1.8895
+   ]
+  ],
+  "note": "Gold is moving about $83 a day (1.9% of price) \u2014 the 88th percentile of the last five years. Moves are running 1.7\u00d7 normal; trim position sizes accordingly."
  },
  "gbp_lens": {
   "price": 3152.65,
@@ -1780,9 +1953,9 @@
    "id": "N",
    "name": "FX stress (yen)",
    "weight": 4,
-   "score": 0.6,
-   "value": "157.7 (-0.2% vs 200DMA)",
-   "rationale": "USDJPY 157.7, -0.2% vs 200DMA; intervention-scale snap -1.9% 7 sessions ago \u2014 a 1.9% single-session yen surge off a weak base 7 sessions ago is the footprint of official intervention \u2014 Treasury sales and dollar liquidity strain bid gold.",
+   "score": 0.61,
+   "value": "157.8 (-0.2% vs 200DMA)",
+   "rationale": "USDJPY 157.8, -0.2% vs 200DMA; intervention-scale snap -1.9% 7 sessions ago \u2014 a 1.9% single-session yen surge off a weak base 7 sessions ago is the footprint of official intervention \u2014 Treasury sales and dollar liquidity strain bid gold.",
    "spark": [
     [
      "2025-08-07",
@@ -1941,13 +2114,13 @@
      163.3
     ],
     [
-     "2026-08-07",
-     157.745
+     "2026-08-09",
+     157.784
     ]
    ],
    "flip": {
     "text": "USDJPY back below its 200DMA (158.1) removes the FX-stress support; a fresh >1.5% one-day yen surge re-fires it.",
-    "distance": 0.6031558575261646
+    "distance": 0.6072478767159311
    },
    "stale": false,
    "eff_weight": 4.0
@@ -2161,7 +2334,7 @@
    "provider": "yahoo:GC=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:52:57.592250Z"
+   "fetched_at": "2026-08-09T19:31:45.918445Z"
   },
   "gold_gbp": {
    "last_date": "2026-08-06",
@@ -2170,7 +2343,7 @@
    "provider": "derived:GC=F/GBPUSD",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:52:58.513554Z"
+   "fetched_at": "2026-08-09T19:31:46.851823Z"
   },
   "silver": {
    "last_date": "2026-08-07",
@@ -2179,16 +2352,16 @@
    "provider": "yahoo:SI=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:52:59.243220Z"
+   "fetched_at": "2026-08-09T19:31:47.558741Z"
   },
   "usdjpy": {
-   "last_date": "2026-08-07",
-   "age_days": 2,
+   "last_date": "2026-08-09",
+   "age_days": 0,
    "cadence": "daily",
    "provider": "yahoo:JPY=X",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:52:59.557020Z"
+   "fetched_at": "2026-08-09T19:31:47.877655Z"
   },
   "dfii10": {
    "last_date": "2026-08-06",
@@ -2197,7 +2370,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:00.188244Z"
+   "fetched_at": "2026-08-09T19:31:48.153283Z"
   },
   "dgs10": {
    "last_date": "2026-08-06",
@@ -2206,7 +2379,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:00.546029Z"
+   "fetched_at": "2026-08-09T19:31:48.443890Z"
   },
   "dgs2": {
    "last_date": "2026-08-06",
@@ -2215,7 +2388,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:00.848985Z"
+   "fetched_at": "2026-08-09T19:31:48.733186Z"
   },
   "t10yie": {
    "last_date": "2026-08-07",
@@ -2224,7 +2397,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:01.127641Z"
+   "fetched_at": "2026-08-09T19:31:49.023269Z"
   },
   "t5yifr": {
    "last_date": "2026-08-07",
@@ -2233,7 +2406,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:01.407491Z"
+   "fetched_at": "2026-08-09T19:31:49.476582Z"
   },
   "dollar": {
    "last_date": "2026-07-31",
@@ -2242,7 +2415,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:01.666953Z"
+   "fetched_at": "2026-08-09T19:31:49.724953Z"
   },
   "vix": {
    "last_date": "2026-08-06",
@@ -2251,7 +2424,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:01.981021Z"
+   "fetched_at": "2026-08-09T19:31:49.989040Z"
   },
   "baa10y": {
    "last_date": "2026-08-06",
@@ -2260,7 +2433,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:02.288377Z"
+   "fetched_at": "2026-08-09T19:31:50.279197Z"
   },
   "effr": {
    "last_date": "2026-08-06",
@@ -2269,7 +2442,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:02.544658Z"
+   "fetched_at": "2026-08-09T19:31:50.543131Z"
   },
   "icsa": {
    "last_date": "2026-08-01",
@@ -2278,7 +2451,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:02.779838Z"
+   "fetched_at": "2026-08-09T19:31:50.770590Z"
   },
   "unrate": {
    "last_date": "2026-07-01",
@@ -2287,7 +2460,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:02.996912Z"
+   "fetched_at": "2026-08-09T19:31:51.148302Z"
   },
   "payems": {
    "last_date": "2026-07-01",
@@ -2296,7 +2469,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:03.519781Z"
+   "fetched_at": "2026-08-09T19:31:51.341766Z"
   },
   "cot": {
    "last_date": "2026-08-04",
@@ -2305,7 +2478,7 @@
    "provider": "cftc-socrata",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:04.208236Z"
+   "fetched_at": "2026-08-09T19:31:52.062709Z"
   },
   "gpr": {
    "last_date": "2026-07-01",
@@ -2314,7 +2487,7 @@
    "provider": "iacoviello-xls",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:04.923066Z"
+   "fetched_at": "2026-08-09T19:31:52.821310Z"
   },
   "central_banks": {
    "last_date": "2026-07-30",
@@ -2323,7 +2496,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:04.923237Z"
+   "fetched_at": "2026-08-09T19:31:52.821467Z"
   },
   "etf_flows": {
    "last_date": "2026-07-30",
@@ -2332,7 +2505,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-09T09:53:04.923243Z"
+   "fetched_at": "2026-08-09T19:31:52.821475Z"
   }
  },
  "warnings": [

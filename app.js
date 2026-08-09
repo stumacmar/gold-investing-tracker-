@@ -25,6 +25,8 @@ function renderGauge(d) {
   $("verdict").textContent = d.verdict;
   $("verdict").style.color = verdictColor(d.verdict);
   $("band-note").textContent = d.band_note || "";
+  const vn = $("vol-note");
+  if (vn) vn.textContent = d.volatility ? d.volatility.note : "";
   $("confidence").textContent =
     `Data confidence ${d.confidence.level} · ${d.confidence.freshness_pct}% of weight live`;
   const live = d.signals.filter((s) => !s.stale && s.score !== null);
@@ -56,7 +58,11 @@ function renderStats(d) {
              fv.applied ? (fv.gap_pct > 5 ? "down" : fv.gap_pct < -5 ? "up" : "") : "") +
     statCell("Regime", esc(d.regime.name.split("/")[0].trim()),
              d.regime.name.includes("/") ? esc(d.regime.name.split("/")[1].trim()) : "") +
-    statCell("Data confidence", esc(d.confidence.level), d.confidence.freshness_pct + "% weight live");
+    statCell("Data confidence", esc(d.confidence.level), d.confidence.freshness_pct + "% weight live") +
+    (d.volatility ? statCell(esc(d.volatility.label),
+        "$" + Math.round(d.volatility.atr_abs).toLocaleString("en-US") + "/day",
+        esc(d.volatility.percentile_5y + "th pct · " + d.volatility.regime),
+        d.volatility.percentile_5y >= 90 ? "down" : "") : "");
   $("regime-name").textContent = d.regime.name;
   $("regime-desc").textContent = d.regime.description;
 }

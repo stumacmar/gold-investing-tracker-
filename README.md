@@ -206,3 +206,19 @@ A final **health check** step runs after the data is committed. It republishes
 every warning as a GitHub annotation and fails the job — turning the Actions run
 red — if a critical series is missing, so a silent data outage can't masquerade
 as a fresh score. `data/run_status.json` records the same state for the record.
+
+## Volatility context (ATR)
+
+The dashboard shows Wilder's **ATR(14)** — the average daily trading range,
+computed from Yahoo `GC=F` high/low/close, with a close-to-close volatility
+proxy as fallback if OHLC is unavailable.
+
+**It deliberately does not touch the score.** ATR answers "how much does gold
+move on a normal day", which is a position-*sizing* question, not a buy/sell
+one. Keeping it out of the composite also means today's score stays directly
+comparable with every historical score on the chart — vol-scaling the score
+would silently redefine what a 30 means.
+
+Read it as a size qualifier on the verdict: the same words mean different
+things at the 10th and 90th percentile of volatility. Currently ~$83/day
+(1.9% of price), 88th percentile of five years, ~1.7× the normal daily range.

@@ -217,6 +217,107 @@ def fetch_yahoo(symbol, rng="10y"):
     return Series(dates, values)
 
 
+def fetch_yahoo_ohlc(symbol, rng="10y"):
+    """Daily high/low/close — needed for a true ATR, which close-only data cannot give."""
+    url = (f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+           f"?range={rng}&interval=1d")
+    result = json.loads(http_get(url, ua=UA_BROWSER))["chart"]["result"][0]
+    q = result["indicators"]["quote"][0]
+    dates, highs, lows, closes = [], [], [], []
+    for t, h, lo, c in zip(result["timestamp"], q["high"], q["low"], q["close"]):
+        if h is None or lo is None or c is None:
+            continue
+        dates.append(dt.datetime.utcfromtimestamp(t).date().isoformat())
+        highs.append(float(h))
+        lows.append(float(lo))
+        closes.append(float(c))
+    if len(dates) < 300:
+        raise RuntimeError(f"Yahoo OHLC {symbol}: only {len(dates)} rows")
+    return Series(dates, highs), Series(dates, lows), Series(dates, closes)
+
+
+def atr_series(high, low, close, n=14):
+    """Wilder's ATR as a % of price, one value per session after the warm-up."""
+    trs = []
+    for i in range(1, len(close)):
+        tr = max(high.values[i] - low.values[i],
+                 abs(high.values[i] - close.values[i - 1]),
+                 abs(low.values[i] - close.values[i - 1]))
+        trs.append(tr)
+    if len(trs) < n * 3:
+        raise RuntimeError("ATR: not enough history")
+    atr = sum(trs[:n]) / n
+    out_dates, out_vals = [], []
+    for j, tr in enumerate(trs[n:], start=n):
+        atr = (atr * (n - 1) + tr) / n
+        out_dates.append(close.dates[j + 1])
+        out_vals.append(atr / close.values[j + 1] * 100.0)
+    return Series(out_dates, out_vals), atr
+
+
+def close_to_close_vol_series(close, n=14):
+    """Fallback when OHLC is unavailable: daily stdev of log returns, in % of price."""
+    rets = [math.log(close.values[i] / close.values[i - 1]) for i in range(1, len(close))]
+    dates, vals = [], []
+    for i in range(n, len(rets)):
+        w = rets[i - n:i]
+        m = sum(w) / n
+        sd = (sum((x - m) ** 2 for x in w) / (n - 1)) ** 0.5
+        dates.append(close.dates[i + 1])
+        vals.append(sd * 100.0)
+    return Series(dates, vals)
+
+
+VOL_BANDS = [(90, "Extreme"), (70, "Elevated"), (30, "Normal"), (-1, "Calm")]
+
+
+def volatility_context(gold_close):
+    """Displayed context only — deliberately does NOT touch the score.
+
+    ATR answers 'how much does gold move on a normal day', which is a position-sizing
+    question, not a buy/sell one. Keeping it out of the composite also means the score's
+    meaning stays comparable with every historical score already on the chart.
+    """
+    try:
+        hi, lo, cl = fetch_yahoo_ohlc("GC=F")
+        pct_series, atr_abs = atr_series(hi, lo, cl)
+        source, label = "true ATR(14) from Yahoo GC=F OHLC", "ATR(14)"
+    except Exception as e:  # noqa: BLE001
+        warn(f"ATR: OHLC unavailable ({e}); using close-to-close volatility proxy")
+        pct_series = close_to_close_vol_series(gold_close)
+        atr_abs = pct_series.last / 100.0 * gold_close.last
+        source, label = "close-to-close volatility proxy (no OHLC)", "Daily move (proxy)"
+
+    pct = pct_series.percentile_of_last(1260)
+    window = sorted(pct_series.values[-1260:])
+    median = window[len(window) // 2]
+    ratio = pct_series.last / median if median else 1.0
+    regime = next(name for lo_, name in VOL_BANDS if pct >= lo_)
+    if pct >= 90:
+        advice = ("Size smaller than usual — the same position swings roughly "
+                  f"{ratio:.1f}× a typical day's money.")
+    elif pct >= 70:
+        advice = f"Moves are running {ratio:.1f}× normal; trim position sizes accordingly."
+    elif pct < 30:
+        advice = f"Unusually quiet at {ratio:.1f}× normal — a given position risks less than usual."
+    else:
+        advice = "Daily moves are around their five-year normal; standard sizing applies."
+    return {
+        "label": label,
+        "atr_abs": round(atr_abs, 2),
+        "atr_pct": round(pct_series.last, 2),
+        "percentile_5y": round(pct),
+        "vs_median": round(ratio, 2),
+        "regime": regime,
+        "advice": advice,
+        "source": source,
+        "spark": pct_series.spark(span=260),
+        "note": (f"Gold is moving about ${atr_abs:,.0f} a day "
+                 f"({pct_series.last:.1f}% of price) — the {ordinal(pct)} percentile of "
+                 f"the last five years. {advice}"),
+    }
+
+
 def fetch_with_fallback(name, primary, fallback):
     """Try primary fetcher, fall back; returns (Series, provider_label)."""
     p_label, p_fn = primary
@@ -1013,6 +1114,7 @@ def render_static(latest):
     """
     d = latest
     g, fv, conf = d["gold"], d["fair_value"], d["confidence"]
+    vol = d.get("volatility")
     live = [s for s in d["signals"] if not s["stale"] and s["score"] is not None]
     top = sorted(live, key=lambda s: -abs(s["score"] * s["eff_weight"]))[:2]
     drivers = " and ".join(
@@ -1034,7 +1136,8 @@ def render_static(latest):
         f'<div class="drivers" id="drivers">Driven by {drivers}</div>\n'
         f'<div class="band-caption" id="band-note">{html_escape(d["band_note"])}</div>\n'
         f'<div class="confidence" id="confidence">Data confidence {html_escape(conf["level"])} · '
-        f'{conf["freshness_pct"]}% of weight live</div>')
+        f'{conf["freshness_pct"]}% of weight live</div>'
+        + (f'\n<div class="vol-note" id="vol-note">{html_escape(vol["note"])}</div>' if vol else ''))
 
     def stat(k, v, sub):
         return (f'<div class="stat"><div class="k">{html_escape(k)}</div>'
@@ -1048,7 +1151,8 @@ def render_static(latest):
              "vs macro model" if fv["applied"] else "reference only — not applied"),
         stat("Regime", d["regime"]["name"].split("/")[0].strip(), ""),
         stat("Data confidence", conf["level"], f'{conf["freshness_pct"]}% weight live'),
-    ])
+    ] + ([stat(vol["label"], f'${vol["atr_abs"]:,.0f}/day',
+               f'{ordinal(vol["percentile_5y"])} pct · {vol["regime"]}')] if vol else []))
     blocks["REGIMENAME"] = html_escape(d["regime"]["name"])
     blocks["REGIMEDESC"] = html_escape(d["regime"]["description"])
 
@@ -1090,7 +1194,10 @@ def render_static(latest):
              f"This measures input quality, not model validity.",
              f"- Fair value: {fv['text']}",
              f"- Band meaning: {d['band_note']}",
-             f"- GBP lens: {d['gbp_lens']['note']}", "",
+             f"- GBP lens: {d['gbp_lens']['note']}"]
+    if d.get("volatility"):
+        lines.append(f"- Volatility ({d['volatility']['source']}): {d['volatility']['note']}")
+    lines += ["",
              "## Signals (score -2 bearish to +2 bullish for gold)", ""]
     for s in d["signals"]:
         sc = "excluded" if s["score"] is None else f'{s["score"]:+.2f}'
@@ -1189,6 +1296,11 @@ def main():
     signals_ranked = sorted(signals, key=lambda s: (s["stale"], -s.get("eff_weight", 0), s["id"]))
 
     ggbp = d.get("gold_gbp")
+    try:
+        vol_ctx = volatility_context(gold)
+    except Exception as e:  # noqa: BLE001 - context only, never fail the run
+        warn(f"Volatility context failed: {e}")
+        vol_ctx = None
     band_notes = {
         "SELL/REDUCE": "Macro tailwinds absent — risk posture, not a sell-timing call.",
         "TRIM": "Macro tailwinds absent — risk posture, not a sell-timing call.",
@@ -1228,6 +1340,7 @@ def main():
             "gbp": round(ggbp.last, 2) if ggbp else None,
             "gbp_chg_1d_pct": round(ggbp.pct_change(1), 2) if ggbp else None,
         },
+        "volatility": vol_ctx,
         "gbp_lens": gbp_lens(d),
         "change_my_mind": change_my_mind,
         "signals": signals_ranked,

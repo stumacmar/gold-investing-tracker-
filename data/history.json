@@ -2273,7 +2273,6 @@
 "verdict": "SELL/REDUCE",
 "gold_usd": 4399.7,
 "gold_gbp": 3152.65,
-"regime": "fx_stress",
-"backfilled": true
+"regime": "fx_stress"
 }
 ]

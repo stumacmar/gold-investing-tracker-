@@ -102,13 +102,15 @@ a { color: var(--gold); }
   font-size: 12px; color: var(--muted); margin: 8px auto 0; max-width: 420px;
 }
 .confidence { font-size: 12px; color: var(--muted); margin-top: 6px; }
+.vol-note { font-size: 12px; color: var(--muted); margin: 6px auto 0; max-width: 440px; }
+.vol-note:empty { display: none; }
 
 /* ---------------- stats row */
 .stats {
   display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
   margin-bottom: 12px;
 }
-@media (min-width: 560px) { .stats { grid-template-columns: repeat(5, 1fr); } }
+@media (min-width: 560px) { .stats { grid-template-columns: repeat(3, 1fr); } }
 .stat {
   background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
   padding: 10px 12px;
