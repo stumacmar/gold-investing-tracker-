@@ -137,6 +137,16 @@ a { color: var(--gold); }
 .chart-wrap { position: relative; height: 260px; }
 .chart-note { font-size: 11px; color: var(--faint); margin-top: 8px; }
 
+.struct-note { font-size: 13px; color: var(--muted); margin-top: 10px; }
+.lvl { display: grid; grid-template-columns: 78px 1fr 62px; gap: 8px; align-items: baseline;
+       font-size: 12.5px; padding: 5px 0; border-top: 1px solid var(--line); }
+.lvl:first-child { border-top: none; }
+.lvl .p { font-family: var(--display); font-size: 15px; }
+.lvl .t { color: var(--faint); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+.lvl .d { text-align: right; color: var(--muted); }
+.lvl.res .p { color: var(--neg); } .lvl.sup .p { color: var(--pos); }
+#struct-levels { margin-top: 10px; }
+
 /* ---------------- signals */
 .signal { border-top: 1px solid var(--line); }
 .signal:first-child { border-top: none; }

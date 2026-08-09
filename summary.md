@@ -1,6 +1,6 @@
 # Gold Signal Engine — 29.7/100 SELL/REDUCE
 
-As of 2026-08-07 (generated 2026-08-09T19:31:53.119719Z).
+As of 2026-08-07 (generated 2026-08-09T20:43:58.671214Z).
 
 - Gold: $4,399.70 USD / £3,152.65 GBP
 - Regime: FX stress / intervention — The yen is being defended off a weak base. That means Treasury sales, dollar liquidity strain and a haven bid — and it inflates the broad dollar index, so the dollar signal is discounted here rather than read as genuine strength.
@@ -9,6 +9,7 @@ As of 2026-08-07 (generated 2026-08-09T19:31:53.119719Z).
 - Band meaning: Macro tailwinds absent — risk posture, not a sell-timing call.
 - GBP lens: XAUGBP £3,153, -10.9% over 3m, downtrend vs 200DMA — sterling gold is trending down: if the USD verdict says add, the currency is eating the move — size down; if it says trim, GBP agrees.
 - Volatility (true ATR(14) from Yahoo GC=F OHLC): Gold is moving about $83 a day (1.9% of price) — the 88th percentile of the last five years. Moves are running 1.7× normal; trim position sizes accordingly.
+- Price structure: Gold $4,400: next resistance $5,306 (+20.6%, tested 2x); nearest support $3,967 (-9.8%, tested 2x). It has spent 24% of the past year between $3,945 and $4,145 — price is above it.
 
 ## Signals (score -2 bearish to +2 bullish for gold)
 
@@ -22,7 +23,7 @@ As of 2026-08-07 (generated 2026-08-09T19:31:53.119719Z).
 - **H. Fear & credit** (weight 7.8): +0.00 — VIX 15, BAA-10Y spread 1.61% (-0.05pp 3m) — no stress signal either way.
 - **M. Labour market** (weight 6.0): +0.40 — Payrolls -23k last month, +20k 3m average vs the ~100k breakeven; claims 4-wk avg 198,750 (-2.1% vs 3m ago); unemployment 4.1% (-0.20pp 3m) — labour softening at the edges.
 - **I. Geopolitics (GPR)** (weight 5.0): +0.18 — GPR index 153 vs 5y average 143 — geopolitical risk elevated.
-- **N. FX stress (yen)** (weight 4.0): +0.61 — USDJPY 157.8, -0.2% vs 200DMA; intervention-scale snap -1.9% 7 sessions ago — a 1.9% single-session yen surge off a weak base 7 sessions ago is the footprint of official intervention — Treasury sales and dollar liquidity strain bid gold.
+- **N. FX stress (yen)** (weight 4.0): +0.60 — USDJPY 157.7, -0.2% vs 200DMA; intervention-scale snap -1.9% 7 sessions ago — a 1.9% single-session yen surge off a weak base 7 sessions ago is the footprint of official intervention — Treasury sales and dollar liquidity strain bid gold.
 - **L. Gold/silver ratio** (weight 2.0): +0.00 — Gold/silver ratio 69 (12th pct of 5y) — ratio mid-range; no tell either way.
 - **J. Central bank demand** (weight 0.0): excluded — Input unavailable (central_banks: stale, failed or placeholder) — excluded; weights renormalised.
 - **K. ETF flows** (weight 0.0): excluded — Input unavailable (etf_flows: stale, failed or placeholder) — excluded; weights renormalised.

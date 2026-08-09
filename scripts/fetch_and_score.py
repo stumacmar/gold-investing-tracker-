@@ -318,6 +318,104 @@ def volatility_context(gold_close):
     }
 
 
+def swing_pivots(series, window=15, lookback=760):
+    """Local highs/lows: a close that is the extreme of the +/-window sessions around it."""
+    v, dts = series.values[-lookback:], series.dates[-lookback:]
+    highs, lows = [], []
+    for i in range(window, len(v) - window):
+        seg = v[i - window:i + window + 1]
+        if v[i] == max(seg):
+            highs.append((dts[i], v[i]))
+        if v[i] == min(seg):
+            lows.append((dts[i], v[i]))
+    return highs, lows
+
+
+def cluster_levels(pivots, tol_pct=1.8):
+    """Group pivots that sit within tol_pct of each other — a level touched repeatedly
+    matters more than a one-off spike."""
+    clusters = []
+    for date, price in sorted(pivots, key=lambda p: p[1]):
+        if clusters and abs(price / clusters[-1]["price"] - 1) * 100 <= tol_pct:
+            c = clusters[-1]
+            c["prices"].append(price)
+            c["dates"].append(date)
+            c["price"] = sum(c["prices"]) / len(c["prices"])
+        else:
+            clusters.append({"price": price, "prices": [price], "dates": [date]})
+    return clusters
+
+
+def consolidation_range(series, lookback=252, band_frac=0.10):
+    """The price band where gold has spent the most time — the shaded box on a
+    trader's chart. Slides a band worth band_frac of the yearly range and keeps the
+    densest one."""
+    v = series.values[-lookback:]
+    lo, hi = min(v), max(v)
+    if hi <= lo:
+        return None
+    width = (hi - lo) * band_frac
+    best, best_lo = -1, lo
+    steps = 200
+    for i in range(steps + 1):
+        b_lo = lo + (hi - lo - width) * i / steps
+        n = sum(1 for x in v if b_lo <= x <= b_lo + width)
+        if n > best:
+            best, best_lo = n, b_lo
+    return {"low": round(best_lo, 2), "high": round(best_lo + width, 2),
+            "pct_of_time": round(100 * best / len(v))}
+
+
+def price_structure(gold):
+    """Support/resistance levels and the consolidation range, computed from swing
+    pivots rather than drawn by hand. Display only — nothing here touches the score."""
+    px = gold.last
+    highs, lows = swing_pivots(gold)
+    levels = []
+    for kind, pivots in (("resistance", highs), ("support", lows)):
+        for c in cluster_levels(pivots):
+            touches = len(c["prices"])
+            dist = abs(c["price"] / px - 1) * 100
+            if dist > 30:
+                continue  # a level 40% away is history, not a trading reference
+            if touches < 2:
+                continue  # a level tested only once is not a level
+            levels.append({
+                "price": round(c["price"], 2),
+                "type": "resistance" if c["price"] > px else "support",
+                "touches": touches,
+                "last_touch": max(c["dates"]),
+                "distance_pct": round((c["price"] / px - 1) * 100, 1),
+                "_kind": kind,
+            })
+    # Keep the most-touched levels, preferring ones close to the current price.
+    levels.sort(key=lambda l: (-l["touches"], abs(l["distance_pct"])))
+    levels = sorted(levels[:6], key=lambda l: -l["price"])
+    for l in levels:
+        l.pop("_kind", None)
+
+    rng = consolidation_range(gold)
+    above = [l for l in levels if l["type"] == "resistance"]
+    below = [l for l in levels if l["type"] == "support"]
+    nearest_r = min(above, key=lambda l: l["distance_pct"]) if above else None
+    nearest_s = max(below, key=lambda l: l["distance_pct"]) if below else None
+    bits = []
+    if nearest_r:
+        bits.append(f"next resistance ${nearest_r['price']:,.0f} "
+                    f"({nearest_r['distance_pct']:+.1f}%, tested {nearest_r['touches']}x)")
+    if nearest_s:
+        bits.append(f"nearest support ${nearest_s['price']:,.0f} "
+                    f"({nearest_s['distance_pct']:+.1f}%, tested {nearest_s['touches']}x)")
+    note = f"Gold ${px:,.0f}: " + "; ".join(bits) + "." if bits else "No clear levels nearby."
+    if rng:
+        inside = rng["low"] <= px <= rng["high"]
+        note += (f" It has spent {rng['pct_of_time']}% of the past year between "
+                 f"${rng['low']:,.0f} and ${rng['high']:,.0f} — "
+                 + ("price is inside that range now." if inside else
+                    f"price is {'above' if px > rng['high'] else 'below'} it."))
+    return {"price": round(px, 2), "levels": levels, "range": rng, "note": note}
+
+
 def fetch_with_fallback(name, primary, fallback):
     """Try primary fetcher, fall back; returns (Series, provider_label)."""
     p_label, p_fn = primary
@@ -1153,6 +1251,14 @@ def render_static(latest):
         stat("Data confidence", conf["level"], f'{conf["freshness_pct"]}% weight live'),
     ] + ([stat(vol["label"], f'${vol["atr_abs"]:,.0f}/day',
                f'{ordinal(vol["percentile_5y"])} pct · {vol["regime"]}')] if vol else []))
+    ps = d.get("price_structure")
+    blocks["STRUCTNOTE"] = html_escape(ps["note"]) if ps else ""
+    blocks["STRUCTLEVELS"] = "\n".join(
+        f'<div class="lvl {"res" if l["type"] == "resistance" else "sup"}">'
+        f'<div class="p">${l["price"]:,.0f}</div>'
+        f'<div class="t">{l["type"]} · tested {l["touches"]}x · last {l["last_touch"]}</div>'
+        f'<div class="d">{l["distance_pct"]:+.1f}%</div></div>'
+        for l in ps["levels"]) if ps else ""
     blocks["REGIMENAME"] = html_escape(d["regime"]["name"])
     blocks["REGIMEDESC"] = html_escape(d["regime"]["description"])
 
@@ -1197,6 +1303,8 @@ def render_static(latest):
              f"- GBP lens: {d['gbp_lens']['note']}"]
     if d.get("volatility"):
         lines.append(f"- Volatility ({d['volatility']['source']}): {d['volatility']['note']}")
+    if d.get("price_structure"):
+        lines.append(f"- Price structure: {d['price_structure']['note']}")
     lines += ["",
              "## Signals (score -2 bearish to +2 bullish for gold)", ""]
     for s in d["signals"]:
@@ -1297,6 +1405,11 @@ def main():
 
     ggbp = d.get("gold_gbp")
     try:
+        struct = price_structure(gold)
+    except Exception as e:  # noqa: BLE001 - display only
+        warn(f"Price structure failed: {e}")
+        struct = None
+    try:
         vol_ctx = volatility_context(gold)
     except Exception as e:  # noqa: BLE001 - context only, never fail the run
         warn(f"Volatility context failed: {e}")
@@ -1341,6 +1454,7 @@ def main():
             "gbp_chg_1d_pct": round(ggbp.pct_change(1), 2) if ggbp else None,
         },
         "volatility": vol_ctx,
+        "price_structure": struct,
         "gbp_lens": gbp_lens(d),
         "change_my_mind": change_my_mind,
         "signals": signals_ranked,
@@ -1370,8 +1484,12 @@ def main():
     except Exception as e:  # noqa: BLE001 - never fail the run over presentation
         warn(f"Static render failed: {e}")
 
+    # Daily closes for the price-structure chart (2y is plenty at this zoom).
+    write_json(os.path.join(DATA_DIR, "prices.json"),
+               {"dates": gold.dates[-504:], "close": [round(v, 2) for v in gold.values[-504:]]})
+
     # Mirror to docs/data for GitHub Pages (Pages serves /docs only)
-    for name in ("latest.json", "history.json"):
+    for name in ("latest.json", "history.json", "prices.json"):
         with open(os.path.join(DATA_DIR, name)) as src, \
              open(os.path.join(DOCS_DATA_DIR, name), "w") as dst:
             dst.write(src.read())

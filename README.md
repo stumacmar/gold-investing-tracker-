@@ -222,3 +222,24 @@ would silently redefine what a 30 means.
 Read it as a size qualifier on the verdict: the same words mean different
 things at the 10th and 90th percentile of volatility. Currently ~$83/day
 (1.9% of price), 88th percentile of five years, ~1.7× the normal daily range.
+
+## Price structure
+
+A trader's-eye view of the chart, computed rather than drawn by hand:
+
+- **Support/resistance levels** from swing pivots — a close that is the extreme
+  of the ±15 sessions around it. Nearby pivots are clustered (within 1.8%) and a
+  level is only published if it has been **tested at least twice**; a price
+  touched once is not a level. Levels more than 30% away are dropped as history
+  rather than trading references.
+- **Consolidation range** — the price band where gold has spent the most time
+  over the past year, found by sliding a band worth 10% of the yearly range and
+  keeping the densest one. This is the shaded box on the chart.
+
+Display only — none of it feeds the score. It answers "where is price relative
+to the levels that have mattered", which is a different question from "what do
+the macro drivers say".
+
+Not replicated: cycle arcs and similar hand-drawn overlays. They cannot be
+derived objectively from the data, so there is no honest way to compute or
+validate them here.

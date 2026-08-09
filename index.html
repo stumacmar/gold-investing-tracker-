@@ -74,6 +74,17 @@
     <div class="chart-note" id="chart-note"></div>
   </section>
 
+  <!-- Price structure -->
+  <section class="panel">
+    <div class="panel-title">PRICE STRUCTURE — 2Y</div>
+    <div class="chart-wrap"><canvas id="structure-chart"></canvas></div>
+    <p class="struct-note" id="struct-note"><!--SSR:STRUCTNOTE-->Gold $4,400: next resistance $5,306 (+20.6%, tested 2x); nearest support $3,967 (-9.8%, tested 2x). It has spent 24% of the past year between $3,945 and $4,145 — price is above it.<!--/SSR:STRUCTNOTE--></p>
+    <div id="struct-levels"><!--SSR:STRUCTLEVELS--><div class="lvl res"><div class="p">$5,306</div><div class="t">resistance · tested 2x · last 2026-03-02</div><div class="d">+20.6%</div></div>
+<div class="lvl sup"><div class="p">$3,967</div><div class="t">support · tested 2x · last 2026-07-16</div><div class="d">-9.8%</div></div>
+<div class="lvl sup"><div class="p">$3,427</div><div class="t">support · tested 3x · last 2025-07-22</div><div class="d">-22.1%</div></div>
+<div class="lvl sup"><div class="p">$3,283</div><div class="t">support · tested 2x · last 2025-07-31</div><div class="d">-25.4%</div></div><!--/SSR:STRUCTLEVELS--></div>
+  </section>
+
   <!-- Signals -->
   <section class="panel">
     <div class="panel-title">THE 14 SIGNALS</div>
@@ -87,7 +98,7 @@
 <div class="signal" id="sig-H"><button class="signal-head" aria-expanded="false" data-id="H"><div class="sig-id">H</div><div><div class="sig-name">Fear &amp; credit</div><div class="sig-value">VIX 15 / 1.61% · weight 7.8</div></div><div class="scorebar"></div><div class="sig-score">+0.0</div></button><div class="signal-body"><div class="sig-rationale">VIX 15, BAA-10Y spread 1.61% (-0.05pp 3m) — no stress signal either way.</div></div></div>
 <div class="signal" id="sig-M"><button class="signal-head" aria-expanded="false" data-id="M"><div class="sig-id">M</div><div><div class="sig-name">Labour market</div><div class="sig-value">+20k 3m avg / 4.1% · weight 6.0</div></div><div class="scorebar"></div><div class="sig-score">+0.4</div></button><div class="signal-body"><div class="sig-rationale">Payrolls -23k last month, +20k 3m average vs the ~100k breakeven; claims 4-wk avg 198,750 (-2.1% vs 3m ago); unemployment 4.1% (-0.20pp 3m) — labour softening at the edges.</div></div></div>
 <div class="signal" id="sig-I"><button class="signal-head" aria-expanded="false" data-id="I"><div class="sig-id">I</div><div><div class="sig-name">Geopolitics (GPR)</div><div class="sig-value">153 (5y avg 143) · weight 5.0</div></div><div class="scorebar"></div><div class="sig-score">+0.2</div></button><div class="signal-body"><div class="sig-rationale">GPR index 153 vs 5y average 143 — geopolitical risk elevated.</div></div></div>
-<div class="signal" id="sig-N"><button class="signal-head" aria-expanded="false" data-id="N"><div class="sig-id">N</div><div><div class="sig-name">FX stress (yen)</div><div class="sig-value">157.8 (-0.2% vs 200DMA) · weight 4.0</div></div><div class="scorebar"></div><div class="sig-score">+0.6</div></button><div class="signal-body"><div class="sig-rationale">USDJPY 157.8, -0.2% vs 200DMA; intervention-scale snap -1.9% 7 sessions ago — a 1.9% single-session yen surge off a weak base 7 sessions ago is the footprint of official intervention — Treasury sales and dollar liquidity strain bid gold.</div></div></div>
+<div class="signal" id="sig-N"><button class="signal-head" aria-expanded="false" data-id="N"><div class="sig-id">N</div><div><div class="sig-name">FX stress (yen)</div><div class="sig-value">157.7 (-0.2% vs 200DMA) · weight 4.0</div></div><div class="scorebar"></div><div class="sig-score">+0.6</div></button><div class="signal-body"><div class="sig-rationale">USDJPY 157.7, -0.2% vs 200DMA; intervention-scale snap -1.9% 7 sessions ago — a 1.9% single-session yen surge off a weak base 7 sessions ago is the footprint of official intervention — Treasury sales and dollar liquidity strain bid gold.</div></div></div>
 <div class="signal" id="sig-L"><button class="signal-head" aria-expanded="false" data-id="L"><div class="sig-id">L</div><div><div class="sig-name">Gold/silver ratio</div><div class="sig-value">69.3 · weight 2.0</div></div><div class="scorebar"></div><div class="sig-score">+0.0</div></button><div class="signal-body"><div class="sig-rationale">Gold/silver ratio 69 (12th pct of 5y) — ratio mid-range; no tell either way.</div></div></div>
 <div class="signal stale" id="sig-J"><button class="signal-head" aria-expanded="false" data-id="J"><div class="sig-id">J</div><div><div class="sig-name">Central bank demand</div><div class="sig-value">— · excluded</div></div><div class="scorebar"></div><div class="sig-score">—</div></button><div class="signal-body"><div class="sig-rationale">Input unavailable (central_banks: stale, failed or placeholder) — excluded; weights renormalised.</div></div></div>
 <div class="signal stale" id="sig-K"><button class="signal-head" aria-expanded="false" data-id="K"><div class="sig-id">K</div><div><div class="sig-name">ETF flows</div><div class="sig-value">— · excluded</div></div><div class="scorebar"></div><div class="sig-score">—</div></button><div class="signal-body"><div class="sig-rationale">Input unavailable (etf_flows: stale, failed or placeholder) — excluded; weights renormalised.</div></div></div><!--/SSR:SIGNALS--></div>

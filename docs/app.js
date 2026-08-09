@@ -158,6 +158,90 @@ function renderFreshness(d) {
   $("generated").textContent = (d.generated_at || "").replace("T", " ").slice(0, 16) + " UTC";
 }
 
+
+// ---- Price structure: support/resistance lines + consolidation band drawn on canvas.
+// Chart.js has no annotation support without a plugin, so this draws them directly.
+const structurePlugin = {
+  id: "structure",
+  beforeDatasetsDraw(chart, args, opts) {
+    const s = opts && opts.structure;
+    if (!s) return;
+    const { ctx, chartArea: area, scales: { y } } = chart;
+    const css = getComputedStyle(document.documentElement);
+    const gold = css.getPropertyValue("--gold").trim();
+    const neg = css.getPropertyValue("--neg").trim();
+    const pos = css.getPropertyValue("--pos").trim();
+    ctx.save();
+    if (s.range) {
+      const yTop = y.getPixelForValue(s.range.high);
+      const yBot = y.getPixelForValue(s.range.low);
+      ctx.fillStyle = "rgba(201,162,39,0.10)";
+      ctx.fillRect(area.left, yTop, area.right - area.left, yBot - yTop);
+      ctx.strokeStyle = "rgba(201,162,39,0.45)";
+      ctx.setLineDash([4, 3]); ctx.lineWidth = 1;
+      ctx.strokeRect(area.left, yTop, area.right - area.left, yBot - yTop);
+      ctx.setLineDash([]);
+      ctx.fillStyle = gold; ctx.font = "10px system-ui"; ctx.textAlign = "right";
+      ctx.fillText(`${s.range.pct_of_time}% of the year`, area.right - 4, yTop - 3);
+      ctx.textAlign = "left";
+    }
+    let lastLabelY = null;
+    (s.levels || []).forEach((l) => {
+      const py = y.getPixelForValue(l.price);
+      if (py < area.top || py > area.bottom) return;
+      ctx.strokeStyle = l.type === "resistance" ? neg : pos;
+      ctx.globalAlpha = Math.min(0.85, 0.4 + 0.15 * l.touches);
+      ctx.lineWidth = 1.2; ctx.setLineDash([6, 4]);
+      ctx.beginPath(); ctx.moveTo(area.left, py); ctx.lineTo(area.right, py); ctx.stroke();
+      ctx.setLineDash([]); ctx.globalAlpha = 1;
+      ctx.fillStyle = l.type === "resistance" ? neg : pos;
+      ctx.font = "10px system-ui";
+      // Left-aligned inside the plot so labels never clip on narrow phones; nudge down
+      // when two levels sit close enough for their labels to collide.
+      let ly = py - 3;
+      if (lastLabelY !== null && Math.abs(ly - lastLabelY) < 11) ly = lastLabelY + 11;
+      lastLabelY = ly;
+      ctx.fillText(`$${Math.round(l.price).toLocaleString("en-US")} · ${l.touches}x`, area.left + 5, ly);
+    });
+    ctx.restore();
+  },
+};
+
+function renderStructure(latest, prices) {
+  const s = latest.price_structure;
+  if (!s) return;
+  $("struct-note").textContent = s.note;
+  $("struct-levels").innerHTML = (s.levels || []).map((l) =>
+    `<div class="lvl ${l.type === "resistance" ? "res" : "sup"}">
+       <div class="p">$${Math.round(l.price).toLocaleString("en-US")}</div>
+       <div class="t">${esc(l.type)} · tested ${l.touches}x · last ${esc(l.last_touch)}</div>
+       <div class="d">${l.distance_pct > 0 ? "+" : ""}${l.distance_pct}%</div>
+     </div>`).join("");
+  if (typeof Chart === "undefined" || !prices || !prices.dates) return;
+  const css = getComputedStyle(document.documentElement);
+  const goldC = css.getPropertyValue("--gold").trim();
+  const faint = css.getPropertyValue("--faint").trim();
+  new Chart($("structure-chart"), {
+    type: "line",
+    data: {
+      labels: prices.dates,
+      datasets: [{ label: "Gold USD", data: prices.close, borderColor: goldC,
+                   borderWidth: 1.6, pointRadius: 0, tension: 0.15 }],
+    },
+    options: {
+      maintainAspectRatio: false,
+      animation: matchMedia("(prefers-reduced-motion: reduce)").matches ? false : { duration: 500 },
+      interaction: { mode: "index", intersect: false },
+      plugins: { legend: { display: false }, structure: { structure: s } },
+      scales: {
+        x: { ticks: { color: faint, maxTicksLimit: 6, font: { size: 10 } }, grid: { display: false } },
+        y: { ticks: { color: faint, font: { size: 10 } }, grid: { color: "#1c231d" } },
+      },
+    },
+    plugins: [structurePlugin],
+  });
+}
+
 function renderChart(history, latest) {
   if (typeof Chart === "undefined") { $("chart-note").textContent = "Chart library offline — score history unavailable."; return; }
   const cutoff = new Date(Date.now() - 730 * 864e5).toISOString().slice(0, 10);
@@ -201,9 +285,10 @@ function renderChart(history, latest) {
 
 (async function init() {
   try {
-    const [latest, history] = await Promise.all([
+    const [latest, history, prices] = await Promise.all([
       loadJSON("data/latest.json"),
       loadJSON("data/history.json").catch(() => []),
+      loadJSON("data/prices.json").catch(() => null),
     ]);
     $("asof").textContent = "as of " + latest.as_of;
     renderGauge(latest);
@@ -212,8 +297,11 @@ function renderChart(history, latest) {
     renderFlips(latest);
     renderGBP(latest);
     renderFreshness(latest);
-    const drawChart = () => renderChart(history, latest);
-    if (typeof Chart === "undefined") window.addEventListener("load", drawChart); else drawChart();
+    const drawChart = () => { renderChart(history, latest); renderStructure(latest, prices); };
+    // Render immediately; renderChart/renderStructure degrade gracefully when Chart.js
+    // is missing. (A "load" listener added after load has already fired never runs.)
+    drawChart();
+    if (typeof Chart === "undefined") window.addEventListener("load", drawChart, { once: true });
   } catch (e) {
     document.querySelector("main").insertAdjacentHTML("afterbegin",
       `<div class="panel" style="color:var(--neg)">Failed to load data: ${e.message}</div>`);
