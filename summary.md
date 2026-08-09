@@ -1,6 +1,6 @@
-# Gold Signal Engine — 24.1/100 SELL/REDUCE
+# Gold Signal Engine — 26.8/100 SELL/REDUCE
 
-As of 2026-08-07 (generated 2026-08-09T08:30:01.217049Z).
+As of 2026-08-07 (generated 2026-08-09T09:19:37.331600Z).
 
 - Gold: $4,399.70 USD / £3,152.65 GBP
 - Regime: Rising real yields / strong dollar — The macro is leaning on gold from both sides. Momentum must be exceptional to overcome this drag.
@@ -19,8 +19,8 @@ As of 2026-08-07 (generated 2026-08-09T08:30:01.217049Z).
 - **F. Positioning (COT)** (weight 8.0): -0.17 — Managed money net long 130,766 contracts, 71st percentile of 5y — mid-range — positioning is not the story right now.
 - **G. Valuation stretch** (weight 8.0): +0.00 — -1.8% vs 200DMA, RSI(14) 74 — no stretch either way.
 - **H. Fear & credit** (weight 6.0): +0.00 — VIX 15, BAA-10Y spread 1.61% (-0.05pp 3m) — no stress signal either way.
+- **M. Labour market** (weight 6.0): +0.40 — Payrolls -23k last month, +20k 3m average vs the ~100k breakeven; claims 4-wk avg 198,750 (-2.1% vs 3m ago); unemployment 4.1% (-0.20pp 3m) — labour softening at the edges.
 - **I. Geopolitics (GPR)** (weight 5.0): +0.18 — GPR index 153 vs 5y average 143 — geopolitical risk elevated.
-- **M. Labour market** (weight 5.0): -0.81 — Initial claims 4-wk avg 198,750 (-2.1% vs 3m ago), unemployment 4.1% (-0.20pp 3m) — labour market strong — no pressure on the Fed to ease.
 - **L. Gold/silver ratio** (weight 2.0): +0.00 — Gold/silver ratio 69 (12th pct of 5y) — ratio mid-range; no tell either way.
 - **J. Central bank demand** (weight 0.0): excluded — Input unavailable (central_banks: stale, failed or placeholder) — excluded; weights renormalised.
 - **K. ETF flows** (weight 0.0): excluded — Input unavailable (etf_flows: stale, failed or placeholder) — excluded; weights renormalised.
@@ -46,6 +46,7 @@ As of 2026-08-07 (generated 2026-08-09T08:30:01.217049Z).
 - effr: 2026-08-06 (3d old) via fred-csv
 - icsa: 2026-08-01 (8d old) via fred-csv
 - unrate: 2026-07-01 (39d old) via fred-csv
+- payems: 2026-07-01 (39d old) via fred-csv
 - cot: 2026-08-04 (5d old) via cftc-socrata
 - gpr: 2026-07-01 (39d old) via iacoviello-xls
 - central_banks: 2026-07-30 (10d old) via manual (PLACEHOLDER — not scored) [EXCLUDED]

@@ -54,7 +54,7 @@ plain-English rationale generated from the actual numbers.
 | J | Central bank demand | 4 | **Manual, quarterly** (from WGC): last 4 quarters of official-sector net purchases vs the 5y average annual pace. |
 | K | ETF flows | 2 | **Manual, quarterly**: 3-month global gold-ETF net flows — Western participation confirming or diverging from price. |
 | L | Gold/silver ratio | 2 | Extreme ratio percentiles as a risk-appetite tell. Silver confirming (low/falling ratio) is healthy; silver absent at the highs is a tired-rally warning. |
-| M | Labour market | 5 | Initial jobless claims 4-week average vs 3 months ago (`ICSA`) and unemployment-rate momentum (`UNRATE`). A cracking labour market is what historically forces the easing cycles that start gold's best regimes — it leads the 2Y rather than echoing it. |
+| M | Labour market | 6 | Nonfarm payrolls (`PAYEMS`, 50%): 3-month average monthly job growth against the ~100k/month breakeven — the employment report is the release that actually reprices Fed expectations. Plus initial claims (`ICSA`, 25%) and unemployment-rate momentum (`UNRATE`, 25%) as corroboration. A cracking labour market is what historically forces the easing cycles that start gold's best regimes — it leads the 2Y rather than echoing it. |
 
 **Fair-value anchor — with a sanity gate.** A rolling 5-year regression of
 ln(gold) on the 10Y real yield and ln(broad dollar). The residual — "gold is
@@ -104,8 +104,8 @@ The engine never silently scores on dead or fake data.
 `scripts/backtest.py` replays the scoring weekly over ~5 years of history and
 prints forward 3-month gold returns by verdict band. It applies **publication
 lags** so the replay only sees data when it was actually available (COT +3
-days, GPR +32 days, broad dollar +7 days, claims +5, unemployment +37, fed
-funds +1), excludes J and K exactly as the live engine does while manual
+days, GPR +32 days, broad dollar +7 days, claims +5, unemployment +37, payrolls
++37, fed funds +1), excludes J and K exactly as the live engine does while manual
 inputs are placeholder, and states its own statistical limits: 240 weekly
 samples of overlapping 63-day windows are only **~18 independent
 observations**, so the table is descriptive, not proof.
@@ -114,13 +114,13 @@ Current result (2021-08 → 2026-08):
 
 | Band | N | Avg 3m fwd | % positive |
 |---|---|---|---|
-| ACCUMULATE | 52 | +9.2% | 81% |
-| ADD | 45 | +5.0% | 73% |
-| HOLD | 49 | +1.5% | 59% |
-| TRIM | 50 | +5.1% | 80% |
-| SELL/REDUCE | 44 | +4.5% | 70% |
+| ACCUMULATE | 47 | +9.5% | 79% |
+| ADD | 50 | +4.8% | 74% |
+| HOLD | 47 | +1.8% | 60% |
+| TRIM | 50 | +4.8% | 80% |
+| SELL/REDUCE | 46 | +4.7% | 72% |
 
-Spearman rank correlation: +0.15 full sample, +0.48 on 19 non-overlapping
+Spearman rank correlation: +0.15 full sample, +0.43 on 19 non-overlapping
 samples. Read it honestly: the top of the scale is encouraging (ACCUMULATE
 weeks clearly beat HOLD weeks), but **TRIM and SELL/REDUCE were still followed
 by positive returns** — in the 2024–26 central-bank-driven bull, gold kept
@@ -154,7 +154,7 @@ docs/                               static dashboard (GitHub Pages), reads docs/
 | Series | Source | Fallback |
 |---|---|---|
 | Gold, silver, XAUGBP | Stooq CSV | Yahoo Finance (`GC=F`, `SI=F`, derived GBP via `GBPUSD=X`) |
-| DFII10, DGS10, DGS2, T10YIE, T5YIFR, DTWEXBGS, VIXCLS, BAA10Y, EFFR, ICSA, UNRATE | FRED API (`FRED_API_KEY` secret) | FRED keyless CSV endpoint |
+| DFII10, DGS10, DGS2, T10YIE, T5YIFR, DTWEXBGS, VIXCLS, BAA10Y, EFFR, ICSA, UNRATE, PAYEMS | FRED API (`FRED_API_KEY` secret) | FRED keyless CSV endpoint |
 | COT managed money (gold) | CFTC Socrata API (disaggregated futures-only) | — |
 | Geopolitical Risk index | matteoiacoviello.com xls | last good copy cached in `data/gpr_cache.json` |
 | Central bank buying, ETF flows | `data/manual_inputs.json`, updated quarterly by hand from WGC | staleness-dated |
@@ -178,3 +178,21 @@ the dashboard footer.
 
 Nothing here is investment advice — it's a disciplined way of looking at the
 same dashboard of drivers before acting.
+
+## Alerts & health checks
+
+The Action fires an alert **only when the verdict band changes** or when a
+critical series (gold, real yields, dollar) is unavailable — with hysteresis in
+place that is roughly once a month, not twice a day. Both channels are optional
+and skipped unless you add the secrets:
+
+- **Telegram**: `TELEGRAM_TOKEN` (from @BotFather) and `TELEGRAM_CHAT_ID`
+- **Discord**: `DISCORD_WEBHOOK` (channel → Integrations → Webhooks)
+
+The alert names the old and new verdict, the score, the two signals driving it,
+and the one closest to flipping.
+
+A final **health check** step runs after the data is committed. It republishes
+every warning as a GitHub annotation and fails the job — turning the Actions run
+red — if a critical series is missing, so a silent data outage can't masquerade
+as a fresh score. `data/run_status.json` records the same state for the record.

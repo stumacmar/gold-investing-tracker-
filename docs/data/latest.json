@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-08-09T08:30:01.217049Z",
+ "generated_at": "2026-08-09T09:19:37.331600Z",
  "as_of": "2026-08-07",
- "score": 24.1,
+ "score": 26.8,
  "verdict": "SELL/REDUCE",
  "band_note": "Macro tailwinds absent \u2014 risk posture, not a sell-timing call.",
  "bands": {
@@ -14,7 +14,7 @@
  "confidence": {
   "level": "Med",
   "freshness_pct": 94,
-  "dispersion": 0.73
+  "dispersion": 0.76
  },
  "regime": {
   "key": "hostile",
@@ -1465,148 +1465,12 @@
    "eff_weight": 6.0
   },
   {
-   "id": "I",
-   "name": "Geopolitics (GPR)",
-   "weight": 5,
-   "score": 0.18,
-   "value": "153 (5y avg 143)",
-   "rationale": "GPR index 153 vs 5y average 143 \u2014 geopolitical risk elevated.",
-   "spark": [
-    [
-     "2021-08-01",
-     89.4865
-    ],
-    [
-     "2021-10-01",
-     79.0292
-    ],
-    [
-     "2021-12-01",
-     105.3454
-    ],
-    [
-     "2022-02-01",
-     216.159
-    ],
-    [
-     "2022-04-01",
-     191.1431
-    ],
-    [
-     "2022-06-01",
-     130.7073
-    ],
-    [
-     "2022-08-01",
-     132.8632
-    ],
-    [
-     "2022-10-01",
-     143.1624
-    ],
-    [
-     "2022-12-01",
-     111.1959
-    ],
-    [
-     "2023-02-01",
-     120.9944
-    ],
-    [
-     "2023-04-01",
-     106.8097
-    ],
-    [
-     "2023-06-01",
-     110.5289
-    ],
-    [
-     "2023-08-01",
-     101.1412
-    ],
-    [
-     "2023-10-01",
-     197.887
-    ],
-    [
-     "2023-12-01",
-     142.2795
-    ],
-    [
-     "2024-03-01",
-     133.2132
-    ],
-    [
-     "2024-05-01",
-     130.5219
-    ],
-    [
-     "2024-07-01",
-     92.3949
-    ],
-    [
-     "2024-09-01",
-     130.3588
-    ],
-    [
-     "2024-11-01",
-     128.9016
-    ],
-    [
-     "2025-01-01",
-     113.2332
-    ],
-    [
-     "2025-03-01",
-     174.3096
-    ],
-    [
-     "2025-05-01",
-     166.8375
-    ],
-    [
-     "2025-07-01",
-     134.2301
-    ],
-    [
-     "2025-09-01",
-     126.7406
-    ],
-    [
-     "2025-11-01",
-     104.3518
-    ],
-    [
-     "2026-01-01",
-     168.6299
-    ],
-    [
-     "2026-03-01",
-     330.1768
-    ],
-    [
-     "2026-05-01",
-     203.5567
-    ],
-    [
-     "2026-07-01",
-     152.6682
-    ]
-   ],
-   "flip": {
-    "text": "GPR crossing its 5y average (143) flips geopolitics bearish.",
-    "distance": 0.17592521838408204
-   },
-   "stale": false,
-   "eff_weight": 5.0
-  },
-  {
    "id": "M",
    "name": "Labour market",
-   "weight": 5,
-   "score": -0.81,
-   "value": "198,750 claims / 4.1%",
-   "rationale": "Initial claims 4-wk avg 198,750 (-2.1% vs 3m ago), unemployment 4.1% (-0.20pp 3m) \u2014 labour market strong \u2014 no pressure on the Fed to ease.",
+   "weight": 6,
+   "score": 0.4,
+   "value": "+20k 3m avg / 4.1%",
+   "rationale": "Payrolls -23k last month, +20k 3m average vs the ~100k breakeven; claims 4-wk avg 198,750 (-2.1% vs 3m ago); unemployment 4.1% (-0.20pp 3m) \u2014 labour softening at the edges.",
    "spark": [
     [
      "2024-08-10",
@@ -1770,8 +1634,144 @@
     ]
    ],
    "flip": {
-    "text": "Claims 4-wk average crossing 203,000 (its level 3m ago) flips the labour signal.",
-    "distance": 0.8062397372742207
+    "text": "Payrolls 3-month average back above 100k/month (now +20k) removes the labour-market support for gold.",
+    "distance": 0.39844006568144485
+   },
+   "stale": false,
+   "eff_weight": 6.0
+  },
+  {
+   "id": "I",
+   "name": "Geopolitics (GPR)",
+   "weight": 5,
+   "score": 0.18,
+   "value": "153 (5y avg 143)",
+   "rationale": "GPR index 153 vs 5y average 143 \u2014 geopolitical risk elevated.",
+   "spark": [
+    [
+     "2021-08-01",
+     89.4865
+    ],
+    [
+     "2021-10-01",
+     79.0292
+    ],
+    [
+     "2021-12-01",
+     105.3454
+    ],
+    [
+     "2022-02-01",
+     216.159
+    ],
+    [
+     "2022-04-01",
+     191.1431
+    ],
+    [
+     "2022-06-01",
+     130.7073
+    ],
+    [
+     "2022-08-01",
+     132.8632
+    ],
+    [
+     "2022-10-01",
+     143.1624
+    ],
+    [
+     "2022-12-01",
+     111.1959
+    ],
+    [
+     "2023-02-01",
+     120.9944
+    ],
+    [
+     "2023-04-01",
+     106.8097
+    ],
+    [
+     "2023-06-01",
+     110.5289
+    ],
+    [
+     "2023-08-01",
+     101.1412
+    ],
+    [
+     "2023-10-01",
+     197.887
+    ],
+    [
+     "2023-12-01",
+     142.2795
+    ],
+    [
+     "2024-03-01",
+     133.2132
+    ],
+    [
+     "2024-05-01",
+     130.5219
+    ],
+    [
+     "2024-07-01",
+     92.3949
+    ],
+    [
+     "2024-09-01",
+     130.3588
+    ],
+    [
+     "2024-11-01",
+     128.9016
+    ],
+    [
+     "2025-01-01",
+     113.2332
+    ],
+    [
+     "2025-03-01",
+     174.3096
+    ],
+    [
+     "2025-05-01",
+     166.8375
+    ],
+    [
+     "2025-07-01",
+     134.2301
+    ],
+    [
+     "2025-09-01",
+     126.7406
+    ],
+    [
+     "2025-11-01",
+     104.3518
+    ],
+    [
+     "2026-01-01",
+     168.6299
+    ],
+    [
+     "2026-03-01",
+     330.1768
+    ],
+    [
+     "2026-05-01",
+     203.5567
+    ],
+    [
+     "2026-07-01",
+     152.6682
+    ]
+   ],
+   "flip": {
+    "text": "GPR crossing its 5y average (143) flips geopolitics bearish.",
+    "distance": 0.17592521838408204
    },
    "stale": false,
    "eff_weight": 5.0
@@ -1985,7 +1985,7 @@
    "provider": "yahoo:GC=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:51.913913Z"
+   "fetched_at": "2026-08-09T09:19:30.897492Z"
   },
   "gold_gbp": {
    "last_date": "2026-08-06",
@@ -1994,7 +1994,7 @@
    "provider": "derived:GC=F/GBPUSD",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:52.643945Z"
+   "fetched_at": "2026-08-09T09:19:31.587122Z"
   },
   "silver": {
    "last_date": "2026-08-07",
@@ -2003,7 +2003,7 @@
    "provider": "yahoo:SI=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:53.359661Z"
+   "fetched_at": "2026-08-09T09:19:32.262539Z"
   },
   "dfii10": {
    "last_date": "2026-08-06",
@@ -2012,7 +2012,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:53.611248Z"
+   "fetched_at": "2026-08-09T09:19:32.516409Z"
   },
   "dgs10": {
    "last_date": "2026-08-06",
@@ -2021,7 +2021,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:53.936616Z"
+   "fetched_at": "2026-08-09T09:19:32.820325Z"
   },
   "dgs2": {
    "last_date": "2026-08-06",
@@ -2030,7 +2030,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:54.576419Z"
+   "fetched_at": "2026-08-09T09:19:33.104611Z"
   },
   "t10yie": {
    "last_date": "2026-08-07",
@@ -2039,7 +2039,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:54.844717Z"
+   "fetched_at": "2026-08-09T09:19:33.353767Z"
   },
   "t5yifr": {
    "last_date": "2026-08-07",
@@ -2048,7 +2048,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:55.130972Z"
+   "fetched_at": "2026-08-09T09:19:34.066648Z"
   },
   "dollar": {
    "last_date": "2026-07-31",
@@ -2057,7 +2057,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:55.413191Z"
+   "fetched_at": "2026-08-09T09:19:34.372633Z"
   },
   "vix": {
    "last_date": "2026-08-06",
@@ -2066,7 +2066,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:55.726189Z"
+   "fetched_at": "2026-08-09T09:19:34.641291Z"
   },
   "baa10y": {
    "last_date": "2026-08-06",
@@ -2075,7 +2075,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:56.024106Z"
+   "fetched_at": "2026-08-09T09:19:34.914613Z"
   },
   "effr": {
    "last_date": "2026-08-06",
@@ -2084,7 +2084,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:57.615385Z"
+   "fetched_at": "2026-08-09T09:19:35.217605Z"
   },
   "icsa": {
    "last_date": "2026-08-01",
@@ -2093,7 +2093,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:57.884706Z"
+   "fetched_at": "2026-08-09T09:19:35.493137Z"
   },
   "unrate": {
    "last_date": "2026-07-01",
@@ -2102,7 +2102,16 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:58.105528Z"
+   "fetched_at": "2026-08-09T09:19:35.700999Z"
+  },
+  "payems": {
+   "last_date": "2026-07-01",
+   "age_days": 39,
+   "cadence": "monthly",
+   "provider": "fred-csv",
+   "ok": true,
+   "stale": false,
+   "fetched_at": "2026-08-09T09:19:35.880560Z"
   },
   "cot": {
    "last_date": "2026-08-04",
@@ -2111,7 +2120,7 @@
    "provider": "cftc-socrata",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:29:58.909923Z"
+   "fetched_at": "2026-08-09T09:19:36.600548Z"
   },
   "gpr": {
    "last_date": "2026-07-01",
@@ -2120,7 +2129,7 @@
    "provider": "iacoviello-xls",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-09T08:30:01.183632Z"
+   "fetched_at": "2026-08-09T09:19:37.319623Z"
   },
   "central_banks": {
    "last_date": "2026-07-30",
@@ -2129,7 +2138,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-09T08:30:01.188315Z"
+   "fetched_at": "2026-08-09T09:19:37.319785Z"
   },
   "etf_flows": {
    "last_date": "2026-07-30",
@@ -2138,7 +2147,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-09T08:30:01.188335Z"
+   "fetched_at": "2026-08-09T09:19:37.319790Z"
   }
  },
  "warnings": [

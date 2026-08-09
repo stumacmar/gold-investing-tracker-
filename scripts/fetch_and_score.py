@@ -545,27 +545,46 @@ def sig_I_geopolitics(d):
                 spark=s.spark(points=30, span=60), flip=flip)
 
 
+PAYROLL_BREAKEVEN = 100.0  # thousands/month roughly needed to absorb labour-force growth
+
+
 def sig_M_labour(d):
-    icsa, un = d["icsa"], d["unrate"]
+    """Labour market. Payrolls carry the most weight: the monthly employment report is
+    the release that actually reprices Fed expectations, and a weak print is the classic
+    trigger for the easing cycles that start gold's best regimes. Claims and the
+    unemployment rate are the corroborating (and faster / less revised) evidence."""
+    icsa, un, pay = d["icsa"], d["unrate"], d["payems"]
+    # Payrolls: 3-month average monthly change vs the ~100k/month breakeven.
+    monthly = [pay.values[i] - pay.values[i - 1] for i in range(len(pay) - 3, len(pay))]
+    avg3m = sum(monthly) / 3
+    pay_score = clamp((PAYROLL_BREAKEVEN - avg3m) / 100.0 * 1.5, -1.5, 1.5)
+    # Claims and unemployment rate.
     a_now = icsa.ma(4)
-    a_then = sum(icsa.values[-17:-13]) / 4  # 4-wk avg ending 13 weeks (~3m) ago
+    a_then = sum(icsa.values[-17:-13]) / 4  # 4-wk avg ending ~3m ago
     claims_chg = (a_now / a_then - 1) * 100
-    un_chg = un.change(3)  # monthly series: 3 observations = 3 months
-    score = clamp(clamp(claims_chg / 15.0, -1, 1) + clamp(un_chg / 0.3, -1, 1), -2, 2)
+    un_chg = un.change(3)
+    claims_score = clamp(claims_chg / 15.0, -1, 1)
+    un_score = clamp(un_chg / 0.3, -1, 1)
+
+    score = clamp(0.5 * pay_score + 0.25 * claims_score + 0.25 * un_score, -2, 2)
+    last_m = monthly[-1]
     if score > 0.5:
-        tone = "labour market cracking — easing gets closer, and that pays gold"
+        tone = "labour market cracking — that is what forces the Fed's hand, and it pays gold"
     elif score > 0:
         tone = "labour softening at the edges"
     elif score < -0.5:
         tone = "labour market strong — no pressure on the Fed to ease"
     else:
-        tone = "labour steady — no signal for policy either way"
-    rationale = (f"Initial claims 4-wk avg {a_now:,.0f} ({claims_chg:+.1f}% vs 3m ago), "
-                 f"unemployment {un.last:.1f}% ({fmt_pp(un_chg)} 3m) — {tone}.")
-    flip = {"text": f"Claims 4-wk average crossing {a_then:,.0f} (its level 3m ago) flips the labour signal.",
+        tone = "labour mixed — no clear policy signal"
+    rationale = (f"Payrolls {last_m:+,.0f}k last month, {avg3m:+,.0f}k 3m average vs the "
+                 f"~{PAYROLL_BREAKEVEN:,.0f}k breakeven; claims 4-wk avg {a_now:,.0f} "
+                 f"({claims_chg:+.1f}% vs 3m ago); unemployment {un.last:.1f}% "
+                 f"({fmt_pp(un_chg)} 3m) — {tone}.")
+    flip = {"text": f"Payrolls 3-month average back above {PAYROLL_BREAKEVEN:,.0f}k/month "
+                    f"(now {avg3m:+,.0f}k) removes the labour-market support for gold.",
             "distance": abs(score)}
-    return dict(id="M", name="Labour market", weight=5, score=round(score, 2),
-                value=f"{a_now:,.0f} claims / {un.last:.1f}%", rationale=rationale,
+    return dict(id="M", name="Labour market", weight=6, score=round(score, 2),
+                value=f"{avg3m:+,.0f}k 3m avg / {un.last:.1f}%", rationale=rationale,
                 spark=icsa.spark(span=104), flip=flip)
 
 
@@ -799,8 +818,8 @@ def build_data_bundle():
     fred_ids = {"dfii10": "DFII10", "dgs10": "DGS10", "dgs2": "DGS2",
                 "t10yie": "T10YIE", "t5yifr": "T5YIFR", "dollar": "DTWEXBGS",
                 "vix": "VIXCLS", "baa10y": "BAA10Y", "effr": "EFFR",
-                "icsa": "ICSA", "unrate": "UNRATE"}
-    fred_cadence = {"icsa": "weekly", "unrate": "monthly"}
+                "icsa": "ICSA", "unrate": "UNRATE", "payems": "PAYEMS"}
+    fred_cadence = {"icsa": "weekly", "unrate": "monthly", "payems": "monthly"}
     provider = "fred-api" if os.environ.get("FRED_API_KEY") else "fred-csv"
     for key, sid in fred_ids.items():
         cadence = fred_cadence.get(key, "daily")
@@ -843,7 +862,7 @@ SIGNAL_DEPS = {
     "A": ["dfii10"], "B": ["dollar"], "C": ["dgs2"], "D": ["t10yie", "t5yifr", "dfii10"],
     "E": ["gold_usd"], "F": ["cot"], "G": ["gold_usd"], "H": ["vix", "baa10y"],
     "I": ["gpr"], "J": ["central_banks"], "K": ["etf_flows"], "L": ["gold_usd", "silver"],
-    "M": ["icsa", "unrate"],
+    "M": ["icsa", "unrate", "payems"],
 }
 
 
@@ -863,7 +882,7 @@ def compute_signals(d, fresh, manual):
              "J": "Central bank demand", "K": "ETF flows", "L": "Gold/silver ratio",
              "M": "Labour market"}
     weights = {"A": 20, "B": 15, "C": 10, "D": 8, "E": 12, "F": 8,
-               "G": 8, "H": 6, "I": 5, "J": 4, "K": 2, "L": 2, "M": 5}
+               "G": 8, "H": 6, "I": 5, "J": 4, "K": 2, "L": 2, "M": 6}
     signals = []
     for sid, build in builders.items():
         deps = SIGNAL_DEPS[sid]
@@ -1161,6 +1180,45 @@ def main():
         print(f"  [{s['id']}] {s['name']:24s} w={s.get('eff_weight', 0):5.1f} score={sc}  {s['rationale']}")
     if WARNINGS:
         print(f"\n{len(WARNINGS)} warning(s) — see above.")
+
+    # ---- Run status: alerting + health check -------------------------------
+    # CRITICAL series are the ones without which the score is not worth publishing.
+    critical = [k for k in ("gold_usd", "dfii10", "dollar")
+                if not fresh.get(k, {}).get("ok") or fresh[k]["stale"]]
+    verdict_changed = bool(prev_verdict) and prev_verdict != verdict
+    near_flips = [f"{f['signal']}: {f['text']}" for f in change_my_mind]
+    alert_lines = []
+    if verdict_changed:
+        alert_lines.append(f"VERDICT CHANGE: {prev_verdict} -> {verdict} "
+                           f"(score {latest['score']}/100)")
+        alert_lines.append(f"Gold ${gold.last:,.0f}"
+                           + (f" / £{ggbp.last:,.0f}" if ggbp else ""))
+        alert_lines.append(f"Regime: {regime_name} · Data confidence: {conf}")
+        top = sorted((s for s in live), key=lambda s: -abs(s["score"] * s["eff_weight"]))[:2]
+        alert_lines.append("Driven by " + " and ".join(
+            f"{s['name']} ({s['score']:+.1f})" for s in top))
+        if near_flips:
+            alert_lines.append("Closest to flipping — " + near_flips[0])
+    if critical:
+        alert_lines.append(f"DATA PROBLEM: critical series unavailable ({', '.join(critical)}) "
+                           f"— score published without them.")
+    status = {
+        "generated_at": latest["generated_at"],
+        "verdict": verdict, "previous_verdict": prev_verdict,
+        "verdict_changed": verdict_changed,
+        "score": latest["score"],
+        "critical_failures": critical,
+        "warnings": WARNINGS,
+        "alert": bool(alert_lines),
+        "alert_text": "\n".join(alert_lines),
+    }
+    write_json(os.path.join(DATA_DIR, "run_status.json"), status, indent=1)
+    gh_out = os.environ.get("GITHUB_OUTPUT")
+    if gh_out:
+        with open(gh_out, "a") as f:
+            f.write(f"alert={'true' if alert_lines else 'false'}\n")
+            f.write(f"healthy={'false' if critical else 'true'}\n")
+            f.write(f"verdict={verdict}\nscore={latest['score']}\n")
 
     # Surface the run outcome in the GitHub Actions job summary so partial failures
     # are visible without digging through logs.

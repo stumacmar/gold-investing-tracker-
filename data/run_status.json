@@ -1,0 +1,19 @@
+{
+ "generated_at": "2026-08-09T09:19:37.331600Z",
+ "verdict": "SELL/REDUCE",
+ "previous_verdict": "SELL/REDUCE",
+ "verdict_changed": false,
+ "score": 26.8,
+ "critical_failures": [],
+ "warnings": [
+  "gold_usd: primary source stooq:xauusd failed (Stooq xauusd: non-CSV response (bot-blocked?)); trying yahoo:GC=F",
+  "gold_gbp: primary source stooq:xaugbp failed (Stooq xaugbp: non-CSV response (bot-blocked?)); trying derived:GC=F/GBPUSD",
+  "silver: primary source stooq:xagusd failed (Stooq xagusd: non-CSV response (bot-blocked?)); trying yahoo:SI=F",
+  "central_banks: manual_inputs.json still holds placeholder values \u2014 signal excluded until real WGC figures are entered",
+  "etf_flows: manual_inputs.json still holds placeholder values \u2014 signal excluded until real WGC figures are entered",
+  "Signal J excluded: stale/missing inputs ['central_banks']",
+  "Signal K excluded: stale/missing inputs ['etf_flows']"
+ ],
+ "alert": false,
+ "alert_text": ""
+}

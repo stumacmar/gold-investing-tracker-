@@ -29,6 +29,7 @@ jobs:
         run: pip install xlrd
 
       - name: Fetch data and compute score
+        id: score
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python -u scripts/fetch_and_score.py
@@ -37,13 +38,12 @@ jobs:
         run: |
           git config user.name "gold-signal-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data/ docs/data/
+          git add data/ docs/data/ index.html summary.md
           if git diff --cached --quiet; then
             echo "No data changes to commit."
             exit 0
           fi
-          SCORE=$(python -c "import json; d=json.load(open('data/latest.json')); print(f\"{d['score']} {d['verdict']}\")")
-          git commit -m "data: $SCORE ($(date -u +%Y-%m-%dT%H:%MZ))"
+          git commit -m "data: ${{ steps.score.outputs.score }} ${{ steps.score.outputs.verdict }} ($(date -u +%Y-%m-%dT%H:%MZ))"
           # Retry push in case a concurrent run or manual commit landed first
           for i in 1 2 3 4; do
             git push && exit 0
@@ -52,3 +52,53 @@ jobs:
             sleep $((2 ** i))
           done
           git push
+
+      # Alerts fire only on a verdict band change or a critical data failure —
+      # roughly once a month, not every run. Both channels are optional: the step
+      # is skipped when the corresponding secret is absent.
+      - name: Alert — Telegram
+        if: steps.score.outputs.alert == 'true' && env.TELEGRAM_TOKEN != ''
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          TEXT=$(python -c "import json;print(json.load(open('data/run_status.json'))['alert_text'])")
+          curl -sS -X POST "https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=🥇 Gold Signal Engine
+          ${TEXT}
+
+          https://stumacmar.github.io/gold-investing-tracker-/" > /dev/null
+
+      - name: Alert — Discord
+        if: steps.score.outputs.alert == 'true' && env.DISCORD_WEBHOOK != ''
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: |
+          TEXT=$(python -c "import json;print(json.load(open('data/run_status.json'))['alert_text'])")
+          python - <<'PY' > payload.json
+          import json, os
+          text = json.load(open('data/run_status.json'))['alert_text']
+          print(json.dumps({"content": "**Gold Signal Engine**\n" + text +
+                            "\nhttps://stumacmar.github.io/gold-investing-tracker-/"}))
+          PY
+          curl -sS -H "Content-Type: application/json" -d @payload.json "$DISCORD_WEBHOOK" > /dev/null
+
+      # Runs last so data is committed and alerts sent before the job goes red.
+      - name: Health check
+        if: always()
+        run: |
+          if [ ! -f data/run_status.json ]; then
+            echo "::error::Engine produced no run_status.json — the run failed before scoring."
+            exit 1
+          fi
+          python - <<'PY'
+          import json, sys
+          s = json.load(open('data/run_status.json'))
+          for w in s['warnings']:
+              print(f"::warning::{w}")
+          if s['critical_failures']:
+              print("::error::Critical series unavailable: " + ", ".join(s['critical_failures']))
+              sys.exit(1)
+          print(f"Healthy — {s['score']}/100 {s['verdict']}")
+          PY
