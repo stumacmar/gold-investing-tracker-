@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-08-08T23:06:54.916483Z",
+ "generated_at": "2026-08-09T08:30:01.217049Z",
  "as_of": "2026-08-07",
- "score": 23.4,
+ "score": 24.1,
  "verdict": "SELL/REDUCE",
  "band_note": "Macro tailwinds absent \u2014 risk posture, not a sell-timing call.",
  "bands": {
@@ -14,7 +14,7 @@
  "confidence": {
   "level": "Med",
   "freshness_pct": 94,
-  "dispersion": 0.7
+  "dispersion": 0.73
  },
  "regime": {
   "key": "hostile",
@@ -30,10 +30,10 @@
   "text": "Reference only: the 5y fair-value regression fails its sanity check (real-yield beta +0.28 is positive \u2014 the window co-trended), so the +16% gap does not adjust the score."
  },
  "gold": {
-  "usd": 4340.7,
-  "usd_chg_1d_pct": 2.33,
-  "usd_chg_3m_pct": -7.6,
-  "usd_200dma": 4478.67,
+  "usd": 4399.7,
+  "usd_chg_1d_pct": 3.72,
+  "usd_chg_3m_pct": -6.4,
+  "usd_200dma": 4478.97,
   "gbp": 3152.65,
   "gbp_chg_1d_pct": 0.02
  },
@@ -412,9 +412,9 @@
    "id": "E",
    "name": "Trend & momentum",
    "weight": 12,
-   "score": 0.22,
-   "value": "$4,341 (50DMA $4,169)",
-   "rationale": "Price above the 50DMA, below the 200DMA (death cross in force), +5.8% over 20 sessions \u2014 the trend is doing the heavy lifting.",
+   "score": 0.38,
+   "value": "$4,400 (50DMA $4,170)",
+   "rationale": "Price above the 50DMA, below the 200DMA (death cross in force), +7.2% over 20 sessions \u2014 the trend is doing the heavy lifting.",
    "spark": [
     [
      "2025-07-28",
@@ -574,12 +574,12 @@
     ],
     [
      "2026-08-07",
-     4340.7002
+     4399.7002
     ]
    ],
    "flip": {
-    "text": "A close below the 50DMA at $4,169 starts flipping trend bearish.",
-    "distance": 0.2206589316478575
+    "text": "A close below the 50DMA at $4,170 starts flipping trend bearish.",
+    "distance": 0.3795089509063798
    },
    "stale": false,
    "eff_weight": 12.0
@@ -1117,8 +1117,8 @@
    "name": "Valuation stretch",
    "weight": 8,
    "score": 0.0,
-   "value": "-3.1% / RSI 72",
-   "rationale": "-3.1% vs 200DMA, RSI(14) 72 \u2014 no stretch either way.",
+   "value": "-1.8% / RSI 74",
+   "rationale": "-1.8% vs 200DMA, RSI(14) 74 \u2014 no stretch either way.",
    "spark": [
     [
      "2026-02-02",
@@ -1278,12 +1278,12 @@
     ],
     [
      "2026-08-07",
-     4340.7002
+     4399.7002
     ]
    ],
    "flip": {
-    "text": "Gold above $5,374 (20% over the 200DMA) triggers the overbought penalty.",
-    "distance": 1.9233858267201185
+    "text": "Gold above $5,375 (20% over the 200DMA) triggers the overbought penalty.",
+    "distance": 1.8141454323882924
    },
    "stale": false,
    "eff_weight": 8.0
@@ -1781,8 +1781,8 @@
    "name": "Gold/silver ratio",
    "weight": 2,
    "score": 0.0,
-   "value": "68.5",
-   "rationale": "Gold/silver ratio 69 (11th pct of 5y) \u2014 ratio mid-range; no tell either way.",
+   "value": "69.3",
+   "rationale": "Gold/silver ratio 69 (12th pct of 5y) \u2014 ratio mid-range; no tell either way.",
    "spark": [
     [
      "2025-07-28",
@@ -1942,7 +1942,7 @@
     ],
     [
      "2026-08-07",
-     68.5388
+     69.2877
     ]
    ],
    "flip": {
@@ -1980,165 +1980,165 @@
  "freshness": {
   "gold_usd": {
    "last_date": "2026-08-07",
-   "age_days": 1,
+   "age_days": 2,
    "cadence": "daily",
    "provider": "yahoo:GC=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:48.875703Z"
+   "fetched_at": "2026-08-09T08:29:51.913913Z"
   },
   "gold_gbp": {
    "last_date": "2026-08-06",
-   "age_days": 2,
+   "age_days": 3,
    "cadence": "daily",
    "provider": "derived:GC=F/GBPUSD",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:49.738952Z"
+   "fetched_at": "2026-08-09T08:29:52.643945Z"
   },
   "silver": {
    "last_date": "2026-08-07",
-   "age_days": 1,
+   "age_days": 2,
    "cadence": "daily",
    "provider": "yahoo:SI=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:50.701817Z"
+   "fetched_at": "2026-08-09T08:29:53.359661Z"
   },
   "dfii10": {
    "last_date": "2026-08-06",
-   "age_days": 2,
+   "age_days": 3,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:50.945949Z"
+   "fetched_at": "2026-08-09T08:29:53.611248Z"
   },
   "dgs10": {
    "last_date": "2026-08-06",
-   "age_days": 2,
+   "age_days": 3,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:51.217647Z"
+   "fetched_at": "2026-08-09T08:29:53.936616Z"
   },
   "dgs2": {
    "last_date": "2026-08-06",
-   "age_days": 2,
+   "age_days": 3,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:51.493816Z"
+   "fetched_at": "2026-08-09T08:29:54.576419Z"
   },
   "t10yie": {
    "last_date": "2026-08-07",
-   "age_days": 1,
+   "age_days": 2,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:51.745174Z"
+   "fetched_at": "2026-08-09T08:29:54.844717Z"
   },
   "t5yifr": {
    "last_date": "2026-08-07",
-   "age_days": 1,
+   "age_days": 2,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:52.022985Z"
+   "fetched_at": "2026-08-09T08:29:55.130972Z"
   },
   "dollar": {
    "last_date": "2026-07-31",
-   "age_days": 8,
+   "age_days": 9,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:52.273882Z"
+   "fetched_at": "2026-08-09T08:29:55.413191Z"
   },
   "vix": {
    "last_date": "2026-08-06",
-   "age_days": 2,
+   "age_days": 3,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:52.558137Z"
+   "fetched_at": "2026-08-09T08:29:55.726189Z"
   },
   "baa10y": {
    "last_date": "2026-08-06",
-   "age_days": 2,
+   "age_days": 3,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:52.818830Z"
+   "fetched_at": "2026-08-09T08:29:56.024106Z"
   },
   "effr": {
    "last_date": "2026-08-06",
-   "age_days": 2,
+   "age_days": 3,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:53.059345Z"
+   "fetched_at": "2026-08-09T08:29:57.615385Z"
   },
   "icsa": {
    "last_date": "2026-08-01",
-   "age_days": 7,
+   "age_days": 8,
    "cadence": "weekly",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:53.304412Z"
+   "fetched_at": "2026-08-09T08:29:57.884706Z"
   },
   "unrate": {
    "last_date": "2026-07-01",
-   "age_days": 38,
+   "age_days": 39,
    "cadence": "monthly",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:53.512116Z"
+   "fetched_at": "2026-08-09T08:29:58.105528Z"
   },
   "cot": {
    "last_date": "2026-08-04",
-   "age_days": 4,
+   "age_days": 5,
    "cadence": "weekly",
    "provider": "cftc-socrata",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:54.257045Z"
+   "fetched_at": "2026-08-09T08:29:58.909923Z"
   },
   "gpr": {
    "last_date": "2026-07-01",
-   "age_days": 38,
+   "age_days": 39,
    "cadence": "monthly",
    "provider": "iacoviello-xls",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:54.905877Z"
+   "fetched_at": "2026-08-09T08:30:01.183632Z"
   },
   "central_banks": {
    "last_date": "2026-07-30",
-   "age_days": 9,
+   "age_days": 10,
    "cadence": "manual",
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:54.906004Z"
+   "fetched_at": "2026-08-09T08:30:01.188315Z"
   },
   "etf_flows": {
    "last_date": "2026-07-30",
-   "age_days": 9,
+   "age_days": 10,
    "cadence": "manual",
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-08T23:06:54.906007Z"
+   "fetched_at": "2026-08-09T08:30:01.188335Z"
   }
  },
  "warnings": [

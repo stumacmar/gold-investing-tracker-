@@ -887,6 +887,118 @@ def compute_signals(d, fresh, manual):
     return signals
 
 
+def html_escape(s):
+    return (str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            .replace('"', "&quot;"))
+
+
+def render_static(latest):
+    """Bake the current numbers into index.html and write summary.md.
+
+    The dashboard is client-rendered, so crawlers and AI tools that do not execute
+    JavaScript saw only a 'LOADING' shell. Every run now injects the same content
+    the JS produces between SSR marker comments, so the page is readable without
+    JS; app.js still re-renders on load (identical output, plus interactivity).
+    """
+    d = latest
+    g, fv, conf = d["gold"], d["fair_value"], d["confidence"]
+    live = [s for s in d["signals"] if not s["stale"] and s["score"] is not None]
+    top = sorted(live, key=lambda s: -abs(s["score"] * s["eff_weight"]))[:2]
+    drivers = " and ".join(
+        f"<b>{html_escape(s['name'])}</b> ({s['score']:+.1f} × w{s['eff_weight']})" for s in top)
+    summary_line = (f"Gold Signal {d['score']}/100 — {d['verdict']}. "
+                    f"Gold ${g['usd']:,.0f} / £{g['gbp']:,.0f}. Regime: {d['regime']['name']}. "
+                    f"As of {d['as_of']}.")
+
+    blocks = {}
+    blocks["META"] = (
+        f'<meta name="description" content="{html_escape(summary_line)}">\n'
+        f'<meta property="og:title" content="Gold Signal Engine — {d["score"]}/100 {html_escape(d["verdict"])}">\n'
+        f'<meta property="og:description" content="{html_escape(summary_line)}">\n'
+        f'<meta property="og:type" content="website">')
+    blocks["VERDICT"] = (
+        f'<div class="score-num"><span id="score">{d["score"]}</span>'
+        f'<span class="score-denom">/100</span></div>\n'
+        f'<div class="verdict" id="verdict">{html_escape(d["verdict"])}</div>\n'
+        f'<div class="drivers" id="drivers">Driven by {drivers}</div>\n'
+        f'<div class="band-caption" id="band-note">{html_escape(d["band_note"])}</div>\n'
+        f'<div class="confidence" id="confidence">Data confidence {html_escape(conf["level"])} · '
+        f'{conf["freshness_pct"]}% of weight live</div>')
+
+    def stat(k, v, sub):
+        return (f'<div class="stat"><div class="k">{html_escape(k)}</div>'
+                f'<div class="v">{html_escape(v)}</div><div class="s">{html_escape(sub)}</div></div>')
+    fv_txt = "n/a" if fv["gap_pct"] is None else f'{fv["gap_pct"]:+.1f}%'
+    blocks["STATS"] = "\n".join([
+        stat("Gold USD", f'${g["usd"]:,.0f}', f'{g["usd_chg_1d_pct"]:+.2f}% 1d'),
+        stat("Gold GBP", f'£{g["gbp"]:,.0f}' if g["gbp"] else "—",
+             f'{g["gbp_chg_1d_pct"]:+.2f}% 1d' if g["gbp_chg_1d_pct"] is not None else "n/a"),
+        stat("Fair value gap", fv_txt,
+             "vs macro model" if fv["applied"] else "reference only — not applied"),
+        stat("Regime", d["regime"]["name"].split("/")[0].strip(), ""),
+        stat("Data confidence", conf["level"], f'{conf["freshness_pct"]}% weight live'),
+    ])
+    blocks["REGIMENAME"] = html_escape(d["regime"]["name"])
+    blocks["REGIMEDESC"] = html_escape(d["regime"]["description"])
+
+    rows = []
+    for s in d["signals"]:
+        sc = "—" if s["score"] is None else f'{s["score"]:+.1f}'
+        weight = "excluded" if s["stale"] else f'weight {s["eff_weight"]}'
+        rows.append(
+            f'<div class="signal{" stale" if s["stale"] else ""}" id="sig-{html_escape(s["id"])}">'
+            f'<button class="signal-head" aria-expanded="false" data-id="{html_escape(s["id"])}">'
+            f'<div class="sig-id">{html_escape(s["id"])}</div>'
+            f'<div><div class="sig-name">{html_escape(s["name"])}</div>'
+            f'<div class="sig-value">{html_escape(s["value"])} · {weight}</div></div>'
+            f'<div class="scorebar"></div>'
+            f'<div class="sig-score">{sc}</div></button>'
+            f'<div class="signal-body"><div class="sig-rationale">'
+            f'{html_escape(s["rationale"])}</div></div></div>')
+    blocks["SIGNALS"] = "\n".join(rows)
+
+    index_path = os.path.join(ROOT, "index.html")
+    with open(index_path) as f:
+        html = f.read()
+    for key, content in blocks.items():
+        html = re.sub(f"<!--SSR:{key}-->.*?<!--/SSR:{key}-->",
+                      lambda m, c=content, k=key: f"<!--SSR:{k}-->{c}<!--/SSR:{k}-->",
+                      html, flags=re.S)
+    tmp = index_path + ".tmp"
+    with open(tmp, "w") as f:
+        f.write(html)
+    os.replace(tmp, index_path)
+
+    # Plain-text summary: the whole engine state in a form any tool can read.
+    lines = [f"# Gold Signal Engine — {d['score']}/100 {d['verdict']}", "",
+             f"As of {d['as_of']} (generated {d['generated_at']}).", "",
+             f"- Gold: ${g['usd']:,.2f} USD / £{g['gbp']:,.2f} GBP"
+             if g["gbp"] else f"- Gold: ${g['usd']:,.2f} USD",
+             f"- Regime: {d['regime']['name']} — {d['regime']['description']}",
+             f"- Data confidence: {conf['level']} ({conf['freshness_pct']}% of signal weight live). "
+             f"This measures input quality, not model validity.",
+             f"- Fair value: {fv['text']}",
+             f"- Band meaning: {d['band_note']}",
+             f"- GBP lens: {d['gbp_lens']['note']}", "",
+             "## Signals (score -2 bearish to +2 bullish for gold)", ""]
+    for s in d["signals"]:
+        sc = "excluded" if s["score"] is None else f'{s["score"]:+.2f}'
+        lines.append(f"- **{s['id']}. {s['name']}** (weight {s['eff_weight']}): {sc} — {s['rationale']}")
+    lines += ["", "## What would change my mind", ""]
+    for f_ in d["change_my_mind"]:
+        lines.append(f"- **{f_['signal']}**: {f_['text']}")
+    lines += ["", "## Data freshness", ""]
+    for k, fr in d["freshness"].items():
+        flag = " [STALE]" if fr["stale"] else ("" if fr["ok"] else " [EXCLUDED]")
+        lines.append(f"- {k}: {fr['last_date']} ({fr['age_days']}d old) via {fr['provider']}{flag}")
+    lines += ["", "Machine-readable: data/latest.json · history: data/history.json · "
+              "methodology: README.md", ""]
+    tmp = os.path.join(ROOT, "summary.md.tmp")
+    with open(tmp, "w") as f:
+        f.write("\n".join(lines))
+    os.replace(tmp, os.path.join(ROOT, "summary.md"))
+
+
 def write_json(path, obj, **kw):
     """Atomic write: a crash mid-write must not leave a corrupt JSON for the next run."""
     tmp = path + ".tmp"
@@ -1026,6 +1138,13 @@ def main():
     cache = {k: {"dates": s.dates, "values": [round(v, 6) for v in s.values]}
              for k, s in d.items()}
     write_json(os.path.join(DATA_DIR, "series_cache.json"), cache)
+
+    # Bake current values into index.html + summary.md so non-JS crawlers and AI
+    # tools see real content instead of a "LOADING" shell.
+    try:
+        render_static(latest)
+    except Exception as e:  # noqa: BLE001 - never fail the run over presentation
+        warn(f"Static render failed: {e}")
 
     # Mirror to docs/data for GitHub Pages (Pages serves /docs only)
     for name in ("latest.json", "history.json"):

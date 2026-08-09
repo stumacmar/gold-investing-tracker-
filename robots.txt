@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Machine-readable endpoints — current state, history, and methodology:
+#   /data/latest.json
+#   /data/history.json
+#   /summary.md
