@@ -2277,10 +2277,10 @@
 },
 {
 "date": "2026-08-10",
-"score": 29.9,
-"verdict": "SELL/REDUCE",
-"gold_usd": 4414.3,
-"gold_gbp": 3271.44,
+"score": 33.2,
+"verdict": "TRIM",
+"gold_usd": 4448.6,
+"gold_gbp": 3293.21,
 "regime": "fx_stress"
 }
 ]
