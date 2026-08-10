@@ -243,3 +243,16 @@ the macro drivers say".
 Not replicated: cycle arcs and similar hand-drawn overlays. They cannot be
 derived objectively from the data, so there is no honest way to compute or
 validate them here.
+
+## Jargon buster
+
+Every term on the dashboard has a plain-English explanation written for someone
+with no finance background — what it means, and why it matters for gold.
+
+- Tap the **?** beside any signal or stat to open a bottom sheet with the
+  explanation.
+- The **"What do these words mean?"** panel lists all 23 terms as an accordion.
+  It is server-rendered, so it works with JavaScript disabled and is readable by
+  crawlers and AI tools.
+- The same glossary is published in `data/latest.json` and at the end of
+  `summary.md`, so there is a single source of truth.

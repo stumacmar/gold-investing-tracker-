@@ -54,12 +54,12 @@ function renderStats(d) {
     statCell("Gold GBP", fmtGBP(g.gbp), g.gbp_chg_1d_pct == null ? "n/a" :
              (g.gbp_chg_1d_pct >= 0 ? "+" : "") + g.gbp_chg_1d_pct + "% 1d",
              (g.gbp_chg_1d_pct ?? 0) >= 0 ? "up" : "down") +
-    statCell("Fair value gap", fvTxt, fv.applied ? "vs macro model" : "reference only — not applied",
+    statCell("Fair value gap" + termChip("fair_value"), fvTxt, fv.applied ? "vs macro model" : "reference only — not applied",
              fv.applied ? (fv.gap_pct > 5 ? "down" : fv.gap_pct < -5 ? "up" : "") : "") +
-    statCell("Regime", esc(d.regime.name.split("/")[0].trim()),
+    statCell("Regime" + termChip("regime"), esc(d.regime.name.split("/")[0].trim()),
              d.regime.name.includes("/") ? esc(d.regime.name.split("/")[1].trim()) : "") +
-    statCell("Data confidence", esc(d.confidence.level), d.confidence.freshness_pct + "% weight live") +
-    (d.volatility ? statCell(esc(d.volatility.label),
+    statCell("Data confidence" + termChip("confidence"), esc(d.confidence.level), d.confidence.freshness_pct + "% weight live") +
+    (d.volatility ? statCell(esc(d.volatility.label) + termChip("atr"),
         "$" + Math.round(d.volatility.atr_abs).toLocaleString("en-US") + "/day",
         esc(d.volatility.percentile_5y + "th pct · " + d.volatility.regime),
         d.volatility.percentile_5y >= 90 ? "down" : "") : "");
@@ -96,12 +96,15 @@ function renderSignals(d) {
     const first = (s.spark && s.spark.length) ? s.spark[0][0] : null;
     const weightTxt = stale ? "excluded" : "weight " + (s.eff_weight ?? s.weight);
     return `<div class="signal ${stale ? "stale" : ""}" id="sig-${esc(s.id)}">
+      <div class="signal-row">
       <button class="signal-head" aria-expanded="false" data-id="${esc(s.id)}">
         <div class="sig-id">${esc(s.id)}</div>
-        <div><div class="sig-name">${esc(s.name)}</div><div class="sig-value">${esc(s.value)} · ${weightTxt}</div></div>
+        <div><div class="sig-name"><span>${esc(s.name)}</span></div><div class="sig-value">${esc(s.value)} · ${weightTxt}</div></div>
         <div class="scorebar">${fill}</div>
         <div class="sig-score ${score === null ? "" : score >= 0 ? "pos" : "neg"}">${scoreTxt}</div>
       </button>
+      ${termChip((d.signal_terms || {})[s.id], s.name)}
+      </div>
       <div class="signal-body">
         <div class="sig-rationale">${esc(s.rationale)}</div>
         ${s.spark && s.spark.length ? `<div class="sig-spark">${sparkSVG(s.spark)}
@@ -111,11 +114,69 @@ function renderSignals(d) {
   }).join("");
   el.querySelectorAll(".signal-head").forEach((btn) => {
     btn.addEventListener("click", () => {
-      const row = btn.parentElement;
+      const row = btn.closest(".signal");
       const open = row.classList.toggle("open");
       btn.setAttribute("aria-expanded", open);
     });
   });
+}
+
+
+// ---- Jargon buster: tap any term for a plain-English explanation.
+let GLOSSARY = {};
+
+function openTerm(key) {
+  const g = GLOSSARY[key];
+  const dlg = $("term-sheet");
+  if (!g || !dlg) return;
+  $("sheet-term").textContent = g.term;
+  $("sheet-what").textContent = g.what;
+  $("sheet-why").textContent = g.why;
+  if (typeof dlg.showModal === "function") dlg.showModal();
+  else dlg.setAttribute("open", "");     // very old Safari
+}
+
+function termChip(key, label) {
+  if (!GLOSSARY[key]) return "";
+  return `<button class="term-btn" type="button" data-term="${esc(key)}"
+    aria-label="What does ${esc(label || GLOSSARY[key].term)} mean?">?</button>`;
+}
+
+function renderGlossary(d) {
+  GLOSSARY = d.glossary || {};
+  const el = $("glossary-list");
+  if (!el) return;
+  el.innerHTML = Object.entries(GLOSSARY).map(([k, g]) =>
+    `<div class="g-item" data-key="${esc(k)}">
+       <button class="g-head" type="button" aria-expanded="false">
+         <span class="g-term">${esc(g.term)}</span><span class="g-chev">▾</span>
+       </button>
+       <div class="g-body">
+         <div class="g-what">${esc(g.what)}</div>
+         <div class="g-why">${esc(g.why)}</div>
+       </div>
+     </div>`).join("");
+  el.querySelectorAll(".g-head").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const open = btn.parentElement.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open);
+    });
+  });
+}
+
+function wireTermButtons() {
+  document.body.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-term]");
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();          // don't also toggle the row it sits in
+    openTerm(btn.dataset.term);
+  });
+  const dlg = $("term-sheet");
+  if (!dlg) return;
+  $("sheet-close").addEventListener("click", () => dlg.close());
+  // tapping the dimmed area closes it
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
 }
 
 function renderFlips(d) {
@@ -291,6 +352,8 @@ function renderChart(history, latest) {
       loadJSON("data/prices.json").catch(() => null),
     ]);
     $("asof").textContent = "as of " + latest.as_of;
+    renderGlossary(latest);
+    wireTermButtons();
     renderGauge(latest);
     renderStats(latest);
     renderSignals(latest);

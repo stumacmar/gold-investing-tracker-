@@ -521,6 +521,40 @@ def ordinal(n):
     return f"{n}{suffix}"
 
 
+# ---------------------------------------------------------------- Glossary
+# Plain-English explanations, written for someone with no finance background.
+# Shipped in latest.json so the dashboard, the static HTML and summary.md all
+# read from one source.
+GLOSSARY = {
+ "score": ("The score", "All 14 signals squashed into one number from 0 to 100. Higher means more of the things that usually push gold up are happening right now.", "It's a summary, not a prediction. 30 doesn't mean gold will fall — it means the usual reasons to buy aren't there."),
+ "real_yields": ("Real yield", "The interest a safe US government bond pays you after you take inflation off. If a bond pays 4% and prices rise 2%, your real yield is 2%.", "Gold pays you nothing at all. When bonds pay a good real return, people would rather own bonds. When real yields fall, gold gets more attractive. This is the single biggest driver."),
+ "dollar": ("The dollar index", "A measure of how strong the US dollar is compared with a basket of other currencies.", "Gold is priced in dollars. A stronger dollar usually means a lower gold price, because it takes fewer dollars to buy the same ounce."),
+ "policy": ("2-year yield & Fed funds", "The 2-year yield shows what traders think US interest rates will average over the next couple of years. The Fed funds rate is what the US central bank charges today.", "If the 2-year sits below Fed funds, the market is betting on rate cuts — which is good for gold. Above it means no cuts expected."),
+ "breakevens": ("Inflation expectations", "What the bond market thinks inflation will average in future. Worked out by comparing normal bonds with inflation-protected ones.", "Gold is bought as protection against money losing value. Rising inflation expectations usually help it."),
+ "trend": ("Moving averages", "The average closing price over the last 50 days, or the last 200 days. It smooths out the daily noise so you can see the direction.", "Price above both averages means an uptrend. A 'golden cross' is when the 50-day rises above the 200-day (good sign); a 'death cross' is the opposite."),
+ "cot": ("Positioning (COT)", "A weekly US government report showing how much big speculative funds are betting on gold going up.", "If almost everyone is already betting gold rises, there's nobody left to buy — and any bad news makes them all sell at once. Very low bets mean lots of buying power in reserve."),
+ "valuation": ("Stretch & RSI", "How far price has run above its 200-day average, plus RSI — a 0-to-100 speedometer of how fast it has moved recently.", "Above 70 on RSI means gold has risen very quickly and may need a rest. Below 30 means it has fallen very quickly and may bounce."),
+ "fear": ("VIX & credit spreads", "VIX is the stock market's 'fear gauge' — how much turbulence investors expect. Credit spreads are the extra interest riskier companies must pay compared with the government.", "When both rise, investors are scared and look for somewhere safe. Gold is the classic hiding place."),
+ "gpr": ("Geopolitical risk", "An index that counts how often the world's newspapers mention war, terrorism and international conflict.", "A scarier world usually puts a floor under the gold price."),
+ "central_banks": ("Central bank demand", "How much gold the world's central banks — the institutions that run each country's money — are buying.", "They have been the biggest buyers in recent years. Unlike traders, they buy for decades and rarely sell."),
+ "etf": ("ETF flows", "Money moving in or out of funds that hold gold on investors' behalf, so people can own gold without storing it.", "Shows whether ordinary Western investors are joining in or heading for the exit."),
+ "gsr": ("Gold/silver ratio", "How many ounces of silver you could buy with one ounce of gold.", "Silver is the more excitable metal. When it keeps up with gold, the rally is broad and healthy. When gold rises alone, the move can be running out of steam."),
+ "labour": ("Jobs data", "Nonfarm payrolls is the monthly count of how many jobs the US added or lost. Jobless claims count how many people asked for unemployment help last week.", "A weakening job market is what usually forces the central bank to cut interest rates — and rate cuts are gold's best friend."),
+ "fx_stress": ("FX stress & intervention", "When a country's currency falls too far, its government can step in and buy it back to prop it up. That's an intervention.", "Japan doing this means selling US government bonds to raise the money, which strains the whole financial system — and money moves toward gold."),
+ "fair_value": ("Fair value gap", "Our estimate of what gold 'should' cost based only on interest rates and the dollar, compared with what it actually costs.", "A big gap means something else is driving the price. Right now the estimate fails its own reliability check, so we show it but don't use it."),
+ "regime": ("Regime", "What kind of market we're in right now — calm, panicking, inflation-driven, and so on.", "The same signal matters more in some conditions than others, so the engine changes how much weight it gives each one depending on the regime."),
+ "confidence": ("Data confidence", "Whether today's numbers all arrived fresh and on time, and whether the signals agree with each other.", "Important: this is about the quality of the DATA, not whether the model is right. A high score built on stale data would be flagged here."),
+ "atr": ("ATR (daily range)", "How many dollars gold moves in a typical day.", "It doesn't tell you to buy or sell. It tells you how big a position should be — in a jumpy market the same position risks a lot more money."),
+ "support": ("Support", "A price where gold has stopped falling before, more than once. Buyers showed up there.", "It's a rough guide to where the next floor might be, not a guarantee."),
+ "resistance": ("Resistance", "A price where gold has stopped rising before, more than once. Sellers showed up there.", "It's a rough guide to where the next ceiling might be, not a guarantee."),
+ "range": ("Consolidation range", "The price zone where gold has spent most of its time over the past year.", "Think of it as the room gold keeps coming back to. Being above or below it tells you whether something has changed."),
+ "backfill": ("Backfilled (dashed line)", "Scores worked out afterwards by replaying old data through today's model.", "These are NOT calls the engine made at the time — nobody was watching. They're a rough check of whether the model would have been sensible."),
+}
+SIGNAL_TERM = {"A":"real_yields","B":"dollar","C":"policy","D":"breakevens","E":"trend","F":"cot",
+               "G":"valuation","H":"fear","I":"gpr","J":"central_banks","K":"etf","L":"gsr",
+               "M":"labour","N":"fx_stress"}
+
+
 # ---------------------------------------------------------------- Signals A-L
 # Each returns a dict:
 #   id, name, weight (base), score in [-2, 2] (None if stale), value (display string),
@@ -1251,6 +1285,12 @@ def render_static(latest):
         stat("Data confidence", conf["level"], f'{conf["freshness_pct"]}% weight live'),
     ] + ([stat(vol["label"], f'${vol["atr_abs"]:,.0f}/day',
                f'{ordinal(vol["percentile_5y"])} pct · {vol["regime"]}')] if vol else []))
+    blocks["GLOSSARY"] = "\n".join(
+        f'<div class="g-item"><button class="g-head" type="button" aria-expanded="false">'
+        f'<span class="g-term">{html_escape(g["term"])}</span><span class="g-chev">▾</span></button>'
+        f'<div class="g-body"><div class="g-what">{html_escape(g["what"])}</div>'
+        f'<div class="g-why">{html_escape(g["why"])}</div></div></div>'
+        for g in d.get("glossary", {}).values())
     ps = d.get("price_structure")
     blocks["STRUCTNOTE"] = html_escape(ps["note"]) if ps else ""
     blocks["STRUCTLEVELS"] = "\n".join(
@@ -1268,12 +1308,13 @@ def render_static(latest):
         weight = "excluded" if s["stale"] else f'weight {s["eff_weight"]}'
         rows.append(
             f'<div class="signal{" stale" if s["stale"] else ""}" id="sig-{html_escape(s["id"])}">'
+            f'<div class="signal-row">'
             f'<button class="signal-head" aria-expanded="false" data-id="{html_escape(s["id"])}">'
             f'<div class="sig-id">{html_escape(s["id"])}</div>'
-            f'<div><div class="sig-name">{html_escape(s["name"])}</div>'
+            f'<div><div class="sig-name"><span>{html_escape(s["name"])}</span></div>'
             f'<div class="sig-value">{html_escape(s["value"])} · {weight}</div></div>'
             f'<div class="scorebar"></div>'
-            f'<div class="sig-score">{sc}</div></button>'
+            f'<div class="sig-score">{sc}</div></button></div>'
             f'<div class="signal-body"><div class="sig-rationale">'
             f'{html_escape(s["rationale"])}</div></div></div>')
     blocks["SIGNALS"] = "\n".join(rows)
@@ -1317,6 +1358,10 @@ def render_static(latest):
     for k, fr in d["freshness"].items():
         flag = " [STALE]" if fr["stale"] else ("" if fr["ok"] else " [EXCLUDED]")
         lines.append(f"- {k}: {fr['last_date']} ({fr['age_days']}d old) via {fr['provider']}{flag}")
+    if d.get("glossary"):
+        lines += ["", "## Jargon, in plain English", ""]
+        for g in d["glossary"].values():
+            lines.append(f"- **{g['term']}** — {g['what']} {g['why']}")
     lines += ["", "Machine-readable: data/latest.json · history: data/history.json · "
               "methodology: README.md", ""]
     tmp = os.path.join(ROOT, "summary.md.tmp")
@@ -1458,6 +1503,9 @@ def main():
         "gbp_lens": gbp_lens(d),
         "change_my_mind": change_my_mind,
         "signals": signals_ranked,
+        "glossary": {k: {"term": v[0], "what": v[1], "why": v[2]}
+                     for k, v in GLOSSARY.items()},
+        "signal_terms": SIGNAL_TERM,
         "freshness": fresh,
         "warnings": WARNINGS,
     }

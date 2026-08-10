@@ -149,10 +149,12 @@ a { color: var(--gold); }
 
 /* ---------------- signals */
 .signal { border-top: 1px solid var(--line); }
+.signal-row { display: flex; align-items: center; gap: 4px; }
+.signal-row .signal-head { flex: 1 1 auto; min-width: 0; }
 .signal:first-child { border-top: none; }
 .signal-head {
   display: grid;
-  grid-template-columns: 26px 1fr 92px 44px;
+  grid-template-columns: 24px 1fr 72px 40px;
   gap: 8px; align-items: center;
   padding: 11px 2px; min-height: 44px;
   cursor: pointer; -webkit-tap-highlight-color: transparent;
@@ -164,7 +166,9 @@ a { color: var(--gold); }
   color: var(--faint); text-align: center;
   border: 1px solid var(--line); border-radius: 5px; padding: 3px 0;
 }
-.sig-name { font-weight: 600; font-size: 14px; }
+.sig-name { font-weight: 600; font-size: 14px;
+            display: flex; align-items: center; gap: 5px; min-width: 0; }
+.sig-name > span { min-width: 0; }
 .sig-value { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
 .sig-weight { font-size: 11px; color: var(--faint); text-align: right; }
 
@@ -188,7 +192,8 @@ a { color: var(--gold); }
 
 .signal.stale { opacity: 0.62; }
 .signal.stale .sig-name::after {
-  content: " · STALE"; color: var(--neg); font-size: 10px; letter-spacing: 0.1em;
+  white-space: nowrap;
+  content: "STALE"; color: var(--neg); font-size: 10px; letter-spacing: 0.1em;
 }
 
 /* ---------------- flips */
@@ -205,6 +210,69 @@ a { color: var(--gold); }
 
 .fresh-banner { font-size: 12.5px; color: #d9a24a; margin-bottom: 10px; }
 .fresh-banner:empty { display: none; }
+
+
+/* ---------------- jargon buster */
+.glossary-intro { font-size: 12.5px; color: var(--faint); margin: -4px 0 10px; }
+.g-item { border-top: 1px solid var(--line); }
+.g-item:first-child { border-top: none; }
+.g-head {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  width: 100%; min-height: 44px; padding: 10px 2px;
+  background: none; border: none; color: inherit; font: inherit; text-align: left;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.g-head .g-term { font-weight: 600; font-size: 14px; }
+.g-head .g-chev { color: var(--faint); font-size: 13px; }
+.g-body { display: none; padding: 0 2px 12px; }
+.g-item.open .g-body { display: block; }
+.g-item.open .g-chev { transform: rotate(180deg); }
+.g-what { font-size: 13.5px; }
+.g-why { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+/* term chip: the little ? next to a heading or stat */
+.term-btn {
+  flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; margin-left: 5px; padding: 0;
+  border: 1px solid var(--line); border-radius: 50%;
+  background: var(--panel-2); color: var(--muted);
+  font: 600 11px/1 var(--body); cursor: pointer; vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+}
+.term-btn:hover, .term-btn:focus-visible { color: var(--gold); border-color: var(--gold); }
+
+/* ---------------- bottom sheet */
+.sheet {
+  border: none; padding: 0; background: transparent; color: var(--text);
+  width: 100%; max-width: 560px; margin: auto auto 0; /* sits at the bottom on phones */
+}
+.sheet::backdrop { background: rgba(0, 0, 0, 0.6); }
+.sheet[open] {
+  background: var(--panel);
+  border: 1px solid var(--line); border-bottom: none;
+  border-radius: 16px 16px 0 0;
+  padding: 10px 20px calc(22px + env(safe-area-inset-bottom));
+  animation: sheet-up .22s cubic-bezier(.22,.9,.34,1);
+}
+@keyframes sheet-up { from { transform: translateY(14px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .sheet[open] { animation: none; } }
+@media (min-width: 560px) {
+  .sheet { margin: auto; }
+  .sheet[open] { border-radius: 14px; border-bottom: 1px solid var(--line); }
+}
+.sheet-grip {
+  width: 36px; height: 4px; border-radius: 2px; background: var(--line);
+  margin: 0 auto 14px;
+}
+.sheet-term { font-family: var(--display); font-size: 22px; font-weight: 600; letter-spacing: .03em; }
+.sheet-what { font-size: 15px; margin-top: 10px; }
+.sheet-why { font-size: 14px; color: var(--muted); margin-top: 10px; }
+.sheet-close {
+  margin-top: 18px; width: 100%; min-height: 46px;
+  background: var(--gold); color: #14170f; border: none; border-radius: 9px;
+  font: 600 15px/1 var(--body); cursor: pointer;
+}
 
 /* ---------------- freshness */
 .freshness table { width: 100%; border-collapse: collapse; font-size: 12px; }

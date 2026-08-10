@@ -2274,5 +2274,13 @@
 "gold_usd": 4399.7,
 "gold_gbp": 3152.65,
 "regime": "fx_stress"
+},
+{
+"date": "2026-08-10",
+"score": 29.9,
+"verdict": "SELL/REDUCE",
+"gold_usd": 4402.2,
+"gold_gbp": 3262.56,
+"regime": "fx_stress"
 }
 ]
