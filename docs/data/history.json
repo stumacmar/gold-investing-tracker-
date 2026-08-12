@@ -2293,10 +2293,10 @@
 },
 {
 "date": "2026-08-12",
-"score": 29.1,
+"score": 29.8,
 "verdict": "TRIM",
-"gold_usd": 4457.8,
-"gold_gbp": 3299.44,
+"gold_usd": 4469.0,
+"gold_gbp": 3311.57,
 "regime": "fx_stress"
 }
 ]
