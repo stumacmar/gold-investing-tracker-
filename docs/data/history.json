@@ -2290,5 +2290,13 @@
 "gold_usd": 4427.8,
 "gold_gbp": 3278.87,
 "regime": "fx_stress"
+},
+{
+"date": "2026-08-12",
+"score": 29.1,
+"verdict": "TRIM",
+"gold_usd": 4457.8,
+"gold_gbp": 3299.44,
+"regime": "fx_stress"
 }
 ]
