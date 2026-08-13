@@ -2301,10 +2301,10 @@
 },
 {
 "date": "2026-08-13",
-"score": 29.8,
+"score": 29.2,
 "verdict": "TRIM",
-"gold_usd": 4432.8,
-"gold_gbp": 3287.36,
-"regime": "fx_stress"
+"gold_usd": 4407.1,
+"gold_gbp": 3268.35,
+"regime": "hostile"
 }
 ]
