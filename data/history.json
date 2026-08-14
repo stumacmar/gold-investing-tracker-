@@ -2306,5 +2306,13 @@
 "gold_usd": 4407.1,
 "gold_gbp": 3268.35,
 "regime": "hostile"
+},
+{
+"date": "2026-08-14",
+"score": 29.1,
+"verdict": "TRIM",
+"gold_usd": 4386.3,
+"gold_gbp": 3247.92,
+"regime": "hostile"
 }
 ]
