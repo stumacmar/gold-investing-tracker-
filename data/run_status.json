@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-08-18T07:34:56.825314Z",
+ "generated_at": "2026-08-18T21:11:22.391085Z",
  "verdict": "TRIM",
  "previous_verdict": "TRIM",
  "verdict_changed": false,
- "score": 34.0,
+ "score": 36.6,
  "critical_failures": [],
  "warnings": [
   "gold_usd: primary source stooq:xauusd failed (Stooq xauusd: non-CSV response (bot-blocked?)); trying yahoo:GC=F",
