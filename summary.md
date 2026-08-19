@@ -1,30 +1,30 @@
-# Gold Signal Engine — 36.6/100 TRIM
+# Gold Signal Engine — 38.2/100 TRIM
 
-As of 2026-08-18 (generated 2026-08-18T21:11:22.391085Z).
+As of 2026-08-19 (generated 2026-08-19T07:34:23.185818Z).
 
-- Gold: $4,389.50 USD / £3,243.71 GBP
+- Gold: $4,408.30 USD / £3,252.80 GBP
 - Regime: Rising real yields / strong dollar — The macro is leaning on gold from both sides. Momentum must be exceptional to overcome this drag.
 - Data confidence: Med (95% of signal weight live). This measures input quality, not model validity.
 - Fair value: Reference only: the 5y fair-value regression fails its sanity check (real-yield beta +0.28 is positive — the window co-trended), so the +22% gap does not adjust the score.
 - Band meaning: Macro tailwinds absent — risk posture, not a sell-timing call.
-- GBP lens: XAUGBP £3,244, -4.5% over 3m, downtrend vs 200DMA — sterling gold is trending down: if the USD verdict says add, the currency is eating the move — size down; if it says trim, GBP agrees.
-- Volatility (true ATR(14) from Yahoo GC=F OHLC): Gold is moving about $76 a day (1.7% of price) — the 84th percentile of the last five years. Moves are running 1.5× normal; trim position sizes accordingly.
-- Price structure: Gold $4,390: next resistance $5,306 (+20.9%, tested 2x); nearest support $3,967 (-9.6%, tested 2x). It has spent 24% of the past year between $3,945 and $4,145 — price is above it.
+- GBP lens: XAUGBP £3,253, -5.8% over 3m, downtrend vs 200DMA — sterling gold is trending down: if the USD verdict says add, the currency is eating the move — size down; if it says trim, GBP agrees.
+- Volatility (true ATR(14) from Yahoo GC=F OHLC): Gold is moving about $74 a day (1.7% of price) — the 83rd percentile of the last five years. Moves are running 1.5× normal; trim position sizes accordingly.
+- Price structure: Gold $4,408: next resistance $5,306 (+20.4%, tested 2x); nearest support $3,967 (-10.0%, tested 2x). It has spent 24% of the past year between $3,945 and $4,145 — price is above it.
 
 ## Signals (score -2 bearish to +2 bullish for gold)
 
 - **A. Real yields** (weight 23.0): -1.26 — 10Y real yield 2.44%, +0.34pp over 3m — rising real yields are gold’s biggest headwind.
 - **B. Dollar** (weight 17.25): +0.34 — Broad dollar 0.7% below its 200DMA, +0.2% over 3m — a soft dollar clears the runway.
-- **E. Trend & momentum** (weight 12.0): +0.43 — Price above the 50DMA, below the 200DMA (death cross in force), +7.8% over 20 sessions — the trend is doing the heavy lifting.
+- **E. Trend & momentum** (weight 12.0): +0.31 — Price above the 50DMA, below the 200DMA (death cross in force), +6.3% over 20 sessions — the trend is doing the heavy lifting.
 - **C. Policy trajectory** (weight 10.0): -0.92 — 2Y yield 4.19%, +0.10pp over 3m; 2Y 0.56pp above the funds rate (no cuts priced) — rate expectations are firming against gold.
 - **D. Inflation expectations** (weight 8.0): -1.08 — 10Y breakevens 2.30% (-0.18pp 3m), 5y5y 2.33% (+0.06pp) — inflation expectations contained.
 - **F. Positioning (COT)** (weight 8.0): -0.20 — Managed money net long 137,662 contracts, 75th percentile of 5y — mid-range — positioning is not the story right now.
-- **G. Valuation stretch** (weight 8.0): -0.75 — -2.3% vs 200DMA, RSI(14) 78 — stretched — chasing here is paying up for someone else's exit.
+- **G. Valuation stretch** (weight 8.0): +0.00 — -1.9% vs 200DMA, RSI(14) 74 — no stretch either way.
 - **H. Fear & credit** (weight 6.0): +0.50 — VIX 15, BAA-10Y spread 1.69% (+0.07pp 3m) — fear is bidding for havens.
 - **M. Labour market** (weight 6.0): +0.39 — Payrolls -23k last month, +20k 3m average vs the ~100k breakeven; claims 4-wk avg 199,000 (-2.5% vs 3m ago); unemployment 4.1% (-0.20pp 3m) — labour softening at the edges.
 - **I. Geopolitics (GPR)** (weight 5.0): +0.18 — GPR index 153 vs 5y average 143 — geopolitical risk elevated.
-- **N. FX stress (yen)** (weight 4.0): +0.14 — USDJPY 159.6, +0.9% vs 200DMA; no intervention footprint — no FX stress signal.
-- **L. Gold/silver ratio** (weight 2.0): +0.00 — Gold/silver ratio 69 (12th pct of 5y) — ratio mid-range; no tell either way.
+- **N. FX stress (yen)** (weight 4.0): +0.10 — USDJPY 159.2, +0.6% vs 200DMA; no intervention footprint — no FX stress signal.
+- **L. Gold/silver ratio** (weight 2.0): +0.00 — Gold/silver ratio 70 (13th pct of 5y) — ratio mid-range; no tell either way.
 - **J. Central bank demand** (weight 0.0): excluded — Input unavailable (central_banks: stale, failed or placeholder) — excluded; weights renormalised.
 - **K. ETF flows** (weight 0.0): excluded — Input unavailable (etf_flows: stale, failed or placeholder) — excluded; weights renormalised.
 
@@ -35,26 +35,26 @@ As of 2026-08-18 (generated 2026-08-18T21:11:22.391085Z).
 
 ## Data freshness
 
-- gold_usd: 2026-08-18 (0d old) via yahoo:GC=F
-- gold_gbp: 2026-08-18 (0d old) via derived:GC=F/GBPUSD
-- silver: 2026-08-18 (0d old) via yahoo:SI=F
-- usdjpy: 2026-08-18 (0d old) via yahoo:JPY=X
-- dfii10: 2026-08-17 (1d old) via fred-csv
-- dgs10: 2026-08-17 (1d old) via fred-csv
-- dgs2: 2026-08-17 (1d old) via fred-csv
-- t10yie: 2026-08-18 (0d old) via fred-csv
-- t5yifr: 2026-08-18 (0d old) via fred-csv
-- dollar: 2026-08-14 (4d old) via fred-csv
-- vix: 2026-08-17 (1d old) via fred-csv
-- baa10y: 2026-08-17 (1d old) via fred-csv
-- effr: 2026-08-17 (1d old) via fred-csv
-- icsa: 2026-08-08 (10d old) via fred-csv
-- unrate: 2026-07-01 (48d old) via fred-csv
-- payems: 2026-07-01 (48d old) via fred-csv
-- cot: 2026-08-11 (7d old) via cftc-socrata
-- gpr: 2026-07-01 (48d old) via iacoviello-xls
-- central_banks: 2026-07-30 (19d old) via manual (PLACEHOLDER — not scored) [EXCLUDED]
-- etf_flows: 2026-07-30 (19d old) via manual (PLACEHOLDER — not scored) [EXCLUDED]
+- gold_usd: 2026-08-19 (0d old) via yahoo:GC=F
+- gold_gbp: 2026-08-19 (0d old) via derived:GC=F/GBPUSD
+- silver: 2026-08-19 (0d old) via yahoo:SI=F
+- usdjpy: 2026-08-19 (0d old) via yahoo:JPY=X
+- dfii10: 2026-08-17 (2d old) via fred-csv
+- dgs10: 2026-08-17 (2d old) via fred-csv
+- dgs2: 2026-08-17 (2d old) via fred-csv
+- t10yie: 2026-08-18 (1d old) via fred-csv
+- t5yifr: 2026-08-18 (1d old) via fred-csv
+- dollar: 2026-08-14 (5d old) via fred-csv
+- vix: 2026-08-17 (2d old) via fred-csv
+- baa10y: 2026-08-17 (2d old) via fred-csv
+- effr: 2026-08-17 (2d old) via fred-csv
+- icsa: 2026-08-08 (11d old) via fred-csv
+- unrate: 2026-07-01 (49d old) via fred-csv
+- payems: 2026-07-01 (49d old) via fred-csv
+- cot: 2026-08-11 (8d old) via cftc-socrata
+- gpr: 2026-07-01 (49d old) via iacoviello-xls
+- central_banks: 2026-07-30 (20d old) via manual (PLACEHOLDER — not scored) [EXCLUDED]
+- etf_flows: 2026-07-30 (20d old) via manual (PLACEHOLDER — not scored) [EXCLUDED]
 
 ## Jargon, in plain English
 
