@@ -2357,10 +2357,10 @@
 },
 {
 "date": "2026-08-24",
-"score": 45.0,
-"verdict": "TRIM",
-"gold_usd": 4692.1,
-"gold_gbp": 3441.09,
-"regime": "hostile"
+"score": 51.0,
+"verdict": "HOLD",
+"gold_usd": 4710.0,
+"gold_gbp": 3455.02,
+"regime": "neutral"
 }
 ]
