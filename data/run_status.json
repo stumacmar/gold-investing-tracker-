@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-08-24T21:16:33.176695Z",
+ "generated_at": "2026-08-25T07:40:50.347438Z",
  "verdict": "HOLD",
- "previous_verdict": "TRIM",
- "verdict_changed": true,
- "score": 51.0,
+ "previous_verdict": "HOLD",
+ "verdict_changed": false,
+ "score": 52.5,
  "critical_failures": [],
  "warnings": [
   "gold_usd: primary source stooq:xauusd failed (Stooq xauusd: non-CSV response (bot-blocked?)); trying yahoo:GC=F",
@@ -14,6 +14,6 @@
   "Signal J excluded: stale/missing inputs ['central_banks']",
   "Signal K excluded: stale/missing inputs ['etf_flows']"
  ],
- "alert": true,
- "alert_text": "VERDICT CHANGE: TRIM -> HOLD (score 51.0/100)\nGold $4,710 / \u00a33,455\nRegime: Mixed / transitional \u00b7 Data confidence: Med\nDriven by Trend & momentum (+2.0) and Dollar (+1.4)\nClosest to flipping \u2014 N: USDJPY back below its 200DMA (158.3) removes the FX-stress support; a fresh >1.5% one-day yen surge re-fires it."
+ "alert": false,
+ "alert_text": ""
 }
