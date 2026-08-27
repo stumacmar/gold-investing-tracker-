@@ -1,30 +1,30 @@
-# Gold Signal Engine — 54.0/100 HOLD
+# Gold Signal Engine — 53.9/100 HOLD
 
-As of 2026-08-27 (generated 2026-08-27T00:18:21.107724Z).
+As of 2026-08-27 (generated 2026-08-27T18:03:36.033971Z).
 
-- Gold: $4,673.40 USD / £3,438.22 GBP
+- Gold: $4,662.60 USD / £3,431.72 GBP
 - Regime: Mixed / transitional — No dominant macro regime — base weights apply.
 - Data confidence: Med (95% of signal weight live). This measures input quality, not model validity.
 - Fair value: Reference only: the 5y fair-value regression fails its sanity check (real-yield beta +0.29 is positive — the window co-trended), so the +23% gap does not adjust the score.
 - Band meaning: Signals conflict; the edge is small.
-- GBP lens: XAUGBP £3,438, -0.2% over 3m, mixed vs 200DMA — sterling picture is mixed; let the USD signal lead but scale sizes down.
-- Volatility (true ATR(14) from Yahoo GC=F OHLC): Gold is moving about $73 a day (1.6% of price) — the 81st percentile of the last five years. Moves are running 1.4× normal; trim position sizes accordingly.
-- Price structure: Gold $4,673: next resistance $5,306 (+13.5%, tested 2x); nearest support $3,967 (-15.1%, tested 2x). It has spent 23% of the past year between $3,962 and $4,155 — price is above it.
+- GBP lens: XAUGBP £3,432, -0.4% over 3m, mixed vs 200DMA — sterling picture is mixed; let the USD signal lead but scale sizes down.
+- Volatility (true ATR(14) from Yahoo GC=F OHLC): Gold is moving about $75 a day (1.6% of price) — the 81st percentile of the last five years. Moves are running 1.4× normal; trim position sizes accordingly.
+- Price structure: Gold $4,663: next resistance $5,306 (+13.8%, tested 2x); nearest support $3,967 (-14.9%, tested 2x). It has spent 24% of the past year between $3,964 and $4,156 — price is above it.
 
 ## Signals (score -2 bearish to +2 bullish for gold)
 
 - **A. Real yields** (weight 20.0): -0.99 — 10Y real yield 2.32%, +0.22pp over 3m — rising real yields are gold’s biggest headwind.
 - **B. Dollar** (weight 15.0): +1.42 — Broad dollar 1.3% below its 200DMA, -1.1% over 3m — a soft dollar clears the runway.
-- **E. Trend & momentum** (weight 12.0): +1.92 — Price above the 50DMA, above the 200DMA (death cross in force), +15.8% over 20 sessions — the trend is doing the heavy lifting.
+- **E. Trend & momentum** (weight 12.0): +1.90 — Price above the 50DMA, above the 200DMA (death cross in force), +13.7% over 20 sessions — the trend is doing the heavy lifting.
 - **C. Policy trajectory** (weight 10.0): -0.99 — 2Y yield 4.17%, +0.16pp over 3m; 2Y 0.54pp above the funds rate (no cuts priced) — rate expectations are firming against gold.
 - **D. Inflation expectations** (weight 8.0): -0.42 — 10Y breakevens 2.32% (-0.07pp 3m), 5y5y 2.33% (+0.08pp) — inflation expectations contained.
 - **F. Positioning (COT)** (weight 8.0): -0.21 — Managed money net long 141,648 contracts, 76th percentile of 5y — mid-range — positioning is not the story right now.
-- **G. Valuation stretch** (weight 8.0): -0.75 — +3.6% vs 200DMA, RSI(14) 84 — stretched — chasing here is paying up for someone else's exit.
+- **G. Valuation stretch** (weight 8.0): -0.75 — +3.3% vs 200DMA, RSI(14) 77 — stretched — chasing here is paying up for someone else's exit.
 - **H. Fear & credit** (weight 6.0): +0.50 — VIX 15, BAA-10Y spread 1.62% (+0.06pp 3m) — fear is bidding for havens.
-- **M. Labour market** (weight 6.0): +0.44 — Payrolls -23k last month, +20k 3m average vs the ~100k breakeven; claims 4-wk avg 204,000 (+0.6% vs 3m ago); unemployment 4.1% (-0.20pp 3m) — labour softening at the edges.
+- **M. Labour market** (weight 6.0): +0.41 — Payrolls -23k last month, +20k 3m average vs the ~100k breakeven; claims 4-wk avg 205,500 (-1.3% vs 3m ago); unemployment 4.1% (-0.20pp 3m) — labour softening at the edges.
 - **I. Geopolitics (GPR)** (weight 5.0): +0.18 — GPR index 153 vs 5y average 143 — geopolitical risk elevated.
-- **N. FX stress (yen)** (weight 4.0): +0.08 — USDJPY 159.1, +0.5% vs 200DMA; no intervention footprint — no FX stress signal.
-- **L. Gold/silver ratio** (weight 2.0): +0.00 — Gold/silver ratio 68 (11th pct of 5y) — ratio mid-range; no tell either way.
+- **N. FX stress (yen)** (weight 4.0): +0.11 — USDJPY 159.4, +0.7% vs 200DMA; no intervention footprint — no FX stress signal.
+- **L. Gold/silver ratio** (weight 2.0): +0.00 — Gold/silver ratio 66 (10th pct of 5y) — ratio mid-range; no tell either way.
 - **J. Central bank demand** (weight 0.0): excluded — Input unavailable (central_banks: stale, failed or placeholder) — excluded; weights renormalised.
 - **K. ETF flows** (weight 0.0): excluded — Input unavailable (etf_flows: stale, failed or placeholder) — excluded; weights renormalised.
 
@@ -45,10 +45,10 @@ As of 2026-08-27 (generated 2026-08-27T00:18:21.107724Z).
 - t10yie: 2026-08-26 (1d old) via fred-csv
 - t5yifr: 2026-08-26 (1d old) via fred-csv
 - dollar: 2026-08-21 (6d old) via fred-csv
-- vix: 2026-08-25 (2d old) via fred-csv
+- vix: 2026-08-26 (1d old) via fred-csv
 - baa10y: 2026-08-25 (2d old) via fred-csv
-- effr: 2026-08-25 (2d old) via fred-csv
-- icsa: 2026-08-15 (12d old) via fred-csv
+- effr: 2026-08-26 (1d old) via fred-csv
+- icsa: 2026-08-22 (5d old) via fred-csv
 - unrate: 2026-07-01 (57d old) via fred-csv
 - payems: 2026-07-01 (57d old) via fred-csv
 - cot: 2026-08-18 (9d old) via cftc-socrata
