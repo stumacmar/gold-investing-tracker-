@@ -2378,5 +2378,13 @@
 "gold_usd": 4689.3,
 "gold_gbp": 3438.9,
 "regime": "neutral"
+},
+{
+"date": "2026-08-27",
+"score": 54.0,
+"verdict": "HOLD",
+"gold_usd": 4673.4,
+"gold_gbp": 3438.22,
+"regime": "neutral"
 }
 ]
