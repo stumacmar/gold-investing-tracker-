@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-08-28T04:58:32.012909Z",
+ "generated_at": "2026-08-28T19:13:05.899133Z",
  "as_of": "2026-08-28",
- "score": 54.3,
+ "score": 47.1,
  "verdict": "HOLD",
  "band_note": "Signals conflict; the edge is small.",
  "bands": {
@@ -14,7 +14,7 @@
  "confidence": {
   "level": "Med",
   "freshness_pct": 95,
-  "dispersion": 1.02
+  "dispersion": 0.81
  },
  "regime": {
   "key": "neutral",
@@ -30,21 +30,21 @@
   "text": "Reference only: the 5y fair-value regression fails its sanity check (real-yield beta +0.29 is positive \u2014 the window co-trended), so the +23% gap does not adjust the score."
  },
  "gold": {
-  "usd": 4633.2,
-  "usd_chg_1d_pct": 0.51,
-  "usd_chg_3m_pct": 1.6,
-  "usd_200dma": 4514.17,
-  "gbp": 3409.62,
-  "gbp_chg_1d_pct": 0.82
+  "usd": 4508.2,
+  "usd_chg_1d_pct": -2.2,
+  "usd_chg_3m_pct": -1.1,
+  "usd_200dma": 4513.55,
+  "gbp": 3331.11,
+  "gbp_chg_1d_pct": -1.5
  },
  "volatility": {
   "label": "ATR(14)",
-  "atr_abs": 67.87,
-  "atr_pct": 1.46,
-  "percentile_5y": 78,
-  "vs_median": 1.27,
+  "atr_abs": 77.68,
+  "atr_pct": 1.72,
+  "percentile_5y": 84,
+  "vs_median": 1.49,
   "regime": "Elevated",
-  "advice": "Moves are running 1.3\u00d7 normal; trim position sizes accordingly.",
+  "advice": "Moves are running 1.5\u00d7 normal; trim position sizes accordingly.",
   "source": "true ATR(14) from Yahoo GC=F OHLC",
   "spark": [
    [
@@ -205,41 +205,41 @@
    ],
    [
     "2026-08-28",
-    1.4647
+    1.7226
    ]
   ],
-  "note": "Gold is moving about $68 a day (1.5% of price) \u2014 the 78th percentile of the last five years. Moves are running 1.3\u00d7 normal; trim position sizes accordingly."
+  "note": "Gold is moving about $78 a day (1.7% of price) \u2014 the 84th percentile of the last five years. Moves are running 1.5\u00d7 normal; trim position sizes accordingly."
  },
  "price_structure": {
-  "price": 4633.2,
+  "price": 4508.2,
   "levels": [
    {
     "price": 5306.4,
     "type": "resistance",
     "touches": 2,
     "last_touch": "2026-03-02",
-    "distance_pct": 14.5
+    "distance_pct": 17.7
    },
    {
     "price": 3966.65,
     "type": "support",
     "touches": 2,
     "last_touch": "2026-07-16",
-    "distance_pct": -14.4
+    "distance_pct": -12.0
    },
    {
     "price": 3427.27,
     "type": "support",
     "touches": 3,
     "last_touch": "2025-07-22",
-    "distance_pct": -26.0
+    "distance_pct": -24.0
    },
    {
     "price": 3283.45,
     "type": "support",
     "touches": 2,
     "last_touch": "2025-07-31",
-    "distance_pct": -29.1
+    "distance_pct": -27.2
    }
   ],
   "range": {
@@ -247,24 +247,24 @@
    "high": 4155.31,
    "pct_of_time": 23
   },
-  "note": "Gold $4,633: next resistance $5,306 (+14.5%, tested 2x); nearest support $3,967 (-14.4%, tested 2x). It has spent 23% of the past year between $3,967 and $4,155 \u2014 price is above it."
+  "note": "Gold $4,508: next resistance $5,306 (+17.7%, tested 2x); nearest support $3,967 (-12.0%, tested 2x). It has spent 23% of the past year between $3,967 and $4,155 \u2014 price is above it."
  },
  "gbp_lens": {
-  "price": 3409.62,
-  "chg_3m_pct": -1.7,
-  "trend": "mixed",
-  "note": "XAUGBP \u00a33,410, -1.7% over 3m, mixed vs 200DMA \u2014 sterling picture is mixed; let the USD signal lead but scale sizes down."
+  "price": 3331.11,
+  "chg_3m_pct": -3.9,
+  "trend": "downtrend",
+  "note": "XAUGBP \u00a33,331, -3.9% over 3m, downtrend vs 200DMA \u2014 sterling gold is trending down: if the USD verdict says add, the currency is eating the move \u2014 size down; if it says trim, GBP agrees."
  },
  "change_my_mind": [
-  {
-   "signal": "N",
-   "name": "FX stress (yen)",
-   "text": "USDJPY back below its 200DMA (158.4) removes the FX-stress support; a fresh >1.5% one-day yen surge re-fires it."
-  },
   {
    "signal": "I",
    "name": "Geopolitics (GPR)",
    "text": "GPR crossing its 5y average (143) flips geopolitics bearish."
+  },
+  {
+   "signal": "N",
+   "name": "FX stress (yen)",
+   "text": "USDJPY back below its 200DMA (158.4) removes the FX-stress support; a fresh >1.5% one-day yen surge re-fires it."
   }
  ],
  "signals": [
@@ -624,9 +624,9 @@
    "id": "E",
    "name": "Trend & momentum",
    "weight": 12,
-   "score": 1.87,
-   "value": "$4,633 (50DMA $4,212)",
-   "rationale": "Price above the 50DMA, above the 200DMA (death cross in force), +14.4% over 20 sessions \u2014 the trend is doing the heavy lifting.",
+   "score": 0.42,
+   "value": "$4,508 (50DMA $4,209)",
+   "rationale": "Price above the 50DMA, below the 200DMA (death cross in force), +11.3% over 20 sessions \u2014 the trend is doing the heavy lifting.",
    "spark": [
     [
      "2025-08-18",
@@ -786,12 +786,12 @@
     ],
     [
      "2026-08-28",
-     4633.2002
+     4508.2002
     ]
    ],
    "flip": {
-    "text": "A close below the 50DMA at $4,212 starts flipping trend bearish.",
-    "distance": 1.8712073073868147
+    "text": "A close below the 50DMA at $4,209 starts flipping trend bearish.",
+    "distance": 0.4227561556791105
    },
    "stale": false,
    "eff_weight": 12.0
@@ -1329,8 +1329,8 @@
    "name": "Valuation stretch",
    "weight": 8,
    "score": 0.0,
-   "value": "+2.6% / RSI 75",
-   "rationale": "+2.6% vs 200DMA, RSI(14) 75 \u2014 no stretch either way.",
+   "value": "-0.1% / RSI 62",
+   "rationale": "-0.1% vs 200DMA, RSI(14) 62 \u2014 no stretch either way.",
    "spark": [
     [
      "2026-02-24",
@@ -1490,12 +1490,12 @@
     ],
     [
      "2026-08-28",
-     4633.2002
+     4508.2002
     ]
    ],
    "flip": {
-    "text": "Gold above $5,417 (20% over the 200DMA) triggers the overbought penalty.",
-    "distance": 1.4469408095710647
+    "text": "Gold above $5,416 (20% over the 200DMA) triggers the overbought penalty.",
+    "distance": 1.6765430342650482
    },
    "stale": false,
    "eff_weight": 8.0
@@ -1504,174 +1504,174 @@
    "id": "H",
    "name": "Fear & credit",
    "weight": 6,
-   "score": 0.0,
+   "score": -0.25,
    "value": "VIX 15 / 1.61%",
-   "rationale": "VIX 15, BAA-10Y spread 1.61% (+0.04pp 3m) \u2014 no stress signal either way.",
+   "rationale": "VIX 15, BAA-10Y spread 1.61% (+0.04pp 3m) \u2014 markets are calm; no safe-haven bid.",
    "spark": [
     [
-     "2025-08-25",
-     14.79
+     "2025-08-26",
+     14.62
     ],
     [
-     "2025-09-03",
-     16.35
+     "2025-09-04",
+     15.3
     ],
     [
-     "2025-09-11",
-     14.71
+     "2025-09-12",
+     14.76
     ],
     [
-     "2025-09-22",
-     16.1
+     "2025-09-23",
+     16.64
     ],
     [
-     "2025-10-01",
-     16.29
+     "2025-10-02",
+     16.63
     ],
     [
-     "2025-10-09",
-     16.43
+     "2025-10-10",
+     21.66
     ],
     [
-     "2025-10-20",
-     18.23
+     "2025-10-21",
+     17.87
     ],
     [
-     "2025-10-28",
-     16.42
+     "2025-10-29",
+     16.92
     ],
     [
-     "2025-11-06",
-     19.5
+     "2025-11-07",
+     19.08
     ],
     [
-     "2025-11-17",
-     22.38
+     "2025-11-18",
+     24.69
     ],
     [
-     "2025-11-25",
-     18.56
+     "2025-11-26",
+     17.19
     ],
     [
-     "2025-12-04",
-     15.78
+     "2025-12-05",
+     15.41
     ],
     [
-     "2025-12-15",
-     16.5
+     "2025-12-16",
+     16.48
     ],
     [
-     "2025-12-23",
-     14.0
+     "2025-12-24",
+     13.47
     ],
     [
-     "2026-01-05",
-     14.9
+     "2026-01-06",
+     14.75
     ],
     [
-     "2026-01-14",
-     16.75
+     "2026-01-15",
+     15.84
     ],
     [
-     "2026-01-22",
-     15.64
+     "2026-01-23",
+     16.09
     ],
     [
-     "2026-02-02",
-     16.34
+     "2026-02-03",
+     18.0
     ],
     [
-     "2026-02-11",
-     17.65
+     "2026-02-12",
+     20.82
     ],
     [
-     "2026-02-19",
-     20.23
+     "2026-02-20",
+     19.09
     ],
     [
-     "2026-03-02",
-     21.44
+     "2026-03-03",
+     23.57
     ],
     [
-     "2026-03-10",
-     24.93
+     "2026-03-11",
+     24.23
     ],
     [
-     "2026-03-19",
-     24.06
+     "2026-03-20",
+     26.78
     ],
     [
-     "2026-03-30",
-     30.61
+     "2026-03-31",
+     25.25
     ],
     [
-     "2026-04-08",
-     21.04
-    ],
-    [
-     "2026-04-17",
-     17.48
-    ],
-    [
-     "2026-04-28",
-     17.83
-    ],
-    [
-     "2026-05-06",
-     17.39
-    ],
-    [
-     "2026-05-15",
-     18.43
-    ],
-    [
-     "2026-05-26",
-     17.01
-    ],
-    [
-     "2026-06-03",
-     16.06
-    ],
-    [
-     "2026-06-12",
-     17.68
-    ],
-    [
-     "2026-06-23",
+     "2026-04-09",
      19.49
     ],
     [
-     "2026-07-01",
-     16.59
+     "2026-04-20",
+     18.87
     ],
     [
-     "2026-07-10",
-     15.03
+     "2026-04-29",
+     18.81
     ],
     [
-     "2026-07-20",
-     18.65
+     "2026-05-07",
+     17.08
     ],
     [
-     "2026-07-29",
-     20.66
+     "2026-05-18",
+     17.82
     ],
     [
-     "2026-08-07",
-     14.9
+     "2026-05-27",
+     16.29
     ],
     [
-     "2026-08-17",
-     15.19
+     "2026-06-04",
+     15.4
     ],
     [
-     "2026-08-26",
-     15.21
+     "2026-06-15",
+     16.2
+    ],
+    [
+     "2026-06-24",
+     18.63
+    ],
+    [
+     "2026-07-02",
+     16.15
+    ],
+    [
+     "2026-07-13",
+     17.16
+    ],
+    [
+     "2026-07-21",
+     17.05
+    ],
+    [
+     "2026-07-30",
+     17.09
+    ],
+    [
+     "2026-08-10",
+     15.46
+    ],
+    [
+     "2026-08-18",
+     15.84
+    ],
+    [
+     "2026-08-27",
+     14.51
     ]
    ],
    "flip": {
     "text": "VIX above 30 or credit spreads widening >0.15pp in 3m puts a safe-haven bid under gold.",
-    "distance": 0.5
+    "distance": 0.25
    },
    "stale": false,
    "eff_weight": 6.0
@@ -1992,9 +1992,9 @@
    "id": "N",
    "name": "FX stress (yen)",
    "weight": 4,
-   "score": 0.12,
-   "value": "159.5 (+0.7% vs 200DMA)",
-   "rationale": "USDJPY 159.5, +0.7% vs 200DMA; no intervention footprint \u2014 no FX stress signal.",
+   "score": 0.18,
+   "value": "160.1 (+1.1% vs 200DMA)",
+   "rationale": "USDJPY 160.1, +1.1% vs 200DMA; no intervention footprint \u2014 no FX stress signal.",
    "spark": [
     [
      "2025-08-27",
@@ -2154,12 +2154,12 @@
     ],
     [
      "2026-08-28",
-     159.503
+     160.119
     ]
    ],
    "flip": {
     "text": "USDJPY back below its 200DMA (158.4) removes the FX-stress support; a fresh >1.5% one-day yen surge re-fires it.",
-    "distance": 0.1156729659795112
+    "distance": 0.18015844675919324
    },
    "stale": false,
    "eff_weight": 4.0
@@ -2169,8 +2169,8 @@
    "name": "Gold/silver ratio",
    "weight": 2,
    "score": 0.0,
-   "value": "66.6",
-   "rationale": "Gold/silver ratio 67 (10th pct of 5y) \u2014 ratio mid-range; no tell either way.",
+   "value": "67.2",
+   "rationale": "Gold/silver ratio 67 (11th pct of 5y) \u2014 ratio mid-range; no tell either way.",
    "spark": [
     [
      "2025-08-18",
@@ -2330,7 +2330,7 @@
     ],
     [
      "2026-08-28",
-     66.5546
+     67.2063
     ]
    ],
    "flip": {
@@ -2506,7 +2506,7 @@
    "provider": "yahoo:GC=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:28.274544Z"
+   "fetched_at": "2026-08-28T19:13:00.035498Z"
   },
   "gold_gbp": {
    "last_date": "2026-08-28",
@@ -2515,7 +2515,7 @@
    "provider": "derived:GC=F/GBPUSD",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:28.936176Z"
+   "fetched_at": "2026-08-28T19:13:00.555779Z"
   },
   "silver": {
    "last_date": "2026-08-28",
@@ -2524,7 +2524,7 @@
    "provider": "yahoo:SI=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:29.860740Z"
+   "fetched_at": "2026-08-28T19:13:00.961389Z"
   },
   "usdjpy": {
    "last_date": "2026-08-28",
@@ -2533,7 +2533,7 @@
    "provider": "yahoo:JPY=X",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:29.994121Z"
+   "fetched_at": "2026-08-28T19:13:01.273117Z"
   },
   "dfii10": {
    "last_date": "2026-08-26",
@@ -2542,7 +2542,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.093181Z"
+   "fetched_at": "2026-08-28T19:13:01.334906Z"
   },
   "dgs10": {
    "last_date": "2026-08-26",
@@ -2551,7 +2551,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.134329Z"
+   "fetched_at": "2026-08-28T19:13:01.383400Z"
   },
   "dgs2": {
    "last_date": "2026-08-26",
@@ -2560,7 +2560,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.169644Z"
+   "fetched_at": "2026-08-28T19:13:01.419837Z"
   },
   "t10yie": {
    "last_date": "2026-08-27",
@@ -2569,7 +2569,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.217763Z"
+   "fetched_at": "2026-08-28T19:13:01.449793Z"
   },
   "t5yifr": {
    "last_date": "2026-08-27",
@@ -2578,7 +2578,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.271015Z"
+   "fetched_at": "2026-08-28T19:13:03.021251Z"
   },
   "dollar": {
    "last_date": "2026-08-21",
@@ -2587,16 +2587,16 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.330859Z"
+   "fetched_at": "2026-08-28T19:13:03.058330Z"
   },
   "vix": {
-   "last_date": "2026-08-26",
-   "age_days": 2,
+   "last_date": "2026-08-27",
+   "age_days": 1,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.387972Z"
+   "fetched_at": "2026-08-28T19:13:03.091904Z"
   },
   "baa10y": {
    "last_date": "2026-08-26",
@@ -2605,16 +2605,16 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.451829Z"
+   "fetched_at": "2026-08-28T19:13:04.729428Z"
   },
   "effr": {
-   "last_date": "2026-08-26",
-   "age_days": 2,
+   "last_date": "2026-08-27",
+   "age_days": 1,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.501561Z"
+   "fetched_at": "2026-08-28T19:13:04.857380Z"
   },
   "icsa": {
    "last_date": "2026-08-22",
@@ -2623,7 +2623,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.564569Z"
+   "fetched_at": "2026-08-28T19:13:04.886408Z"
   },
   "unrate": {
    "last_date": "2026-07-01",
@@ -2632,7 +2632,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.585389Z"
+   "fetched_at": "2026-08-28T19:13:04.913600Z"
   },
   "payems": {
    "last_date": "2026-07-01",
@@ -2641,7 +2641,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:30.626161Z"
+   "fetched_at": "2026-08-28T19:13:04.935252Z"
   },
   "cot": {
    "last_date": "2026-08-18",
@@ -2650,7 +2650,7 @@
    "provider": "cftc-socrata",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:31.191488Z"
+   "fetched_at": "2026-08-28T19:13:05.275281Z"
   },
   "gpr": {
    "last_date": "2026-07-01",
@@ -2659,7 +2659,7 @@
    "provider": "iacoviello-xls",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:31.858669Z"
+   "fetched_at": "2026-08-28T19:13:05.750325Z"
   },
   "central_banks": {
    "last_date": "2026-07-30",
@@ -2668,7 +2668,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:31.858777Z"
+   "fetched_at": "2026-08-28T19:13:05.750454Z"
   },
   "etf_flows": {
    "last_date": "2026-07-30",
@@ -2677,7 +2677,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-08-28T04:58:31.858782Z"
+   "fetched_at": "2026-08-28T19:13:05.750462Z"
   }
  },
  "warnings": [
