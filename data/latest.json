@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-09-07T13:14:47.912129Z",
+ "generated_at": "2026-09-07T23:04:41.788581Z",
  "as_of": "2026-09-07",
- "score": 35.2,
+ "score": 34.9,
  "verdict": "TRIM",
  "band_note": "Macro tailwinds absent \u2014 risk posture, not a sell-timing call.",
  "bands": {
@@ -30,21 +30,21 @@
   "text": "Reference only: the 5y fair-value regression fails its sanity check (real-yield beta +0.29 is positive \u2014 the window co-trended), so the +22% gap does not adjust the score."
  },
  "gold": {
-  "usd": 4476.6,
-  "usd_chg_1d_pct": 1.06,
-  "usd_chg_3m_pct": 3.2,
-  "usd_200dma": 4522.54,
-  "gbp": 3306.42,
-  "gbp_chg_1d_pct": -0.39
+  "usd": 4452.8,
+  "usd_chg_1d_pct": 0.52,
+  "usd_chg_3m_pct": 2.7,
+  "usd_200dma": 4522.42,
+  "gbp": 3287.59,
+  "gbp_chg_1d_pct": -0.96
  },
  "volatility": {
   "label": "ATR(14)",
   "atr_abs": 80.16,
-  "atr_pct": 1.79,
+  "atr_pct": 1.8,
   "percentile_5y": 86,
-  "vs_median": 1.55,
+  "vs_median": 1.56,
   "regime": "Elevated",
-  "advice": "Moves are running 1.5\u00d7 normal; trim position sizes accordingly.",
+  "advice": "Moves are running 1.6\u00d7 normal; trim position sizes accordingly.",
   "source": "true ATR(14) from Yahoo GC=F OHLC",
   "spark": [
    [
@@ -205,41 +205,41 @@
    ],
    [
     "2026-09-07",
-    1.7907
+    1.8003
    ]
   ],
-  "note": "Gold is moving about $80 a day (1.8% of price) \u2014 the 86th percentile of the last five years. Moves are running 1.5\u00d7 normal; trim position sizes accordingly."
+  "note": "Gold is moving about $80 a day (1.8% of price) \u2014 the 86th percentile of the last five years. Moves are running 1.6\u00d7 normal; trim position sizes accordingly."
  },
  "price_structure": {
-  "price": 4476.6,
+  "price": 4452.8,
   "levels": [
    {
     "price": 5306.4,
     "type": "resistance",
     "touches": 2,
     "last_touch": "2026-03-02",
-    "distance_pct": 18.5
+    "distance_pct": 19.2
    },
    {
     "price": 3966.65,
     "type": "support",
     "touches": 2,
     "last_touch": "2026-07-16",
-    "distance_pct": -11.4
+    "distance_pct": -10.9
    },
    {
     "price": 3427.27,
     "type": "support",
     "touches": 3,
     "last_touch": "2025-07-22",
-    "distance_pct": -23.4
+    "distance_pct": -23.0
    },
    {
     "price": 3283.45,
     "type": "support",
     "touches": 2,
     "last_touch": "2025-07-31",
-    "distance_pct": -26.7
+    "distance_pct": -26.3
    }
   ],
   "range": {
@@ -247,13 +247,13 @@
    "high": 4145.55,
    "pct_of_time": 22
   },
-  "note": "Gold $4,477: next resistance $5,306 (+18.5%, tested 2x); nearest support $3,967 (-11.4%, tested 2x). It has spent 22% of the past year between $3,977 and $4,146 \u2014 price is above it."
+  "note": "Gold $4,453: next resistance $5,306 (+19.2%, tested 2x); nearest support $3,967 (-10.9%, tested 2x). It has spent 22% of the past year between $3,977 and $4,146 \u2014 price is above it."
  },
  "gbp_lens": {
-  "price": 3306.42,
-  "chg_3m_pct": -2.4,
+  "price": 3287.59,
+  "chg_3m_pct": -3.0,
   "trend": "downtrend",
-  "note": "XAUGBP \u00a33,306, -2.4% over 3m, downtrend vs 200DMA \u2014 sterling gold is trending down: if the USD verdict says add, the currency is eating the move \u2014 size down; if it says trim, GBP agrees."
+  "note": "XAUGBP \u00a33,288, -3.0% over 3m, downtrend vs 200DMA \u2014 sterling gold is trending down: if the USD verdict says add, the currency is eating the move \u2014 size down; if it says trim, GBP agrees."
  },
  "change_my_mind": [
   {
@@ -624,9 +624,9 @@
    "id": "E",
    "name": "Trend & momentum",
    "weight": 12,
-   "score": -0.14,
-   "value": "$4,477 (50DMA $4,247)",
-   "rationale": "Price above the 50DMA, below the 200DMA (death cross in force), +2.6% over 20 sessions \u2014 the tape is against you.",
+   "score": -0.2,
+   "value": "$4,453 (50DMA $4,246)",
+   "rationale": "Price above the 50DMA, below the 200DMA (death cross in force), +2.1% over 20 sessions \u2014 the tape is against you.",
    "spark": [
     [
      "2025-08-26",
@@ -786,12 +786,12 @@
     ],
     [
      "2026-09-07",
-     4476.6001
+     4452.7998
     ]
    ],
    "flip": {
-    "text": "A close below the 50DMA at $4,247 starts flipping trend bearish.",
-    "distance": 0.13632865365867167
+    "text": "A close below the 50DMA at $4,246 starts flipping trend bearish.",
+    "distance": 0.19565964410608022
    },
    "stale": false,
    "eff_weight": 12.0
@@ -1329,8 +1329,8 @@
    "name": "Valuation stretch",
    "weight": 8,
    "score": 0.0,
-   "value": "-1.0% / RSI 57",
-   "rationale": "-1.0% vs 200DMA, RSI(14) 57 \u2014 no stretch either way.",
+   "value": "-1.5% / RSI 55",
+   "rationale": "-1.5% vs 200DMA, RSI(14) 55 \u2014 no stretch either way.",
    "spark": [
     [
      "2026-03-04",
@@ -1490,12 +1490,12 @@
     ],
     [
      "2026-09-07",
-     4476.6001
+     4452.7998
     ]
    ],
    "flip": {
     "text": "Gold above $5,427 (20% over the 200DMA) triggers the overbought penalty.",
-    "distance": 1.7513165446370291
+    "distance": 1.7949555976373823
    },
    "stale": false,
    "eff_weight": 8.0
@@ -1992,174 +1992,174 @@
    "id": "N",
    "name": "FX stress (yen)",
    "weight": 4,
-   "score": -0.43,
-   "value": "154.4 (-2.6% vs 200DMA)",
-   "rationale": "USDJPY 154.4, -2.6% vs 200DMA; no intervention footprint \u2014 no FX stress signal.",
+   "score": -0.45,
+   "value": "154.1 (-2.7% vs 200DMA)",
+   "rationale": "USDJPY 154.1, -2.7% vs 200DMA; no intervention footprint \u2014 no FX stress signal.",
    "spark": [
     [
-     "2025-09-04",
-     148.375
+     "2025-09-07",
+     148.344
     ],
     [
-     "2025-09-15",
-     147.405
+     "2025-09-16",
+     146.413
     ],
     [
-     "2025-09-23",
-     147.613
+     "2025-09-24",
+     148.751
     ],
     [
-     "2025-10-02",
-     147.15
+     "2025-10-05",
+     149.606
     ],
     [
-     "2025-10-13",
-     152.434
+     "2025-10-14",
+     151.731
     ],
     [
-     "2025-10-21",
-     151.893
+     "2025-10-22",
+     151.954
     ],
     [
-     "2025-10-31",
-     153.9
+     "2025-11-03",
+     154.195
     ],
     [
-     "2025-11-10",
-     153.817
+     "2025-11-11",
+     154.146
     ],
     [
-     "2025-11-19",
-     155.548
+     "2025-11-20",
+     156.992
     ],
     [
-     "2025-11-28",
-     156.284
+     "2025-12-01",
+     155.928
     ],
     [
-     "2025-12-08",
-     155.34
+     "2025-12-09",
+     155.844
     ],
     [
-     "2025-12-17",
-     154.778
+     "2025-12-18",
+     155.495
     ],
     [
-     "2025-12-29",
-     156.463
+     "2025-12-30",
+     156.013
     ],
     [
-     "2026-01-07",
-     156.68
+     "2026-01-08",
+     156.731
     ],
     [
-     "2026-01-16",
-     158.596
+     "2026-01-19",
+     157.535
     ],
     [
-     "2026-01-27",
-     154.336
+     "2026-01-28",
+     152.453
     ],
     [
-     "2026-02-04",
-     155.799
+     "2026-02-05",
+     156.917
     ],
     [
-     "2026-02-13",
-     152.821
+     "2026-02-16",
+     152.779
     ],
     [
-     "2026-02-24",
-     154.635
+     "2026-02-25",
+     155.88
     ],
     [
-     "2026-03-04",
-     157.773
+     "2026-03-05",
+     156.983
     ],
     [
-     "2026-03-13",
-     159.206
+     "2026-03-16",
+     159.568
     ],
     [
-     "2026-03-23",
-     159.234
+     "2026-03-24",
+     158.479
     ],
     [
-     "2026-03-31",
-     158.579
+     "2026-04-01",
+     158.688
     ],
     [
-     "2026-04-09",
-     159.112
+     "2026-04-12",
+     159.68
     ],
     [
-     "2026-04-19",
-     159.161
-    ],
-    [
-     "2026-04-28",
-     159.552
-    ],
-    [
-     "2026-05-07",
-     156.829
-    ],
-    [
-     "2026-05-17",
+     "2026-04-20",
      158.844
     ],
     [
-     "2026-05-26",
-     159.243
+     "2026-04-29",
+     160.184
     ],
     [
-     "2026-06-04",
-     159.99
+     "2026-05-10",
+     156.858
     ],
     [
-     "2026-06-14",
-     159.955
+     "2026-05-18",
+     158.861
     ],
     [
-     "2026-06-23",
-     161.599
+     "2026-05-27",
+     159.568
     ],
     [
-     "2026-07-02",
-     161.449
+     "2026-06-07",
+     160.327
     ],
     [
-     "2026-07-12",
-     161.878
+     "2026-06-15",
+     160.229
     ],
     [
-     "2026-07-21",
-     163.186
+     "2026-06-24",
+     161.763
     ],
     [
-     "2026-07-29",
-     163.3
+     "2026-07-05",
+     161.452
     ],
     [
-     "2026-08-09",
-     157.891
+     "2026-07-13",
+     162.429
     ],
     [
-     "2026-08-18",
-     159.55
+     "2026-07-22",
+     163.081
     ],
     [
-     "2026-08-26",
-     159.255
+     "2026-07-30",
+     160.183
+    ],
+    [
+     "2026-08-10",
+     159.156
+    ],
+    [
+     "2026-08-19",
+     158.276
+    ],
+    [
+     "2026-08-27",
+     159.321
     ],
     [
      "2026-09-07",
-     154.36
+     154.123
     ]
    ],
    "flip": {
     "text": "USDJPY back below its 200DMA (158.4) removes the FX-stress support; a fresh >1.5% one-day yen surge re-fires it.",
-    "distance": 0.42974503960050425
+    "distance": 0.45450894727412555
    },
    "stale": false,
    "eff_weight": 4.0
@@ -2169,8 +2169,8 @@
    "name": "Gold/silver ratio",
    "weight": 2,
    "score": 0.0,
-   "value": "67.1",
-   "rationale": "Gold/silver ratio 67 (11th pct of 5y) \u2014 ratio mid-range; no tell either way.",
+   "value": "66.6",
+   "rationale": "Gold/silver ratio 67 (10th pct of 5y) \u2014 ratio mid-range; no tell either way.",
    "spark": [
     [
      "2025-08-26",
@@ -2330,7 +2330,7 @@
     ],
     [
      "2026-09-07",
-     67.0672
+     66.569
     ]
    ],
    "flip": {
@@ -2506,7 +2506,7 @@
    "provider": "yahoo:GC=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:37.775199Z"
+   "fetched_at": "2026-09-07T23:04:35.437526Z"
   },
   "gold_gbp": {
    "last_date": "2026-09-07",
@@ -2515,7 +2515,7 @@
    "provider": "derived:GC=F/GBPUSD",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:38.350197Z"
+   "fetched_at": "2026-09-07T23:04:36.877938Z"
   },
   "silver": {
    "last_date": "2026-09-07",
@@ -2524,7 +2524,7 @@
    "provider": "yahoo:SI=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:39.183905Z"
+   "fetched_at": "2026-09-07T23:04:37.727871Z"
   },
   "usdjpy": {
    "last_date": "2026-09-07",
@@ -2533,7 +2533,7 @@
    "provider": "yahoo:JPY=X",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:39.291482Z"
+   "fetched_at": "2026-09-07T23:04:37.889653Z"
   },
   "dfii10": {
    "last_date": "2026-09-03",
@@ -2542,7 +2542,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:39.431969Z"
+   "fetched_at": "2026-09-07T23:04:37.999646Z"
   },
   "dgs10": {
    "last_date": "2026-09-03",
@@ -2551,7 +2551,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:39.503347Z"
+   "fetched_at": "2026-09-07T23:04:38.068948Z"
   },
   "dgs2": {
    "last_date": "2026-09-03",
@@ -2560,7 +2560,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:39.606662Z"
+   "fetched_at": "2026-09-07T23:04:38.142042Z"
   },
   "t10yie": {
    "last_date": "2026-09-04",
@@ -2569,7 +2569,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:39.661627Z"
+   "fetched_at": "2026-09-07T23:04:38.179017Z"
   },
   "t5yifr": {
    "last_date": "2026-09-04",
@@ -2578,7 +2578,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:41.631194Z"
+   "fetched_at": "2026-09-07T23:04:40.207774Z"
   },
   "dollar": {
    "last_date": "2026-08-28",
@@ -2587,7 +2587,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:41.709037Z"
+   "fetched_at": "2026-09-07T23:04:40.234165Z"
   },
   "vix": {
    "last_date": "2026-09-03",
@@ -2596,7 +2596,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:41.824113Z"
+   "fetched_at": "2026-09-07T23:04:40.273157Z"
   },
   "baa10y": {
    "last_date": "2026-09-03",
@@ -2605,7 +2605,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:43.892724Z"
+   "fetched_at": "2026-09-07T23:04:40.315118Z"
   },
   "effr": {
    "last_date": "2026-09-03",
@@ -2614,7 +2614,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:45.961574Z"
+   "fetched_at": "2026-09-07T23:04:40.342506Z"
   },
   "icsa": {
    "last_date": "2026-08-29",
@@ -2623,7 +2623,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:46.001208Z"
+   "fetched_at": "2026-09-07T23:04:40.369399Z"
   },
   "unrate": {
    "last_date": "2026-08-01",
@@ -2632,7 +2632,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:46.054321Z"
+   "fetched_at": "2026-09-07T23:04:40.428456Z"
   },
   "payems": {
    "last_date": "2026-08-01",
@@ -2641,7 +2641,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:46.140753Z"
+   "fetched_at": "2026-09-07T23:04:40.477478Z"
   },
   "cot": {
    "last_date": "2026-09-01",
@@ -2650,7 +2650,7 @@
    "provider": "cftc-socrata",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:47.024177Z"
+   "fetched_at": "2026-09-07T23:04:41.251927Z"
   },
   "gpr": {
    "last_date": "2026-08-01",
@@ -2659,7 +2659,7 @@
    "provider": "iacoviello-xls",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:47.764382Z"
+   "fetched_at": "2026-09-07T23:04:41.608317Z"
   },
   "central_banks": {
    "last_date": "2026-07-30",
@@ -2668,7 +2668,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:47.764491Z"
+   "fetched_at": "2026-09-07T23:04:41.608431Z"
   },
   "etf_flows": {
    "last_date": "2026-07-30",
@@ -2677,7 +2677,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-09-07T13:14:47.764496Z"
+   "fetched_at": "2026-09-07T23:04:41.608438Z"
   }
  },
  "warnings": [
