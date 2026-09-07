@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-08-29T02:55:48.816783Z",
- "verdict": "HOLD",
+ "generated_at": "2026-09-07T13:14:47.912129Z",
+ "verdict": "TRIM",
  "previous_verdict": "HOLD",
- "verdict_changed": false,
- "score": 46.2,
+ "verdict_changed": true,
+ "score": 35.2,
  "critical_failures": [],
  "warnings": [
   "gold_usd: primary source stooq:xauusd failed (Stooq xauusd: non-CSV response (bot-blocked?)); trying yahoo:GC=F",
@@ -14,6 +14,6 @@
   "Signal J excluded: stale/missing inputs ['central_banks']",
   "Signal K excluded: stale/missing inputs ['etf_flows']"
  ],
- "alert": false,
- "alert_text": ""
+ "alert": true,
+ "alert_text": "VERDICT CHANGE: HOLD -> TRIM (score 35.2/100)\nGold $4,477 / \u00a33,306\nRegime: Mixed / transitional \u00b7 Data confidence: Med\nDriven by Real yields (-1.2) and Policy trajectory (-1.3)\nClosest to flipping \u2014 M: Payrolls 3-month average back above 100k/month (now +71k) removes the labour-market support for gold."
 }
