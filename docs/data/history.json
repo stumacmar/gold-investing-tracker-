@@ -2445,10 +2445,10 @@
 },
 {
 "date": "2026-09-15",
-"score": 38.5,
+"score": 38.1,
 "verdict": "TRIM",
-"gold_usd": 4335.1,
-"gold_gbp": 3217.64,
+"gold_usd": 4333.0,
+"gold_gbp": 3213.48,
 "regime": "neutral"
 }
 ]
