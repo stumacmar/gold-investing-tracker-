@@ -2498,5 +2498,13 @@
 "gold_usd": 4322.3,
 "gold_gbp": 3263.64,
 "regime": "neutral"
+},
+{
+"date": "2026-09-24",
+"score": 29.3,
+"verdict": "TRIM",
+"gold_usd": 4311.2,
+"gold_gbp": 3255.17,
+"regime": "neutral"
 }
 ]
