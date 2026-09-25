@@ -1,19 +1,19 @@
 {
- "generated_at": "2026-09-25T07:16:44.049659Z",
+ "generated_at": "2026-09-25T21:00:45.178978Z",
  "verdict": "SELL/REDUCE",
  "previous_verdict": "TRIM",
  "verdict_changed": true,
- "score": 21.7,
+ "score": 19.5,
  "critical_failures": [],
  "warnings": [
-  "gold_usd: primary source stooq:xauusd failed (GET failed after 2 tries: https://stooq.com/q/d/l/?s=xauusd&i=d (<urlopen error timed out>)); trying yahoo:GC=F",
-  "gold_gbp: primary source stooq:xaugbp failed (GET failed after 2 tries: https://stooq.com/q/d/l/?s=xaugbp&i=d (<urlopen error timed out>)); trying derived:GC=F/GBPUSD",
-  "silver: primary source stooq:xagusd failed (GET failed after 2 tries: https://stooq.com/q/d/l/?s=xagusd&i=d (<urlopen error timed out>)); trying yahoo:SI=F",
+  "gold_usd: primary source stooq:xauusd failed (Stooq xauusd: non-CSV response (bot-blocked?)); trying yahoo:GC=F",
+  "gold_gbp: primary source stooq:xaugbp failed (Stooq xaugbp: non-CSV response (bot-blocked?)); trying derived:GC=F/GBPUSD",
+  "silver: primary source stooq:xagusd failed (Stooq xagusd: non-CSV response (bot-blocked?)); trying yahoo:SI=F",
   "central_banks: manual_inputs.json still holds placeholder values \u2014 signal excluded until real WGC figures are entered",
   "etf_flows: manual_inputs.json still holds placeholder values \u2014 signal excluded until real WGC figures are entered",
   "Signal J excluded: stale/missing inputs ['central_banks']",
   "Signal K excluded: stale/missing inputs ['etf_flows']"
  ],
  "alert": true,
- "alert_text": "VERDICT CHANGE: TRIM -> SELL/REDUCE (score 21.7/100)\nGold $4,312 / \u00a33,261\nRegime: Mixed / transitional \u00b7 Data confidence: Med\nDriven by Real yields (-1.7) and Trend & momentum (-2.0)\nClosest to flipping \u2014 N: USDJPY back below its 200DMA (158.5) removes the FX-stress support; a fresh >1.5% one-day yen surge re-fires it."
+ "alert_text": "VERDICT CHANGE: TRIM -> SELL/REDUCE (score 19.5/100)\nGold $4,321 / \u00a33,262\nRegime: Mixed / transitional \u00b7 Data confidence: Med\nDriven by Real yields (-2.0) and Trend & momentum (-2.0)\nClosest to flipping \u2014 M: Payrolls 3-month average back above 100k/month (now +71k) removes the labour-market support for gold."
 }
