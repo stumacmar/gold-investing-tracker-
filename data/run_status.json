@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-10-12T21:00:55.685231Z",
+ "generated_at": "2026-10-13T07:22:36.027658Z",
  "verdict": "SELL/REDUCE",
  "previous_verdict": "SELL/REDUCE",
  "verdict_changed": false,
- "score": 12.9,
+ "score": 12.8,
  "critical_failures": [],
  "warnings": [
   "gold_usd: primary source stooq:xauusd failed (Stooq xauusd: non-CSV response (bot-blocked?)); trying yahoo:GC=F",
