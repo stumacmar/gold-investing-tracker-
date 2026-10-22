@@ -1,40 +1,19 @@
 {
- "generated_at": "2026-10-21T21:01:16.258945Z",
+ "generated_at": "2026-10-22T07:15:30.202725Z",
  "verdict": "SELL/REDUCE",
  "previous_verdict": "SELL/REDUCE",
  "verdict_changed": false,
- "score": 25.3,
- "critical_failures": [
-  "dfii10",
-  "dollar"
- ],
+ "score": 14.8,
+ "critical_failures": [],
  "warnings": [
   "gold_usd: primary source stooq:xauusd failed (Stooq xauusd: non-CSV response (bot-blocked?)); trying yahoo:GC=F",
   "gold_gbp: primary source stooq:xaugbp failed (Stooq xaugbp: non-CSV response (bot-blocked?)); trying derived:GC=F/GBPUSD",
   "silver: primary source stooq:xagusd failed (Stooq xagusd: non-CSV response (bot-blocked?)); trying yahoo:SI=F",
-  "FRED DFII10 failed: FRED DFII10: no observations parsed",
-  "FRED DGS10 failed: FRED DGS10: no observations parsed",
-  "FRED DGS2 failed: FRED DGS2: no observations parsed",
-  "FRED T10YIE failed: FRED T10YIE: no observations parsed",
-  "FRED T5YIFR failed: FRED T5YIFR: no observations parsed",
-  "FRED DTWEXBGS failed: FRED DTWEXBGS: no observations parsed",
-  "FRED VIXCLS failed: FRED VIXCLS: no observations parsed",
-  "FRED BAA10Y failed: FRED BAA10Y: no observations parsed",
-  "FRED EFFR failed: FRED EFFR: no observations parsed",
-  "FRED ICSA failed: FRED ICSA: no observations parsed",
-  "FRED UNRATE failed: FRED UNRATE: no observations parsed",
-  "FRED PAYEMS failed: FRED PAYEMS: no observations parsed",
   "central_banks: manual_inputs.json still holds placeholder values \u2014 signal excluded until real WGC figures are entered",
   "etf_flows: manual_inputs.json still holds placeholder values \u2014 signal excluded until real WGC figures are entered",
-  "Signal A excluded: stale/missing inputs ['dfii10']",
-  "Signal B excluded: stale/missing inputs ['dollar']",
-  "Signal C excluded: stale/missing inputs ['dgs2']",
-  "Signal D excluded: stale/missing inputs ['t10yie', 't5yifr', 'dfii10']",
-  "Signal H excluded: stale/missing inputs ['vix', 'baa10y']",
   "Signal J excluded: stale/missing inputs ['central_banks']",
-  "Signal K excluded: stale/missing inputs ['etf_flows']",
-  "Signal M excluded: stale/missing inputs ['icsa', 'unrate', 'payems']"
+  "Signal K excluded: stale/missing inputs ['etf_flows']"
  ],
- "alert": true,
- "alert_text": "DATA PROBLEM: critical series unavailable (dfii10, dollar) \u2014 score published without them."
+ "alert": false,
+ "alert_text": ""
 }
