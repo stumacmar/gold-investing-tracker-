@@ -1,7 +1,7 @@
 {
- "generated_at": "2026-11-16T07:13:17.063760Z",
+ "generated_at": "2026-11-16T21:01:10.451049Z",
  "as_of": "2026-11-16",
- "score": 11.6,
+ "score": 11.4,
  "verdict": "SELL/REDUCE",
  "band_note": "Macro tailwinds absent \u2014 risk posture, not a sell-timing call.",
  "bands": {
@@ -30,12 +30,12 @@
   "text": "Reference only: the 5y fair-value regression fails its sanity check (real-yield beta +0.30 is positive \u2014 the window co-trended), so the +18% gap does not adjust the score."
  },
  "gold": {
-  "usd": 3855.2,
-  "usd_chg_1d_pct": -0.8,
+  "usd": 3855.5,
+  "usd_chg_1d_pct": -0.79,
   "usd_chg_3m_pct": -12.8,
   "usd_200dma": 4467.8,
-  "gbp": 2920.24,
-  "gbp_chg_1d_pct": -0.58
+  "gbp": 2925.4,
+  "gbp_chg_1d_pct": -0.4
  },
  "volatility": {
   "label": "ATR(14)",
@@ -205,13 +205,13 @@
    ],
    [
     "2026-11-16",
-    2.3372
+    2.3374
    ]
   ],
   "note": "Gold is moving about $90 a day (2.3% of price) \u2014 the 84th percentile of the last five years. Moves are running 1.5\u00d7 normal; trim position sizes accordingly."
  },
  "price_structure": {
-  "price": 3855.2,
+  "price": 3855.5,
   "levels": [
    {
     "price": 3976.3,
@@ -243,17 +243,17 @@
    }
   ],
   "range": {
-   "low": 4026.39,
-   "high": 4172.71,
+   "low": 4026.66,
+   "high": 4172.95,
    "pct_of_time": 22
   },
-  "note": "Gold $3,855: next resistance $3,976 (+3.1%, tested 2x); nearest support $3,439 (-10.8%, tested 2x). It has spent 22% of the past year between $4,026 and $4,173 \u2014 price is below it."
+  "note": "Gold $3,856: next resistance $3,976 (+3.1%, tested 2x); nearest support $3,439 (-10.8%, tested 2x). It has spent 22% of the past year between $4,027 and $4,173 \u2014 price is below it."
  },
  "gbp_lens": {
-  "price": 2920.24,
-  "chg_3m_pct": -4.1,
+  "price": 2925.4,
+  "chg_3m_pct": -4.0,
   "trend": "downtrend",
-  "note": "XAUGBP \u00a32,920, -4.1% over 3m, downtrend vs 200DMA \u2014 sterling gold is trending down: if the USD verdict says add, the currency is eating the move \u2014 size down; if it says trim, GBP agrees."
+  "note": "XAUGBP \u00a32,925, -4.0% over 3m, downtrend vs 200DMA \u2014 sterling gold is trending down: if the USD verdict says add, the currency is eating the move \u2014 size down; if it says trim, GBP agrees."
  },
  "change_my_mind": [
   {
@@ -264,7 +264,7 @@
   {
    "signal": "F",
    "name": "Positioning (COT)",
-   "text": "Managed-money net longs crossing the 10th percentile of the 5y range flips positioning hard bullish (washed out)."
+   "text": "Managed-money net longs crossing the 90th percentile of the 5y range flips positioning hard bearish (crowded)."
   }
  ],
  "signals": [
@@ -625,7 +625,7 @@
    "name": "Trend & momentum",
    "weight": 12,
    "score": -2,
-   "value": "$3,855 (50DMA $4,169)",
+   "value": "$3,856 (50DMA $4,169)",
    "rationale": "Price below the 50DMA, below the 200DMA (death cross in force), -7.3% over 20 sessions \u2014 the tape is against you.",
    "spark": [
     [
@@ -786,7 +786,7 @@
     ],
     [
      "2026-11-16",
-     3855.2
+     3855.5
     ]
    ],
    "flip": {
@@ -1152,174 +1152,174 @@
    "id": "F",
    "name": "Positioning (COT)",
    "weight": 8,
-   "score": 0.03,
-   "value": "103,614 net (47th pct)",
-   "rationale": "Managed money net long 103,614 contracts, 47th percentile of 5y \u2014 mid-range \u2014 positioning is not the story right now.",
+   "score": -0.05,
+   "value": "112,341 net (57th pct)",
+   "rationale": "Managed money net long 112,341 contracts, 57th percentile of 5y \u2014 mid-range \u2014 positioning is not the story right now.",
    "spark": [
     [
-     "2021-11-16",
-     142385.0
+     "2021-11-23",
+     105339.0
     ],
     [
-     "2022-01-04",
-     79508.0
+     "2022-01-11",
+     74310.0
     ],
     [
-     "2022-02-15",
-     107706.0
+     "2022-02-22",
+     138976.0
     ],
     [
-     "2022-04-05",
-     101627.0
+     "2022-04-12",
+     117025.0
     ],
     [
-     "2022-05-24",
-     61057.0
+     "2022-05-31",
+     50793.0
     ],
     [
-     "2022-07-05",
-     17034.0
+     "2022-07-12",
+     -6133.0
     ],
     [
-     "2022-08-23",
-     22111.0
+     "2022-08-30",
+     11788.0
     ],
     [
-     "2022-10-04",
-     -6875.0
+     "2022-10-11",
+     -5580.0
     ],
     [
-     "2022-11-22",
-     19431.0
+     "2022-11-29",
+     14720.0
     ],
     [
-     "2023-01-10",
-     61809.0
+     "2023-01-17",
+     69377.0
     ],
     [
-     "2023-02-21",
-     36706.0
+     "2023-02-28",
+     26575.0
     ],
     [
-     "2023-04-11",
-     104606.0
+     "2023-04-18",
+     102696.0
     ],
     [
-     "2023-05-30",
-     86703.0
+     "2023-06-06",
+     93428.0
     ],
     [
-     "2023-07-11",
-     82443.0
+     "2023-07-18",
+     115318.0
     ],
     [
-     "2023-08-29",
-     39242.0
+     "2023-09-05",
+     50365.0
     ],
     [
-     "2023-10-17",
-     15103.0
+     "2023-10-24",
+     55748.0
     ],
     [
-     "2023-11-28",
-     114893.0
+     "2023-12-05",
+     109387.0
     ],
     [
-     "2024-01-16",
-     83229.0
+     "2024-01-23",
+     61033.0
     ],
     [
-     "2024-03-05",
-     109763.0
+     "2024-03-12",
+     141083.0
     ],
     [
-     "2024-04-16",
-     134736.0
+     "2024-04-23",
+     142139.0
     ],
     [
-     "2024-06-04",
-     152299.0
+     "2024-06-11",
+     152965.0
     ],
     [
-     "2024-07-16",
-     184532.0
+     "2024-07-23",
+     162860.0
     ],
     [
-     "2024-09-03",
-     192090.0
+     "2024-09-10",
+     190455.0
     ],
     [
-     "2024-10-22",
-     205160.0
+     "2024-10-29",
+     195173.0
     ],
     [
-     "2024-12-03",
-     180735.0
+     "2024-12-10",
+     196078.0
     ],
     [
-     "2025-01-21",
-     215869.0
+     "2025-01-28",
+     210540.0
     ],
     [
-     "2025-03-11",
-     167576.0
+     "2025-03-18",
+     183834.0
     ],
     [
-     "2025-04-22",
-     120902.0
+     "2025-04-29",
+     105895.0
     ],
     [
-     "2025-06-10",
-     124091.0
+     "2025-06-17",
+     130511.0
     ],
     [
-     "2025-07-29",
-     134256.0
+     "2025-08-05",
+     153987.0
     ],
     [
-     "2025-09-09",
-     163519.0
+     "2025-09-16",
+     158971.0
     ],
     [
-     "2025-10-28",
-     104159.0
+     "2025-11-04",
+     100545.0
     ],
     [
-     "2025-12-16",
-     132596.0
+     "2025-12-23",
+     136270.0
     ],
     [
-     "2026-01-27",
-     118159.0
+     "2026-02-03",
+     92072.0
     ],
     [
-     "2026-03-17",
-     102043.0
+     "2026-03-24",
+     91621.0
     ],
     [
-     "2026-04-28",
-     89752.0
+     "2026-05-05",
+     94254.0
     ],
     [
-     "2026-06-16",
-     113721.0
+     "2026-06-23",
+     115395.0
     ],
     [
-     "2026-08-04",
-     130766.0
+     "2026-08-11",
+     137662.0
     ],
     [
-     "2026-09-15",
-     133116.0
+     "2026-09-22",
+     127389.0
     ],
     [
-     "2026-11-03",
-     103614.0
+     "2026-11-10",
+     112341.0
     ]
    ],
    "flip": {
-    "text": "Managed-money net longs crossing the 10th percentile of the 5y range flips positioning hard bullish (washed out).",
-    "distance": 0.03
+    "text": "Managed-money net longs crossing the 90th percentile of the 5y range flips positioning hard bearish (crowded).",
+    "distance": 0.05
    },
    "stale": false,
    "eff_weight": 8.0
@@ -1490,12 +1490,12 @@
     ],
     [
      "2026-11-16",
-     3855.2
+     3855.5
     ]
    ],
    "flip": {
     "text": "Gold above $5,361 (20% over the 200DMA) triggers the overbought penalty.",
-    "distance": 1.3711370089506036
+    "distance": 1.3704683253579897
    },
    "stale": false,
    "eff_weight": 8.0
@@ -1509,164 +1509,164 @@
    "rationale": "VIX 19, BAA-10Y spread 1.48% (-0.18pp 3m) \u2014 markets are calm; no safe-haven bid.",
    "spark": [
     [
-     "2025-11-11",
-     17.28
+     "2025-11-12",
+     17.51
     ],
     [
-     "2025-11-20",
-     26.42
+     "2025-11-21",
+     23.43
     ],
     [
-     "2025-11-28",
+     "2025-12-01",
+     17.24
+    ],
+    [
+     "2025-12-10",
+     15.77
+    ],
+    [
+     "2025-12-19",
+     14.91
+    ],
+    [
+     "2025-12-30",
+     14.33
+    ],
+    [
+     "2026-01-09",
+     14.49
+    ],
+    [
+     "2026-01-19",
+     18.84
+    ],
+    [
+     "2026-01-28",
      16.35
     ],
     [
-     "2025-12-09",
-     16.93
+     "2026-02-06",
+     17.76
     ],
     [
-     "2025-12-18",
-     16.87
+     "2026-02-16",
+     21.2
     ],
     [
-     "2025-12-29",
-     14.2
+     "2026-02-25",
+     17.93
     ],
     [
-     "2026-01-08",
-     15.45
+     "2026-03-06",
+     29.49
     ],
     [
-     "2026-01-16",
-     15.86
+     "2026-03-16",
+     23.51
     ],
     [
-     "2026-01-27",
-     16.35
+     "2026-03-25",
+     25.33
     ],
     [
-     "2026-02-05",
-     21.77
+     "2026-04-06",
+     24.17
     ],
     [
-     "2026-02-13",
-     20.6
+     "2026-04-14",
+     18.36
     ],
     [
-     "2026-02-24",
-     19.55
+     "2026-04-23",
+     19.31
     ],
     [
-     "2026-03-05",
-     23.75
+     "2026-05-04",
+     18.29
     ],
     [
-     "2026-03-13",
-     27.19
+     "2026-05-12",
+     17.99
     ],
     [
-     "2026-03-24",
-     26.95
+     "2026-05-21",
+     16.76
     ],
     [
-     "2026-04-02",
-     23.87
+     "2026-05-29",
+     15.32
     ],
     [
-     "2026-04-13",
-     19.12
+     "2026-06-09",
+     19.87
     ],
     [
-     "2026-04-22",
-     18.92
+     "2026-06-18",
+     16.4
     ],
     [
-     "2026-05-01",
-     16.99
+     "2026-06-26",
+     18.41
     ],
     [
-     "2026-05-11",
-     18.38
+     "2026-07-07",
+     16.13
     ],
     [
-     "2026-05-20",
-     17.44
+     "2026-07-16",
+     16.73
     ],
     [
-     "2026-05-28",
-     15.74
+     "2026-07-24",
+     18.58
     ],
     [
-     "2026-06-08",
-     18.92
+     "2026-08-04",
+     16.5
     ],
     [
-     "2026-06-17",
-     18.44
+     "2026-08-13",
+     14.63
     ],
     [
-     "2026-06-25",
-     18.89
+     "2026-08-21",
+     15.13
     ],
     [
-     "2026-07-06",
-     15.57
+     "2026-09-01",
+     16.34
     ],
     [
-     "2026-07-15",
-     15.67
+     "2026-09-10",
+     17.84
     ],
     [
-     "2026-07-23",
-     18.7
+     "2026-09-18",
+     14.81
     ],
     [
-     "2026-08-03",
-     15.86
+     "2026-09-29",
+     16.04
     ],
     [
-     "2026-08-12",
-     14.55
+     "2026-10-07",
+     15.08
     ],
     [
-     "2026-08-20",
-     16.01
+     "2026-10-16",
+     19.99
     ],
     [
-     "2026-08-31",
-     14.92
+     "2026-10-27",
+     17.52
     ],
     [
-     "2026-09-09",
-     16.46
+     "2026-11-04",
+     16.61
     ],
     [
-     "2026-09-17",
-     15.44
-    ],
-    [
-     "2026-09-28",
-     16.07
-    ],
-    [
-     "2026-10-06",
-     15.01
-    ],
-    [
-     "2026-10-15",
-     16.46
-    ],
-    [
-     "2026-10-26",
-     18.39
-    ],
-    [
-     "2026-11-03",
-     20.83
-    ],
-    [
-     "2026-11-12",
-     18.7
+     "2026-11-13",
+     19.3
     ]
    ],
    "flip": {
@@ -1992,7 +1992,7 @@
    "id": "N",
    "name": "FX stress (yen)",
    "weight": 4,
-   "score": 0.09,
+   "score": 0.08,
    "value": "159.5 (+0.5% vs 200DMA)",
    "rationale": "USDJPY 159.5, +0.5% vs 200DMA; no intervention footprint \u2014 no FX stress signal.",
    "spark": [
@@ -2154,12 +2154,12 @@
     ],
     [
      "2026-11-16",
-     159.542
+     159.469
     ]
    ],
    "flip": {
     "text": "USDJPY back below its 200DMA (158.7) removes the FX-stress support; a fresh >1.5% one-day yen surge re-fires it.",
-    "distance": 0.08543602896514679
+    "distance": 0.07780805542129492
    },
    "stale": false,
    "eff_weight": 4.0
@@ -2169,8 +2169,8 @@
    "name": "Gold/silver ratio",
    "weight": 2,
    "score": 0.0,
-   "value": "81.3",
-   "rationale": "Gold/silver ratio 81 (40th pct of 5y) \u2014 ratio mid-range; no tell either way.",
+   "value": "82.1",
+   "rationale": "Gold/silver ratio 82 (42nd pct of 5y) \u2014 ratio mid-range; no tell either way.",
    "spark": [
     [
      "2025-11-04",
@@ -2330,7 +2330,7 @@
     ],
     [
      "2026-11-16",
-     81.2733
+     82.1018
     ]
    ],
    "flip": {
@@ -2506,7 +2506,7 @@
    "provider": "yahoo:GC=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:11.884330Z"
+   "fetched_at": "2026-11-16T21:01:00.875597Z"
   },
   "gold_gbp": {
    "last_date": "2026-11-16",
@@ -2515,7 +2515,7 @@
    "provider": "derived:GC=F/GBPUSD",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:12.740441Z"
+   "fetched_at": "2026-11-16T21:01:01.700670Z"
   },
   "silver": {
    "last_date": "2026-11-16",
@@ -2524,7 +2524,7 @@
    "provider": "yahoo:SI=F",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:13.526448Z"
+   "fetched_at": "2026-11-16T21:01:02.518216Z"
   },
   "usdjpy": {
    "last_date": "2026-11-16",
@@ -2533,7 +2533,7 @@
    "provider": "yahoo:JPY=X",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:13.847744Z"
+   "fetched_at": "2026-11-16T21:01:02.624583Z"
   },
   "dfii10": {
    "last_date": "2026-11-12",
@@ -2542,7 +2542,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:14.073919Z"
+   "fetched_at": "2026-11-16T21:01:02.713246Z"
   },
   "dgs10": {
    "last_date": "2026-11-12",
@@ -2551,7 +2551,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:14.286816Z"
+   "fetched_at": "2026-11-16T21:01:02.774897Z"
   },
   "dgs2": {
    "last_date": "2026-11-12",
@@ -2560,7 +2560,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:14.399164Z"
+   "fetched_at": "2026-11-16T21:01:02.889122Z"
   },
   "t10yie": {
    "last_date": "2026-11-13",
@@ -2569,7 +2569,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:14.569637Z"
+   "fetched_at": "2026-11-16T21:01:02.939987Z"
   },
   "t5yifr": {
    "last_date": "2026-11-13",
@@ -2578,7 +2578,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:14.711089Z"
+   "fetched_at": "2026-11-16T21:01:03.028003Z"
   },
   "dollar": {
    "last_date": "2026-11-06",
@@ -2587,16 +2587,16 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:14.805897Z"
+   "fetched_at": "2026-11-16T21:01:03.075105Z"
   },
   "vix": {
-   "last_date": "2026-11-12",
-   "age_days": 4,
+   "last_date": "2026-11-13",
+   "age_days": 3,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:14.992035Z"
+   "fetched_at": "2026-11-16T21:01:03.126288Z"
   },
   "baa10y": {
    "last_date": "2026-11-12",
@@ -2605,16 +2605,16 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:15.092305Z"
+   "fetched_at": "2026-11-16T21:01:03.432042Z"
   },
   "effr": {
-   "last_date": "2026-11-12",
-   "age_days": 4,
+   "last_date": "2026-11-13",
+   "age_days": 3,
    "cadence": "daily",
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:15.284922Z"
+   "fetched_at": "2026-11-16T21:01:03.573115Z"
   },
   "icsa": {
    "last_date": "2026-11-07",
@@ -2623,7 +2623,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:15.410074Z"
+   "fetched_at": "2026-11-16T21:01:03.634329Z"
   },
   "unrate": {
    "last_date": "2026-10-01",
@@ -2632,7 +2632,7 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:15.505113Z"
+   "fetched_at": "2026-11-16T21:01:03.665924Z"
   },
   "payems": {
    "last_date": "2026-10-01",
@@ -2641,16 +2641,16 @@
    "provider": "fred-csv",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:15.600395Z"
+   "fetched_at": "2026-11-16T21:01:03.713211Z"
   },
   "cot": {
-   "last_date": "2026-11-03",
-   "age_days": 13,
+   "last_date": "2026-11-10",
+   "age_days": 6,
    "cadence": "weekly",
    "provider": "cftc-socrata",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:16.113464Z"
+   "fetched_at": "2026-11-16T21:01:09.930262Z"
   },
   "gpr": {
    "last_date": "2026-10-01",
@@ -2659,7 +2659,7 @@
    "provider": "iacoviello-xls",
    "ok": true,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:16.733757Z"
+   "fetched_at": "2026-11-16T21:01:10.347358Z"
   },
   "central_banks": {
    "last_date": "2026-07-30",
@@ -2668,7 +2668,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:16.733839Z"
+   "fetched_at": "2026-11-16T21:01:10.347446Z"
   },
   "etf_flows": {
    "last_date": "2026-07-30",
@@ -2677,7 +2677,7 @@
    "provider": "manual (PLACEHOLDER \u2014 not scored)",
    "ok": false,
    "stale": false,
-   "fetched_at": "2026-11-16T07:13:16.733841Z"
+   "fetched_at": "2026-11-16T21:01:10.347450Z"
   }
  },
  "warnings": [
