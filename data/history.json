@@ -2850,5 +2850,13 @@
 "gold_usd": 3553.6,
 "gold_gbp": 2709.87,
 "regime": "hostile"
+},
+{
+"date": "2026-11-25",
+"score": 14.7,
+"verdict": "SELL/REDUCE",
+"gold_usd": 3511.4,
+"gold_gbp": 2684.04,
+"regime": "hostile"
 }
 ]
