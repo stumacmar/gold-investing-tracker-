@@ -1,9 +1,9 @@
 {
- "generated_at": "2026-11-25T07:11:04.607759Z",
+ "generated_at": "2026-11-25T21:05:33.204481Z",
  "verdict": "SELL/REDUCE",
  "previous_verdict": "SELL/REDUCE",
  "verdict_changed": false,
- "score": 14.7,
+ "score": 14.6,
  "critical_failures": [],
  "warnings": [
   "gold_usd: primary source stooq:xauusd failed (GET failed after 2 tries: https://stooq.com/q/d/l/?s=xauusd&i=d (<urlopen error timed out>)); trying yahoo:GC=F",
